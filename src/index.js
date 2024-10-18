@@ -1,6 +1,7 @@
 const express = require("express");
 const Club = require("./models/club");
 const clubRouter = require("./routes/club");
+const userRouter = require("./routes/user");
 require("./db/mongoose");
 const bcrypt = require("bcryptjs");
 
@@ -13,6 +14,7 @@ const port = process.env.PORT || 3000;
 //w Express.js jest middleware, które służy do parsowania danych JSON przychodzących w ciele żądań HTTP (np. POST, PUT itp.)
 app.use(express.json());
 app.use(clubRouter);
+app.use(userRouter);
 
 const myFunction = async () => {
   const password = "Red12345!";

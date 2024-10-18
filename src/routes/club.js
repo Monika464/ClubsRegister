@@ -23,6 +23,7 @@ router.post("/clubs", async (req, res) => {
 
   try {
     await club.save();
+    console.log("to club_id", club._id.toString());
     const token = await club.generateAuthToken();
     res.status(201).send({ club, token });
     //res.status(201).send({ club });
