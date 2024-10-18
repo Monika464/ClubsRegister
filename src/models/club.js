@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
-
+const jwt = require("jsonwebtoken");
 const validator = require("validator");
 
 const hashfunction = async (password) => {
@@ -38,6 +38,14 @@ const clubSchema = new mongoose.Schema({
       }
     },
   },
+  tokens: [
+    {
+      token: {
+        type: String,
+        required: true,
+      },
+    },
+  ],
 });
 
 //Hash the plain text password before saving
@@ -59,6 +67,35 @@ clubSchema.methods.toJSON = function () {
   //delete userObject.tokens;
 
   return clubObject;
+};
+
+clubSchema.methods.generateAuthToken = async function () {
+  const club = this;
+  const token = jwt.sign({ _id: club._id.toString() }, "thisismynewcourse");
+
+  club.tokens = club.tokens.concat({ token });
+  await club.save();
+
+  return token;
+};
+
+clubSchema.statics.findByCredentials = async function (email, password) {
+  const club = await Club.findOne({ email });
+  console.log("email", email);
+  console.log("usseer", club.password);
+  console.log("pass", password);
+
+  if (!club) {
+    throw new Error("Unable to login");
+  }
+
+  const isMatch = await bcrypt.compare(password, club.password);
+
+  if (!isMatch) {
+    throw new Error("Unable to login");
+  }
+
+  return club;
 };
 
 const Club = mongoose.model("Club", clubSchema);

@@ -22,6 +22,22 @@ router.post("/clubs", async (req, res) => {
   }
 });
 
+router.post("/clubs/login", async (req, res) => {
+  try {
+    const club = await Club.findByCredentials(
+      req.body.email,
+      req.body.password
+    );
+    const token = await club.generateAuthToken();
+    //console.log("co tu", user, token);
+    res.send({ club, token });
+    //console.log("user", club);
+    // res.send({ club });
+  } catch (e) {
+    res.status(400).send({ error: e.message });
+  }
+});
+
 module.exports = router;
 
 // router.post("/users/login", async (req, res) => {
