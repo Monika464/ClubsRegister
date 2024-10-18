@@ -51,6 +51,16 @@ clubSchema.pre("save", async function (next) {
   next();
 });
 
+clubSchema.methods.toJSON = function () {
+  const club = this;
+  const clubObject = club.toObject();
+
+  delete clubObject.password;
+  //delete userObject.tokens;
+
+  return clubObject;
+};
+
 const Club = mongoose.model("Club", clubSchema);
 
 module.exports = Club;
