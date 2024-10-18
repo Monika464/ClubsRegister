@@ -1,4 +1,13 @@
 const mongoose = require("mongoose");
+const bcrypt = require("bcryptjs");
+
+const validator = require("validator");
+
+const hashfunction = async (password) => {
+  const hashedPassword = await bcrypt.hash(password, 8);
+  return hashedPassword;
+};
+
 const clubSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -29,6 +38,17 @@ const clubSchema = new mongoose.Schema({
       }
     },
   },
+});
+
+//Hash the plain text password before saving
+clubSchema.pre("save", async function (next) {
+  const club = this;
+
+  if (club.isModified("password")) {
+    club.password = await bcrypt.hash(club.password, 8);
+  }
+
+  next();
 });
 
 const Club = mongoose.model("Club", clubSchema);
