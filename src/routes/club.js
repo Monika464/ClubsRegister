@@ -1,6 +1,6 @@
 const express = require("express");
 const Club = require("../models/club");
-//const auth = require("../middleware/auth");
+const auth = require("../middleware/authClub");
 const router = new express.Router();
 
 // const app = express();
@@ -8,15 +8,24 @@ const router = new express.Router();
 //   res.send("hello world");
 // });
 
+router.get("/clubs", auth, async (req, res) => {
+  try {
+    const clubs = await Club.find({});
+    res.send(clubs);
+  } catch {
+    res.status(500).send({ error: e.message });
+  }
+});
+
 router.post("/clubs", async (req, res) => {
   const club = new Club(req.body);
   console.log("hello tu", club);
 
   try {
     await club.save();
-    // const token = await user.generateAuthToken();
-    // res.status(201).send({ user, token });
-    res.status(201).send({ club });
+    const token = await club.generateAuthToken();
+    res.status(201).send({ club, token });
+    //res.status(201).send({ club });
   } catch (e) {
     res.status(400).send({ error: e.message });
   }
@@ -29,27 +38,23 @@ router.post("/clubs/login", async (req, res) => {
       req.body.password
     );
     const token = await club.generateAuthToken();
-    //console.log("co tu", user, token);
     res.send({ club, token });
-    //console.log("user", club);
-    // res.send({ club });
   } catch (e) {
     res.status(400).send({ error: e.message });
   }
 });
 
-module.exports = router;
+router.post("/clubs/logout", auth, async (req, res) => {
+  try {
+    req.club.tokens = req.club.tokens.filter((token) => {
+      return token.token !== req.token;
+    });
+    await req.club.save();
 
-// router.post("/users/login", async (req, res) => {
-//   try {
-//     const user = await User.findByCredentials(
-//       req.body.email,
-//       req.body.password
-//     );
-//     const token = await user.generateAuthToken();
-//     console.log("co tu", user, token);
-//     res.send({ user, token });
-//   } catch (e) {
-//     res.status(400).send({ error: e.message });
-//   }
-// });
+    res.send();
+  } catch (e) {
+    res.status(500).send();
+  }
+});
+
+module.exports = router;

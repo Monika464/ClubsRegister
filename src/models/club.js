@@ -71,7 +71,7 @@ clubSchema.methods.toJSON = function () {
 
 clubSchema.methods.generateAuthToken = async function () {
   const club = this;
-  const token = jwt.sign({ _id: club._id.toString() }, "thisismynewcourse");
+  const token = jwt.sign({ _id: club._id.toString() }, "thisistokenclub");
 
   club.tokens = club.tokens.concat({ token });
   await club.save();
