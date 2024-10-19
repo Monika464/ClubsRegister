@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const validator = require("validator");
+const User = require("./user");
 
 const clubSchema = new mongoose.Schema(
   {
@@ -98,8 +99,13 @@ clubSchema.statics.findByCredentials = async function (email, password) {
   return club;
 };
 
-clubSchema.virtual("club", {
-  ref: "Club",
+// clubSchema.virtual("clubs", {
+//   ref: "Club",
+//   localField: "_id",
+//   foreignField: "owner",
+// });
+clubSchema.virtual("users", {
+  ref: "User",
   localField: "_id",
   foreignField: "owner",
 });

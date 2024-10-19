@@ -5,10 +5,15 @@ const router = new express.Router();
 
 router.get("/users", auth, async (req, res) => {
   try {
-    const users = await User.find({});
-    res.send(users);
+    //const users = await User.find({});
+    //res.send(users);
+    //await req.club.populate("clubs").execPopulate();
+    // await req.club.populate("clubs");
+    await req.club.populate("users");
+    res.send(req.club.users);
+    console.log("rerequm", req.club);
   } catch {
-    res.status(500).send({ error: e.message });
+    res.status(500).send();
   }
 });
 
