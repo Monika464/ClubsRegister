@@ -1,0 +1,49 @@
+
+<html>
+  <head>
+    <title>{{title}}</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+  </head>
+
+  <body>
+    {{>header}}
+    {{!-- <h1>{{title}}</h1> --}}
+    <div>
+      <h2>Kluby:</h2>
+      <ul>
+        {{#each clubs}}
+          <li>{{this.name}} - {{this.email}}</li>
+        {{/each}}
+      </ul>
+    </div>
+
+    <script src="/js/clubpanel.js"></script>
+  </body>
+</html>
+
+{{!-- <html>
+  <head>
+    <title>{{title}}</title>
+        <link rel="icon" href="/img/weather.png">
+    <link rel="stylesheet" href="/css/styles.css">
+  </head>
+  <body>
+
+    <div class="main-content">
+     {{>header}}
+{{errorMessage}}
+<div class="smiley">
+      ;-) 
+
+      lista userow przypisanych do tego kluubu z bazy
+      
+    </div>
+</div>
+
+    
+
+      {{>footer}}
+  </body>  
+
+
+</html> --}}
