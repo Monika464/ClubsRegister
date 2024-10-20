@@ -48,7 +48,7 @@ app.use(userRouter);
 
 app.get("", (req, res) => {
   res.render("index", {
-    title: "Club reg",
+    title: "Club registration",
     name: "Monika",
   });
 });
@@ -56,6 +56,30 @@ app.get("/clubpanel", (req, res) => {
   res.render("clubpanel", {
     helpText: "This is some helpful text.",
     title: "Club panel",
+    name: "Monika",
+  });
+});
+
+app.get("/userpanel", (req, res) => {
+  res.render("adminpanel", {
+    helpText: "This is organizer.",
+    title: "Club panel",
+    name: "Monika",
+  });
+});
+
+app.get("/clublogin", (req, res) => {
+  res.render("clublogin", {
+    helpText: "login",
+    title: "Club login",
+    name: "Monika",
+  });
+});
+
+app.get("/clublogout", (req, res) => {
+  res.render("clublogout", {
+    helpText: "logout",
+    title: "Club logout",
     name: "Monika",
   });
 });
