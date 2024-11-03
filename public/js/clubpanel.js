@@ -2,6 +2,8 @@ console.log("witamy po stronie klienta clubpanel");
 const token = localStorage.getItem("authToken");
 const userList = document.querySelector("#user-list"); // Złapanie kontenera listy
 
+//wyswietlanie memebrs w klubie
+
 fetch("/users", {
   method: "GET", // lub POST w zależności od operacji
   headers: {

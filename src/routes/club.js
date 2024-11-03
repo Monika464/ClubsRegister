@@ -2,7 +2,7 @@ const express = require("express");
 const Club = require("../models/club");
 const auth = require("../middleware/authClub");
 const router = new express.Router();
-
+const app = require("../app");
 // const app = express();
 // app.get("/", (req, res) => {
 //   res.send("hello world");
@@ -39,7 +39,7 @@ router.post("/clubs/login", async (req, res) => {
       req.body.password
     );
     const token = await club.generateAuthToken();
-    res.send({ club, token });
+    res.send({ club, token, redirectTo: "/clubpanel" });
   } catch (e) {
     res.status(400).send({ error: e.message });
   }
@@ -57,5 +57,7 @@ router.post("/clubs/logout", auth, async (req, res) => {
     res.status(500).send();
   }
 });
+
+///signup, delete, waszystkie routes
 
 module.exports = router;

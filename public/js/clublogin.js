@@ -4,11 +4,13 @@ const emailInput = document.querySelector("#email-input");
 const passwordInput = document.querySelector("#password-input");
 const messageOne = document.querySelector("#message-1");
 const messageTwo = document.querySelector("#message-2");
+const messageThree = document.querySelector("#message-3");
 
 messageOne.textContent = "";
 messageTwo.textContent = "";
+messageThree.textContent = "";
 
-loginForm.addEventListener("submit", (e) => {
+loginForm.addEventListener("submit", async (e) => {
   e.preventDefault();
   messageOne.textContent = "Loading...";
 
@@ -18,28 +20,65 @@ loginForm.addEventListener("submit", (e) => {
   console.log("Email:", email);
   console.log("Password:", password);
 
-  fetch("/clubs/login", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json", // Informujemy serwer, że ciało żądania to JSON
-    },
-    body: JSON.stringify({
-      email: email,
-      password: password,
-    }),
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      console.log("tu", data.token);
+  try {
+    const response = await fetch("/clubs/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json", // Informujemy serwer, że ciało żądania to JSON
+      },
+      body: JSON.stringify({
+        email: email,
+        password: password,
+      }),
+    });
+    const data = await response.json();
+
+    if (response.ok) {
       localStorage.setItem("authToken", data.token);
       messageOne.textContent = "";
       messageTwo.textContent = "User logged in";
-    })
-    .catch((error) => {
-      console.error("Error:", error);
-      messageOne.textContent = "";
-    });
+    } else {
+      //   // Obsługa błędu logowania
+      messageThree.textContent = data.error;
+    }
+
+    if (response.ok) {
+      // Przekierowanie na clubpanel po zalogowaniu
+      window.location.href = data.redirectTo;
+    } else {
+      // Obsługa błędu logowania
+      messageThree.textContent = data.error;
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    messageOne.textContent = "";
+  }
+
+  //do przerobki
+  // fetch("/clubs/login", {
+  //   method: "POST",
+  //   headers: {
+  //     "Content-Type": "application/json", // Informujemy serwer, że ciało żądania to JSON
+  //   },
+  //   body: JSON.stringify({
+  //     email: email,
+  //     password: password,
+  //   }),
+  // })
+  // .then((response) => response.json())
+  // .then((data) => {
+  //   //console.log("tu", data.token);
+  //   localStorage.setItem("authToken", data.token);
+  //   messageOne.textContent = "";
+  //   messageTwo.textContent = "User logged in";
+  // })
+  // .catch((error) => {
+  //   console.error("Error:", error);
+  //   messageOne.textContent = "";
+  // });
 });
+
+///dotad ok
 //tu jest fetch adresu htto
 //i wyglad strony
 
