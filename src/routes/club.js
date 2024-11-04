@@ -19,13 +19,13 @@ router.get("/clubs", auth, async (req, res) => {
 
 router.post("/clubs", async (req, res) => {
   const club = new Club(req.body);
-  console.log("hello tu", club);
+  // console.log("hello tu", club);
 
   try {
     await club.save();
     console.log("to club_id", club._id.toString());
     const token = await club.generateAuthToken();
-    res.status(201).send({ club, token });
+    res.status(201).send({ club, token, redirectTo: "/clubpanel" });
     //res.status(201).send({ club });
   } catch (e) {
     res.status(400).send({ error: e.message });

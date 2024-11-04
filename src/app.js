@@ -41,6 +41,14 @@ app.get("/clubpanel", (req, res) => {
   });
 });
 
+app.get("/clubsignup", (req, res) => {
+  res.render("clubsignup", {
+    helpText: "signup",
+    title: "clubsignup",
+    name: "Monika",
+  });
+});
+
 app.get("/clublogin", (req, res) => {
   res.render("clublogin", {
     helpText: "login",
@@ -53,6 +61,14 @@ app.get("/clublogout", (req, res) => {
   res.render("clublogout", {
     helpText: "logout",
     title: "Club logout",
+    name: "Monika",
+  });
+});
+
+app.get("/clubsignpanel", (req, res) => {
+  res.render("clubsignpanel", {
+    helpText: "ccc",
+    title: "Club sign panel",
     name: "Monika",
   });
 });

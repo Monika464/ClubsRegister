@@ -52,8 +52,30 @@ button {
   background: #888888;
   color: white;
   padding: 8px;
+  max-width: 200px;
 }
 .smiley {
   font-size: 24px;
-  margin-top: 20px;
+  margin
 }
+
+#message-error {
+  color: red;
+  font-weight: bold;
+}
+
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    color: white;
+    background-color: blue; /* or any color you like */
+    text-decoration: none;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.button:hover {
+    background-color: darkblue; /* optional hover effect */
+}
+  
