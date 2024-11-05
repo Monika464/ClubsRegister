@@ -73,6 +73,56 @@ app.get("/clubsignpanel", (req, res) => {
   });
 });
 
+app.get("/clubdelete", (req, res) => {
+  res.render("clubdelete", {
+    helpText: "ccc",
+    title: "Club delete panel",
+    name: "Monika",
+  });
+});
+
+///roots for member
+
+app.get("/memberpanel", (req, res) => {
+  res.render("memberpanel", {
+    helpText: "This is some helpful text.",
+    title: "member panel",
+    name: "Monika",
+  });
+});
+
+app.get("/membersignup", (req, res) => {
+  res.render("membersignup", {
+    helpText: "signup",
+    title: "membersignup",
+    name: "Monika",
+  });
+});
+
+app.get("/memberlogin", (req, res) => {
+  res.render("memberlogin", {
+    helpText: "login",
+    title: "member login",
+    name: "Monika",
+  });
+});
+
+app.get("/memberlogout", (req, res) => {
+  res.render("memberlogout", {
+    helpText: "logout",
+    title: "member logout",
+    name: "Monika",
+  });
+});
+
+app.get("/membersignpanel", (req, res) => {
+  res.render("membersignpanel", {
+    helpText: "ccc",
+    title: "member sign panel",
+    name: "Monika",
+  });
+});
+
 // Eksport aplikacji
 module.exports = app;
 

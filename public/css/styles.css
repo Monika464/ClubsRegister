@@ -1,7 +1,7 @@
 body {
   color: #333333;
   font-family: arial;
-  max-width: 650px;
+  max-width: 750px;
   margin: 0 auto;
   padding: 0 16px;
 
@@ -77,5 +77,24 @@ button {
 
 .button:hover {
     background-color: darkblue; /* optional hover effect */
+}
+
+.menu-container {
+  display: flex;
+  align-items: center; /* wyrównanie elementów w pionie */
+}
+
+#logout-link {
+  margin-left: auto;
+  display: inline-block; /* aby działał "display: none;" */
+  margin-top: 100px;
+  margin-right: 270;
+}
+
+#delete-link {
+  margin-left: auto;
+  display: inline-block; /* aby działał "display: none;" */
+  margin-top: 100px;
+  margin-right: 270;
 }
   

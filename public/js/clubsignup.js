@@ -46,7 +46,7 @@ signupForm.addEventListener("submit", async (e) => {
       }),
     });
     const data = await response.json();
-    console.log("co mamy w data", data);
+    // console.log("co mamy w data", data);
 
     if (response.ok) {
       localStorage.setItem("authToken", data.token);
@@ -57,13 +57,13 @@ signupForm.addEventListener("submit", async (e) => {
       messageThree.textContent = data.error;
     }
 
-    if (response.ok) {
-      // Przekierowanie na clubpanel po zalogowaniu
-      window.location.href = data.redirectTo;
-    } else {
-      // Obsługa błędu logowania
-      messageThree.textContent = data.error;
-    }
+    // if (response.ok) {
+    //   // Przekierowanie na clubpanel po zalogowaniu
+    //   window.location.href = data.redirectTo;
+    // } else {
+    //   // Obsługa błędu logowania
+    //   messageThree.textContent = data.error;
+    // }
   } catch (error) {
     console.error("Error:", error);
     messageOne.textContent = "";

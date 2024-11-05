@@ -5,6 +5,8 @@ const messageError = document.querySelector("#message-error");
 const logoutLink = document.querySelector("#logout-link");
 const listTitle = document.querySelector("#list-title");
 const createUserButton = document.querySelector("#create-user");
+const deleteMe = document.querySelector("#delete-link");
+
 //wyswietlanie memebrs w klubie
 messageError.textContent = "";
 
@@ -31,6 +33,7 @@ fetch("/users", {
       logoutLink.style.display = "block";
       createUserButton.style.display = "block";
       listTitle.style.display = "block";
+      deleteMe.style.display = "block";
       //messageThree.textContent = `Location: ${data.address}`;
       //alert(`Location: ${data.address}`);
       //   messageError.textContent = "";

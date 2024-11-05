@@ -35,6 +35,21 @@ const clubSchema = new mongoose.Schema(
         }
       },
     },
+    name: {
+      type: String,
+      required: true,
+    },
+    city: {
+      type: String,
+      required: true,
+    },
+    region: {
+      type: String,
+      required: true,
+    },
+    phone: {
+      type: String,
+    },
     tokens: [
       {
         token: {
@@ -85,6 +100,7 @@ clubSchema.statics.findByCredentials = async function (email, password) {
   console.log("email", email);
   console.log("usseer", club.password);
   console.log("pass", password);
+  console.log("club", password);
 
   if (!club) {
     throw new Error("Unable to login");

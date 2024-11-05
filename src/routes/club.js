@@ -23,7 +23,7 @@ router.post("/clubs", async (req, res) => {
 
   try {
     await club.save();
-    console.log("to club_id", club._id.toString());
+    // console.log("to club_id", club._id.toString());
     const token = await club.generateAuthToken();
     res.status(201).send({ club, token, redirectTo: "/clubpanel" });
     //res.status(201).send({ club });
@@ -53,6 +53,19 @@ router.post("/clubs/logout", auth, async (req, res) => {
     await req.club.save();
 
     res.send();
+  } catch (e) {
+    res.status(500).send();
+  }
+});
+
+router.delete("/clubs/me", auth, async (req, res) => {
+  try {
+    // await req.club.remove();
+    //sendCancelationEmail(req.user.email, req.user.name);
+
+    await Club.deleteOne({ _id: req.club._id });
+    res.send(req.club);
+    console.log("re re club", req.club);
   } catch (e) {
     res.status(500).send();
   }
