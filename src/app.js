@@ -83,15 +83,15 @@ app.get("/clubdelete", (req, res) => {
 
 ///roots for member
 
-app.get("/memberpanel", (req, res) => {
-  res.render("memberpanel", {
+app.get("/userpanel", (req, res) => {
+  res.render("userpanel", {
     helpText: "This is some helpful text.",
     title: "member panel",
     name: "Monika",
   });
 });
 
-app.get("/membersignup", (req, res) => {
+app.get("/usersignup", (req, res) => {
   res.render("membersignup", {
     helpText: "signup",
     title: "membersignup",
@@ -99,24 +99,24 @@ app.get("/membersignup", (req, res) => {
   });
 });
 
-app.get("/memberlogin", (req, res) => {
-  res.render("memberlogin", {
+app.get("/userlogin", (req, res) => {
+  res.render("userlogin", {
     helpText: "login",
     title: "member login",
     name: "Monika",
   });
 });
 
-app.get("/memberlogout", (req, res) => {
-  res.render("memberlogout", {
+app.get("/userlogout", (req, res) => {
+  res.render("userlogout", {
     helpText: "logout",
     title: "member logout",
     name: "Monika",
   });
 });
 
-app.get("/membersignpanel", (req, res) => {
-  res.render("membersignpanel", {
+app.get("/usersignpanel", (req, res) => {
+  res.render("usersignpanel", {
     helpText: "ccc",
     title: "member sign panel",
     name: "Monika",

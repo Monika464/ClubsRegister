@@ -1,5 +1,5 @@
-console.log("witamy po stronie klienta clublogin");
-const loginForm = document.querySelector("form");
+//console.log("witamy po stronie klienta clublogin");
+const loginForm = document.querySelector("#club-login-form");
 const emailInput = document.querySelector("#email-input");
 const passwordInput = document.querySelector("#password-input");
 const messageOne = document.querySelector("#message-1");
