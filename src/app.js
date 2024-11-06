@@ -123,6 +123,14 @@ app.get("/usersignpanel", (req, res) => {
   });
 });
 
+app.get("/usersignupbyclub", (req, res) => {
+  res.render("usersignupbyclub", {
+    helpText: "ccc",
+    title: "usersignupbyclub",
+    name: "Monika",
+  });
+});
+
 // Eksport aplikacji
 module.exports = app;
 

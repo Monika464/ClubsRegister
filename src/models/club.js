@@ -97,10 +97,10 @@ clubSchema.methods.generateAuthToken = async function () {
 
 clubSchema.statics.findByCredentials = async function (email, password) {
   const club = await Club.findOne({ email });
-  console.log("email", email);
-  console.log("usseer", club.password);
-  console.log("pass", password);
-  console.log("club", password);
+  // console.log("email", email);
+  // console.log("usseer", club.password);
+  // console.log("pass", password);
+  // console.log("club", password);
 
   if (!club) {
     throw new Error("Unable to login");

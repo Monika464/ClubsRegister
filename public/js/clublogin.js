@@ -17,8 +17,8 @@ loginForm.addEventListener("submit", async (e) => {
   const email = emailInput.value;
   const password = passwordInput.value;
 
-  // console.log("Email:", email);
-  // console.log("Password:", password);
+  console.log("Email:", email);
+  console.log("Password:", password);
 
   try {
     const response = await fetch("/clubs/login", {

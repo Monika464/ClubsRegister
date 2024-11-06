@@ -14,10 +14,10 @@ fetch("/clubs/logout", {
     if (response.ok) {
       // Usuwamy token po pomyślnym wylogowaniu
       localStorage.removeItem("authToken");
-      messageOne.textContent = "User logged out";
-
+      messageOne.textContent = "Club logged out";
+      console.log("Club logged out");
       // Przekierowanie do strony logowania
-      window.location.href = "/clublogin";
+      // window.location.href = "/clublogin";
     } else {
       throw new Error("Wylogowanie nie powiodło się");
     }

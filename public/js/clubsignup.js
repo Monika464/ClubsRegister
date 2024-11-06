@@ -1,4 +1,4 @@
-console.log("witamy po stronie klienta clublogin");
+//console.log("witamy po stronie klienta clublogin");
 const signupForm = document.querySelector("form");
 const passwordInput = document.querySelector("#password-input");
 const emailInput = document.querySelector("#email-input");

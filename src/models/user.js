@@ -39,6 +39,18 @@ const userSchema = new mongoose.Schema(
         }
       },
     },
+    age: {
+      type: Number,
+      required: true,
+    },
+    weight: {
+      type: Number,
+      required: true,
+    },
+    fights: {
+      type: Number,
+      required: true,
+    },
     owner: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,

@@ -45,3 +45,6 @@ fetch("/users", {
       // messageError.textContent = "";
     }
   });
+createUserButton.addEventListener("click", () => {
+  window.location.href = "/usersignupbyclub"; // Opens the specified link
+});
