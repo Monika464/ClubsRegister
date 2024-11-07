@@ -25,9 +25,18 @@ fetch("/users", {
       //   messageTwo.textContent = "";
       //   messageThree.textContent = "";
     } else {
+      console.log("data", data);
       data.forEach((user) => {
         const li = document.createElement("li"); // Tworzenie nowego elementu <li>
-        li.textContent = `${user.name} ${user.surname}`; // Ustawienie tekstu z imieniem i nazwiskiem
+        console.log("lista userow", user);
+        li.textContent = `
+        ${user.name} 
+        ${user.surname}
+        ${user.age}
+        ${user.weight}
+        ${user.fights}
+
+        `; // Ustawienie tekstu z imieniem i nazwiskiem
         userList.appendChild(li); // Dodanie elementu <li> do listy
       });
       logoutLink.style.display = "block";

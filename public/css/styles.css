@@ -80,7 +80,7 @@ button {
 }
 
 .menu-container {
-  display: flex;
+  /* display: flex; */
   align-items: center; /* wyrównanie elementów w pionie */
 }
 
@@ -92,7 +92,7 @@ button {
 }
 
 #delete-link {
-  margin-left: auto;
+  /* margin-left: auto; */
   display: inline-block; /* aby działał "display: none;" */
   margin-top: 100px;
   margin-right: 270;

@@ -9,10 +9,10 @@
    <div class="menu-container">
     {{>header}}
     <a href="/clublogout" id="logout-link" style="display: none;">Logout</a>
-     <a href="/clubdelete" id="delete-link" style="display: none;">Delete</a>
+     
 </div>
 <p id="list-title" style="display: none;">Club members</p>
- <div> <ul id="user-list"></ul> <!-- Kontener na listę użytkowników --></div>
+ <div> <ol id="user-list"></ol> <!-- Kontener na listę użytkowników --></div>
   
 
 <button id="create-user" style="display: none;">Create User</button>
@@ -24,7 +24,7 @@
 <p id="message-2"></p>
 <p id="message-4"></p>
     </div>
-
+<a href="/clubdelete" id="delete-link" style="display: none;">Delete</a>
     <script src="/js/clubpanel.js"></script>
     {{!-- {{#if clubLogin}}
   <script src="/js/clublogin.js"></script>
