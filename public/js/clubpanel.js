@@ -10,6 +10,7 @@ const deleteMe = document.querySelector("#delete-link");
 //wyswietlanie memebrs w klubie
 messageError.textContent = "";
 
+console.log("czy jest token", token);
 fetch("/users", {
   method: "GET", // lub POST w zależności od operacji
   headers: {

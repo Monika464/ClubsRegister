@@ -85,7 +85,7 @@ button {
 }
 
 #logout-link {
-  margin-left: auto;
+  /* margin-left: auto; */
   display: inline-block; /* aby działał "display: none;" */
   margin-top: 100px;
   margin-right: 270;

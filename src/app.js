@@ -86,7 +86,7 @@ app.get("/clubdelete", (req, res) => {
 app.get("/userpanel", (req, res) => {
   res.render("userpanel", {
     helpText: "This is some helpful text.",
-    title: "member panel",
+    title: "Member panel",
     name: "Monika",
   });
 });

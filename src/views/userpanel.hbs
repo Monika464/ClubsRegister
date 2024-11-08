@@ -2,7 +2,7 @@
   <head>
     {{!-- <link rel="stylesheet" href="/css/styles.css" /> --}}
     <link rel="stylesheet" href="/css/styles.css" />
-    <title>About</title>
+    <title>Member profile page</title>
      <link rel="icon" href="/img/weather.png">
   </head>
   <body>
@@ -11,12 +11,24 @@
 
     
       {{>header}}
- 
-    <p>This is the about page.</p>
-    <img src="/img/me.png" img class="portrait"   alt="My Image" />
-    </div>
 
+      <p id="warning-auth" style="display: block">You must login to get access</p>
+ 
+ <div id="profile-user-auth" style="display: none">
+
+    <p>Your data</p>
+    <img src="/img/me.png" img class="portrait"   alt="My Image" />
+   
+   <p id="user-info" >User info</p>
+   
+   
+ <a href="/userlogout" id="logout-link" >Logout</a>
+
+ </div>
       <script src="/js/userpanel.js"></script>
+
+ </div>
+
 
      {{>footer}}
       </body>

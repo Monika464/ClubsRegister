@@ -75,7 +75,7 @@ router.delete("/clubs/me", auth, async (req, res) => {
 
     await Club.deleteOne({ _id: req.club._id });
     res.send(req.club);
-    console.log("re re club", req.club);
+    //console.log("club", req.club);
   } catch (e) {
     res.status(500).send();
   }
