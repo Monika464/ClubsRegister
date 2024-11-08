@@ -3,8 +3,10 @@ const path = require("path");
 const hbs = require("hbs");
 
 const app = express();
+//do captcha
+app.use(express.urlencoded({ extended: true })); // obsługuje dane typu URL-encoded
+app.use(express.json());
 
-// Importy związane z bazą danych i modelami
 require("./db/mongoose");
 const clubRouter = require("./routes/club");
 const userRouter = require("./routes/user");

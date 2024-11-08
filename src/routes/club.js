@@ -2,11 +2,9 @@ const express = require("express");
 const Club = require("../models/club");
 const auth = require("../middleware/authClub");
 const router = new express.Router();
-const app = require("../app");
-// const app = express();
-// app.get("/", (req, res) => {
-//   res.send("hello world");
-// });
+const axios = require("axios");
+//const fetch = require("node-fetch");
+//do catcha//
 
 router.get("/clubs", auth, async (req, res) => {
   try {
@@ -28,19 +26,60 @@ router.get("/clubs/me", auth, async (req, res) => {
 });
 
 router.post("/clubs", async (req, res) => {
-  const club = new Club(req.body);
-  // console.log("hello tu", club);
+  //Pobierz odpowiedź CAPTCHA z żądania
+  console.log("reqbody", req.body);
+  const captchaResponse = req.body["g-recaptcha-response"];
+  console.log("captcha res", captchaResponse);
+  if (!captchaResponse) {
+    return res.status(400).send({ error: "Please complete the CAPTCHA." });
+  }
+
+  //Zweryfikuj odpowiedź CAPTCHA
+  //const secretKey = process.env.RECAPTCHA_SECRET_KEY; // Upewnij się, że klucz jest w .env
+  const secretKey = "6LeL73gqAAAAADAQchGrubmRgB9q_-IcNwhvZgNb";
+  const verificationUrl = `https://www.google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${captchaResponse}`;
 
   try {
+    const response = await axios.post(
+      `https://www.google.com/recaptcha/api/siteverify`,
+      null,
+      {
+        params: {
+          secret: secretKey, // Twój klucz sekretu reCAPTCHA
+          response: captchaResponse,
+        },
+      }
+    );
+
+    if (!response.data.success) {
+      return res.status(400).json({ error: "Invalid CAPTCHA response." });
+    }
+
+    //Jeśli CAPTCHA jest poprawna, kontynuuj tworzenie klubu
+    const club = new Club(req.body);
     await club.save();
-    // console.log("to club_id", club._id.toString());
     const token = await club.generateAuthToken();
     res.status(201).send({ club, token, redirectTo: "/clubpanel" });
-    //res.status(201).send({ club });
   } catch (e) {
-    res.status(400).send({ error: e.message });
+    res
+      .status(500)
+      .send({ error: "Something is wrogn check if email is not a duplicate." });
   }
 });
+
+//   const club = new Club(req.body);
+//   // console.log("hello tu", club);
+
+//   try {
+//     await club.save();
+//     // console.log("to club_id", club._id.toString());
+//     const token = await club.generateAuthToken();
+//     res.status(201).send({ club, token, redirectTo: "/clubpanel" });
+//     //res.status(201).send({ club });
+//   } catch (e) {
+//     res.status(400).send({ error: e.message });
+//   }
+// });
 
 router.post("/clubs/login", async (req, res) => {
   try {

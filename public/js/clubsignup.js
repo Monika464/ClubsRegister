@@ -19,6 +19,7 @@ signupForm.addEventListener("submit", async (e) => {
   e.preventDefault();
   messageOne.textContent = "Loading...";
 
+  const captchaResponse = grecaptcha.getResponse();
   const email = emailInput.value;
   const password = passwordInput.value;
   const name = nameInput.value;
@@ -29,6 +30,13 @@ signupForm.addEventListener("submit", async (e) => {
   console.log("Email:", email);
   console.log("name:", name);
   console.log("phone:", phone);
+
+  // Sprawdzamy, czy CAPTCHA została ukończona
+  if (!captchaResponse) {
+    messageThree.textContent = "Please complete the CAPTCHA."; // Komunikat o błędzie CAPTCHA
+    messageOne.textContent = "";
+    return; // Zatrzymujemy dalsze wysyłanie formularza
+  }
 
   try {
     const response = await fetch("/clubs", {
@@ -43,6 +51,7 @@ signupForm.addEventListener("submit", async (e) => {
         city: city,
         region: region,
         phone: phone,
+        "g-recaptcha-response": captchaResponse,
       }),
     });
     const data = await response.json();
