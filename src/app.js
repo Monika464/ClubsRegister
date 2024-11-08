@@ -1,6 +1,7 @@
 const express = require("express");
 const path = require("path");
 const hbs = require("hbs");
+require("dotenv").config();
 
 const app = express();
 //do captcha

@@ -27,17 +27,17 @@ router.get("/clubs/me", auth, async (req, res) => {
 
 router.post("/clubs", async (req, res) => {
   //Pobierz odpowiedź CAPTCHA z żądania
-  console.log("reqbody", req.body);
+  //console.log("reqbody", req.body);
   const captchaResponse = req.body["g-recaptcha-response"];
-  console.log("captcha res", captchaResponse);
+  //console.log("captcha res", captchaResponse);
   if (!captchaResponse) {
     return res.status(400).send({ error: "Please complete the CAPTCHA." });
   }
 
   //Zweryfikuj odpowiedź CAPTCHA
-  //const secretKey = process.env.RECAPTCHA_SECRET_KEY; // Upewnij się, że klucz jest w .env
-  const secretKey = "6LeL73gqAAAAADAQchGrubmRgB9q_-IcNwhvZgNb";
-  const verificationUrl = `https://www.google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${captchaResponse}`;
+
+  const secretKey = CAPTCHA_SECRET_KEY;
+  //const verificationUrl = `https://www.google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${captchaResponse}`;
 
   try {
     const response = await axios.post(

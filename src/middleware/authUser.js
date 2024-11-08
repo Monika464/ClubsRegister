@@ -2,9 +2,12 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/user");
 
 const auth = async (req, res, next) => {
+  const tokenenv = process.env.TOKEN_DECIFER_USER;
+  require("dotenv").config();
   try {
     //console.log("hej form auth");
     const token = req.header("Authorization").replace("Bearer ", "");
+    //const decoded = jwt.verify(token, "thisistokenuser");
     const decoded = jwt.verify(token, "thisistokenuser");
     const user = await User.findOne({
       _id: decoded._id,
