@@ -12,7 +12,7 @@ router.get("/users", authClub, async (req, res) => {
     // await req.club.populate("clubs");
     await req.club.populate("users");
     res.send(req.club.users);
-    console.log("req.club", req.club);
+    //console.log("req.club", req.club);
   } catch {
     res.status(500).send();
   }

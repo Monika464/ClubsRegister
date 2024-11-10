@@ -18,7 +18,7 @@ router.get("/clubs", auth, async (req, res) => {
 router.get("/clubs/me", auth, async (req, res) => {
   try {
     //const clubs = await Club.find({});
-    console.log("me tutaj", req.club);
+    //console.log("me tutaj", req.club);
     res.send(req.club);
   } catch {
     res.status(500).send({ error: e.message });

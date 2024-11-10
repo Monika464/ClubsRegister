@@ -71,6 +71,11 @@ const userSchema = new mongoose.Schema(
 );
 
 //console.log("co tu jest", mongoose.Schema.Types.ObjectId);
+userSchema.virtual("arenas", {
+  ref: "Arena",
+  localField: "_id",
+  foreignField: "participants",
+});
 
 //Hash the plain text password before saving
 userSchema.pre("save", async function (next) {

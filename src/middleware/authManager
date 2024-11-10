@@ -1,0 +1,30 @@
+const jwt = require("jsonwebtoken");
+const Manager = require("../models/manager");
+
+const auth = async (req, res, next) => {
+  const tokenenv = process.env.TOKEN_DECIFER_MANAGER;
+  require("dotenv").config();
+  try {
+    //console.log("hej form auth");
+    const token = req.header("Authorization").replace("Bearer ", "");
+    //const decoded = jwt.verify(token, "thisistokenclub");
+    const decoded = jwt.verify(token, tokenenv);
+    const manager = await Manager.findOne({
+      _id: decoded._id,
+      "tokens.token": token,
+    });
+
+    if (!manager) {
+      throw new Error();
+    }
+
+    req.token = token;
+    req.manager = manager;
+    console.log(`Manager ${req.manager} logged in`);
+    next();
+  } catch (e) {
+    res.status(401).send({ error: "Please authenticate." });
+  }
+};
+
+module.exports = auth;

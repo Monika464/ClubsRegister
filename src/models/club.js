@@ -86,8 +86,10 @@ clubSchema.methods.toJSON = function () {
 };
 
 clubSchema.methods.generateAuthToken = async function () {
+  const tokenenv = process.env.TOKEN_DECIFER_CLUB;
+  require("dotenv").config();
   const club = this;
-  const token = jwt.sign({ _id: club._id.toString() }, "thisistokenclub");
+  const token = jwt.sign({ _id: club._id.toString() }, tokenenv);
 
   club.tokens = club.tokens.concat({ token });
   await club.save();
