@@ -7,26 +7,67 @@ const router = new express.Router();
 
 //create arena powizane z managerem z create user
 
-router.post("/users", authClub, async (req, res) => {
-  //const user = new User(req.body);
-  const user = new User({
-    ...req.body,
-    owner: req.club._id,
-  });
-  //console.log("hello tu", user);
+router.post("/arenas", authManager, async (req, res) => {
+  // Konwersja pól datowych na obiekty Date
+  const arenaTimeRegisOpen = new Date(req.body.arenaTimeRegisOpen);
+  const arenaTimeRegisClose = new Date(req.body.arenaTimeRegisClose);
+  const arenaTimeStart = new Date(req.body.arenaTimeStart);
+  const arenaTimeClose = new Date(req.body.arenaTimeClose);
+  const arenaTimeRelease = new Date(req.body.arenaTimeRelease);
+
+  // Sprawdzenie poprawności konwersji
+  if (
+    isNaN(arenaTimeRelease.getTime()) ||
+    isNaN(arenaTimeRegisOpen.getTime()) ||
+    isNaN(arenaTimeRegisClose.getTime()) ||
+    isNaN(arenaTimeStart.getTime()) ||
+    isNaN(arenaTimeClose.getTime())
+  ) {
+    return res.status(400).send("Invalid date format");
+  }
+
+  // Przykładowe logowanie dla sprawdzenia
+  // console.log("Converted Dates:");
+  // console.log("arenaTimeRelease:", arenaTimeRegisOpen);
+  // console.log("arenaTimeRegisOpen:", arenaTimeRelease);
+  // console.log("arenaTimeRegisClose:", arenaTimeRegisClose);
+  // console.log("arenaTimeStart:", arenaTimeStart);
+  // console.log("arenaTimeClose:", arenaTimeClose);
+
+  // Możesz teraz używać tych dat do dalszego przetwarzania, np. zapisywania do bazy danych
+  // np. tworzysz obiekt do zapisu:
+  const arenaEvent = {
+    title: req.body.title,
+    description: req.body.description,
+    arenaTimeRelease: arenaTimeRelease,
+    arenaTimeRegisOpen: arenaTimeRegisOpen,
+    arenaTimeRegisClose: arenaTimeRegisClose,
+    arenaTimeStart: arenaTimeStart,
+    arenaTimeClose: arenaTimeClose,
+    owner: req.manager._id,
+  };
 
   try {
-    await user.save();
-    //const token = await user.generateAuthToken();
-    //res.status(201).send({ user, token });
-    res.status(201).send({ user });
-    //res.status(201).send({ user });
+    const arena = new Arena(arenaEvent);
+    await arena.save();
+
+    res.status(201).send({ arena });
   } catch (e) {
     res.status(400).send({ error: e.message });
   }
 });
 
-router.get("/arenas", authClub, async (req, res) => {
+router.post("/arenas", authManager, async (req, res) => {
+  console.log("recbody", req.body);
+  //const user = new User(req.body);
+  // const arena = new Arena({
+  //   ...req.body,
+  //   owner: req.manager._id,
+  // });
+  //console.log("hello tu", user);
+});
+
+router.get("/arenas", authManager, async (req, res) => {
   try {
     //const users = await User.find({});
     //res.send(users);

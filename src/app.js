@@ -12,6 +12,7 @@ require("./db/mongoose");
 const clubRouter = require("./routes/club");
 const userRouter = require("./routes/user");
 const managerRouter = require("./routes/manager");
+const arenaRouter = require("./routes/arena");
 
 // Ścieżki do katalogów
 const publicDirectoryPath = path.join(__dirname, "../public");
@@ -29,6 +30,7 @@ app.use(express.json());
 app.use(clubRouter);
 app.use(userRouter);
 app.use(managerRouter);
+app.use(arenaRouter);
 
 // Definicje tras
 app.get("", (req, res) => {

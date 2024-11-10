@@ -2,36 +2,43 @@ const mongoose = require("mongoose");
 
 const arenaSchema = new mongoose.Schema(
   {
-    description: {
-      type: String,
-      required: true,
-      trim: true,
-    },
     title: {
       type: String,
       required: true,
       trim: true,
     },
+
+    description: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+
     arenaTimeRelease: {
-      type: Date, // Changed to Date for consistency
-      default: false,
+      type: Date,
+      //default: false,
+      required: true,
     },
 
     arenaTimeRegisOpen: {
-      type: Date, // Changed to Date for consistency
-      default: false,
+      type: Date,
+      // default: false,
+      required: true,
     },
     arenaTimeRegisClose: {
-      type: Date, // Changed to Date for consistency
-      default: false,
+      type: Date,
+      // default: false,
+      required: true,
     },
     arenaTimeStart: {
-      type: Date, // Changed to Date for consistency
-      default: false,
+      type: Date,
+      // default: false,
+      required: true,
     },
     arenaTimeClose: {
-      type: Date, // Changed to Date for consistency
-      default: false,
+      type: Date,
+      //default: false,
+      required: true,
     },
 
     announcements: [
