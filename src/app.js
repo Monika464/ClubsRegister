@@ -163,7 +163,7 @@ app.get("/managerpanel", (req, res) => {
 });
 
 app.get("/arenasapply", (req, res) => {
-  res.render("clubarenasapply", {
+  res.render("arenasapply", {
     helpText: "ccc",
     title: "apply for an arena",
     name: "Monika",
