@@ -48,6 +48,8 @@ fetch("/users/me", {
     }
   });
 
+//fetch areny a w niej przycisk ktorego wcisniecie pokazuje id danej areny
+
 // fetch("/users", {
 //   method: "GET", // lub POST w zależności od operacji
 //   headers: {

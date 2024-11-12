@@ -2,7 +2,24 @@ const express = require("express");
 const User = require("../models/user");
 const authUser = require("../middleware/authUser");
 const authClub = require("../middleware/authClub");
+const authManager = require("../middleware/authManager");
+
 const router = new express.Router();
+
+router.get("/users/arena", authManager, async (req, res) => {
+  try {
+    console.log("co z request", req.body);
+    //const users = await User.find({});
+    //res.send(users);
+    //await req.club.populate("clubs").execPopulate();
+    // await req.club.populate("clubs");
+    // await req.arena.populate("users");
+    // res.send(req.arena.users);
+    //console.log("req.club", req.club);
+  } catch {
+    res.status(500).send();
+  }
+});
 
 router.get("/users", authClub, async (req, res) => {
   try {

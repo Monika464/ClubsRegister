@@ -20,7 +20,7 @@ const auth = async (req, res, next) => {
 
     req.token = token;
     req.manager = manager;
-    console.log(`Manager ${req.manager} logged in`);
+    //console.log(`Manager ${req.manager} logged in`);
     next();
   } catch (e) {
     res.status(401).send({ error: "Please authenticate." });

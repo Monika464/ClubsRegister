@@ -30,7 +30,7 @@ router.post("/managers/login", async (req, res) => {
       req.body.password
     );
     const token = await manager.generateAuthToken();
-    res.send({ manager, token, redirectTo: "/clubpanel" });
+    res.send({ manager, token, redirectTo: "/managerpanel" });
   } catch (e) {
     res.status(400).send({ error: e.message });
   }

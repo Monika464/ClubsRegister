@@ -58,7 +58,7 @@ router.post("/arenas", authManager, async (req, res) => {
 });
 
 router.post("/arenas", authManager, async (req, res) => {
-  console.log("recbody", req.body);
+  // console.log("recbody", req.body);
   //const user = new User(req.body);
   // const arena = new Arena({
   //   ...req.body,
@@ -69,6 +69,7 @@ router.post("/arenas", authManager, async (req, res) => {
 
 router.get("/arenas", authManager, async (req, res) => {
   try {
+    //console.log("co mamy req", req.body);
     //const users = await User.find({});
     //res.send(users);
     //await req.club.populate("clubs").execPopulate();
@@ -78,6 +79,37 @@ router.get("/arenas", authManager, async (req, res) => {
     //console.log("req.club", req.club);
   } catch {
     res.status(500).send();
+  }
+});
+
+// router.get("/arenas/all", authClub, async (req, res) => {
+//   try {
+//     const arenas = await Arena.find({}); // Pobranie danych z bazy
+//     res.render("displayallarenas", { arenas });
+//   } catch (error) {
+//     res.status(500).send(error);
+//   }
+// });
+
+router.get("/arenas/apply", authClub, async (req, res) => {
+  try {
+    // Pobierz wszystkie areny z bazy danych
+    const arenas = await Arena.find({});
+    res.status(200).send(arenas);
+  } catch (error) {
+    console.error("Error fetching arenas:", error);
+    res.status(500).send({ error: "Failed to fetch arenas" });
+  }
+});
+
+router.get("/arenas/all", authClub, async (req, res) => {
+  try {
+    // Pobierz wszystkie areny z bazy danych
+    const arenas = await Arena.find({});
+    res.status(200).send(arenas);
+  } catch (error) {
+    console.error("Error fetching arenas:", error);
+    res.status(500).send({ error: "Failed to fetch arenas" });
   }
 });
 

@@ -6,6 +6,21 @@ app.listen(port, () => {
   console.log("Server is up on port " + port);
 });
 
+//wyswietl areny ktorych daty sa pozniejsze lub rowne
+//od release w kazdej przecisk zgłos na zawody
+
+/*
+
+kod:
+kiedy wcisnie przycisk 'zglos na zawody' przypisany do 
+potrzebuje tak zmodyfikowac kod zeby lista ujetych tu userów
+po wcisnieciu przycisku zmieniła sie w liste z kwadratami przy kazdym do oznaczenia usera.
+w jak się zaznaczy kwadracik kilku to ich id pojawia się w 
+const tableparticipatns
+
+A nastepnie musze stworzyc jakis root zeby tych participants wyłac do bazy w tej konkretnej areni epod ktora byl przycis 
+*/
+
 // const express = require("express");
 // //const app = express();
 // const port = process.env.PORT || 3000;

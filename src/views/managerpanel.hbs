@@ -1,0 +1,30 @@
+<html>
+  <head>
+    <title>{{title}}</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+  </head>
+
+  <body>
+    
+    <div class="menu-container">
+    {{>header}}
+    <a href="/managerlogout" id="logout-link" style="display: none;">Logout</a>
+</div>
+{{!-- <div class="menu-container">{{>displayarenas}}</div> --}}
+
+ <div> <ol id="arena-list"></ol> <!-- Kontener na listę użytkowników --></div>
+    {{>displayarenas}}
+  <script src="/js/displayarenas.js"></script>
+
+
+
+    <div>
+       <p id="message-3"></p>
+<p id="message-error"></p>
+<p id="message-2"></p>
+<p id="message-4"></p>
+    </div>
+    {{!-- <script src="/js/managerpanel.js"></script> --}}
+
+  </body>
+</html>

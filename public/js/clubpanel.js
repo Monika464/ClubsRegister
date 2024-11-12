@@ -1,12 +1,23 @@
-console.log("witamy po stronie klienta clubpanel");
+//console.log("witamy po stronie klienta clubpanel");
 const token = localStorage.getItem("authToken");
-const userList = document.querySelector("#user-list"); // Złapanie kontenera listy
+const userList = document.querySelector("#user-list");
 const messageError = document.querySelector("#message-error");
 const logoutLink = document.querySelector("#logout-link");
 const listTitle = document.querySelector("#list-title");
 const createUserButton = document.querySelector("#create-user");
 const deleteMe = document.querySelector("#delete-link");
+//const loginRequired = document.querySelector(".login-required");
+///////////////////////
+//edytowanie members, wyswietlanie
+// if (token) {
+//   loginRequired.style.display = "block";
+// } else {
+//   console.warn("User not logged in, hiding login-required section.");
+//   loginRequired.style.display = "none";
+// }
+//wyswietlanie eventow
 
+//////////////////////////////////////////
 //wyswietlanie memebrs w klubie
 messageError.textContent = "";
 
@@ -26,10 +37,10 @@ fetch("/users", {
       //   messageTwo.textContent = "";
       //   messageThree.textContent = "";
     } else {
-      console.log("data", data);
+      // console.log("data jakie", data);
       data.forEach((user) => {
         const li = document.createElement("li"); // Tworzenie nowego elementu <li>
-        console.log("lista userow", user);
+        // console.log("lista userow", user);
         li.textContent = `
         ${user.name} 
         ${user.surname}
@@ -44,15 +55,7 @@ fetch("/users", {
       createUserButton.style.display = "block";
       listTitle.style.display = "block";
       deleteMe.style.display = "block";
-      //messageThree.textContent = `Location: ${data.address}`;
-      //alert(`Location: ${data.address}`);
-      //   messageError.textContent = "";
-      //   messageTwo.textContent = `Weather: ${data.forecast}, Temperature: ${data.temperature}°C`;
-      //   messageThree.textContent = `Location: ${data.location};`;
-
-      //console.log("moon", data.forecast);
-      //console.log("hej z clubpanel", data);
-      // messageError.textContent = "";
+      //loginRequired.style.display = "block";
     }
   });
 createUserButton.addEventListener("click", () => {

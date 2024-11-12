@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+  <title>{{title}}</title>
+   <link rel="icon" href="/img/weather.png">
+    <link rel="stylesheet" href="/css/styles.css">
+    
+</head>
+
+<body>
+
+   <div class="main-content">
+{{>header}}
+
+<p>Login as a manager</p>
+
+<form id="manager-login-form"> 
+   <input id="email-input" placeholder="Email">
+   <input id="password-input" type="password" placeholder="Password">
+   <button>Send</button>
+</form>
+
+{{!-- <form> 
+   <input placeholder="Email">
+   <input placeholder="Password">
+   <button>send</button>
+</form>  --}}
+
+<p id="message-3"></p>
+<p id="message-1"></p>
+<p id="message-2"></p>
+<p id="message-4"></p>
+
+   </div>
+    
+  {{>footer}}  
+
+  <script src="/js/managerlogin.js"></script>
+
+</body>
+
+</html>

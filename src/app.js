@@ -138,6 +138,38 @@ app.get("/usersignupbyclub", (req, res) => {
   });
 });
 
+app.get("/managerlogin", (req, res) => {
+  res.render("managerlogin", {
+    helpText: "ccc",
+    title: "managerlogin",
+    name: "Monika",
+  });
+});
+
+app.get("/managerlogout", (req, res) => {
+  res.render("managerlogout", {
+    helpText: "ccc",
+    title: "managerlogin",
+    name: "Monika",
+  });
+});
+
+app.get("/managerpanel", (req, res) => {
+  res.render("managerpanel", {
+    helpText: "ccc",
+    title: "managerpanel",
+    name: "Monika",
+  });
+});
+
+app.get("/arenasapply", (req, res) => {
+  res.render("clubarenasapply", {
+    helpText: "ccc",
+    title: "apply for an arena",
+    name: "Monika",
+  });
+});
+
 // Eksport aplikacji
 module.exports = app;
 

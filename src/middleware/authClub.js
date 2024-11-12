@@ -20,7 +20,7 @@ const auth = async (req, res, next) => {
 
     req.token = token;
     req.club = club;
-    console.log(`club ${req.club} logged in`);
+    //console.log(`club ${req.club} logged in`);
     next();
   } catch (e) {
     res.status(401).send({ error: "Please authenticate." });
