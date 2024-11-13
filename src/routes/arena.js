@@ -102,6 +102,39 @@ router.get("/arenas/apply", authClub, async (req, res) => {
   }
 });
 
+router.post("/arenas/apply/bulk", authClub, async (req, res) => {
+  try {
+    //const { arenaId, userIds } = req.headers; // lub req.body, jeśli dane są wysyłane w body zapytania
+    const arenaId = req.headers["arenaid"];
+    const userIds = JSON.parse(req.headers["userids"]);
+    // Sprawdzenie poprawności danych
+    if (!arenaId || !userIds) {
+      return res.status(400).send({ error: "Missing arenaId or userIds" });
+    }
+
+    // Znajdowanie i aktualizowanie areny
+    const arena = await Arena.findById(arenaId);
+    if (!arena) {
+      return res.status(404).send({ error: "Arena not found" });
+    }
+
+    console.log("arena", arena);
+
+    //   // Dodawanie userIds do participants
+    //arena.participants.push(userIds); // Parsowanie, jeśli userIds jest tablicą jako JSON string
+    arena.participants.push(...userIds);
+    await arena.save();
+
+    res.status(200).send({ message: "Users added successfully", arena });
+  } catch (error) {
+    res
+      .status(500)
+      .send({ error: "Internal server error", details: error.message });
+  }
+});
+
+module.exports = router;
+
 // router.get("/arenas/all", authClub, async (req, res) => {
 //   try {
 //     // Pobierz wszystkie areny z bazy danych
