@@ -65,6 +65,15 @@ const arenaSchema = new mongoose.Schema(
   }
 );
 
+// arenaSchema.pre("save", function (next) {
+//   if (
+//     this.participants.length !== new Set(this.participants.map(String)).size
+//   ) {
+//     return next(new Error("Participants must contain unique user IDs"));
+//   }
+//   next();
+// });
+
 const Arena = mongoose.model("Arena", arenaSchema);
 
 module.exports = Arena;

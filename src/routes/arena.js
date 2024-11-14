@@ -1,5 +1,6 @@
 const express = require("express");
 const Manager = require("../models/manager");
+const User = require("../models/user");
 const Arena = require("../models/arena");
 const authClub = require("../middleware/authClub");
 const authManager = require("../middleware/authManager");
@@ -118,7 +119,7 @@ router.post("/arenas/apply/bulk", authClub, async (req, res) => {
       return res.status(404).send({ error: "Arena not found" });
     }
 
-    console.log("arena", arena);
+    //console.log("arena", arena);
 
     //   // Dodawanie userIds do participants
     //arena.participants.push(userIds); // Parsowanie, jeśli userIds jest tablicą jako JSON string
@@ -130,6 +131,37 @@ router.post("/arenas/apply/bulk", authClub, async (req, res) => {
     res
       .status(500)
       .send({ error: "Internal server error", details: error.message });
+  }
+});
+
+router.get("/arenas/participants", authClub, async (req, res) => {
+  //const arenaId = req.body.arenaid;
+  const arenaId = req.headers["arenaid"];
+  console.log("reqheaders", req.headers);
+  console.log("arenaId", arenaId);
+
+  try {
+    if (!arenaId) {
+      return res.status(400).send({ error: "Arena ID is required" });
+    }
+    const arena = await Arena.findById(arenaId).populate("participants");
+    //const arena = await Arena.findById(arenaId);
+
+    console.log("czy mamy arena", arena);
+
+    if (!arena) {
+      return res.status(404).send({ error: "Arena not found" });
+    }
+
+    const participants = arena.participants;
+
+    if (!participants) {
+      return res.status(404).send({ error: "No one apllied!" });
+    }
+
+    res.send(participants);
+  } catch (error) {
+    res.status(500).send(error);
   }
 });
 

@@ -97,7 +97,7 @@ const readArenas = async () => {
 
       // Dodanie funkcji kliknięcia, która loguje arena._id
       applyButton.addEventListener("click", () => {
-        console.log("Arena ID:", arena._id);
+        // console.log("Arena ID:", arena._id);
         readUsers();
         //tu sie mja wyswietlic users
         //z mozliwoscia zaznaczenia wielu checkboxem
