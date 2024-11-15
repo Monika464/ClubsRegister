@@ -105,13 +105,21 @@ router.get("/arenas/apply", authClub, async (req, res) => {
 
 router.post("/arenas/apply/bulk", authClub, async (req, res) => {
   try {
-    //const { arenaId, userIds } = req.headers; // lub req.body, jeśli dane są wysyłane w body zapytania
-    const arenaId = req.headers["arenaid"];
-    const userIds = JSON.parse(req.headers["userids"]);
+    const { arenaId, userIds } = req.body; // Dane wysyłane w body zapytania
+
     // Sprawdzenie poprawności danych
-    if (!arenaId || !userIds) {
-      return res.status(400).send({ error: "Missing arenaId or userIds" });
+    if (!arenaId || !Array.isArray(userIds) || !userIds.length) {
+      return res
+        .status(400)
+        .send({ error: "Missing or invalid arenaId or userIds" });
     }
+
+    // const arenaId = req.headers["arenaid"];
+    // const userIds = JSON.parse(req.headers["userids"]);
+    // // Sprawdzenie poprawności danych
+    // if (!arenaId || !userIds) {
+    //   return res.status(400).send({ error: "Missing arenaId or userIds" });
+    // }
 
     // Znajdowanie i aktualizowanie areny
     const arena = await Arena.findById(arenaId);
@@ -123,7 +131,11 @@ router.post("/arenas/apply/bulk", authClub, async (req, res) => {
 
     //   // Dodawanie userIds do participants
     //arena.participants.push(userIds); // Parsowanie, jeśli userIds jest tablicą jako JSON string
-    arena.participants.push(...userIds);
+    //arena.participants.push(...userIds);
+    // Dodawanie unikalnych userIds do participants
+    arena.participants = Array.from(
+      new Set([...arena.participants, ...userIds])
+    );
     await arena.save();
 
     res.status(200).send({ message: "Users added successfully", arena });

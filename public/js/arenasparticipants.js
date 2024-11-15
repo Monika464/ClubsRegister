@@ -101,6 +101,23 @@ const readArenas = async () => {
 };
 readArenas();
 
+const findDuplicates = (users) => {
+  const duplicates = [];
+  const userMap = new Map();
+
+  users.forEach((user) => {
+    const key = `${user.name}${user.surname}${user.age}${user.weight}${user.fights}`;
+    if (userMap.has(key)) {
+      duplicates.push(user._id);
+      duplicates.push(userMap.get(key));
+    } else {
+      userMap.set(key, user._id);
+    }
+  });
+
+  return duplicates;
+};
+
 //const readUsers = async (arenaid) => {
 const readUsers = async (arena) => {
   try {
@@ -115,7 +132,7 @@ const readUsers = async (arena) => {
     });
 
     const data = await response.json();
-    console.log("datausers", data);
+    console.log("datauserspartic", data);
 
     // tu masz userow wlozyc a nie wyzej
     // Oczyszczanie listy użytkowników przed ponownym renderowaniem
@@ -136,6 +153,7 @@ const readUsers = async (arena) => {
 
     // Tablica do przechowywania ID zaznaczonych użytkowników
     const selectedUserIds = [];
+    const duplicateIds = findDuplicates(data);
 
     data.forEach((user) => {
       const li = document.createElement("li"); // Tworzenie nowego elementu <li>
@@ -144,7 +162,10 @@ const readUsers = async (arena) => {
             <input type="checkbox" value="${user._id}" class="user-checkbox">
             ${user.name} ${user.surname} - Age: ${user.age}, Weight: ${user.weight}, Fights: ${user.fights}
           `;
-
+      // Jeśli użytkownik jest duplikatem, podświetl go na czerwono
+      if (duplicateIds.includes(user._id)) {
+        li.style.backgroundColor = "red";
+      }
       //   li.textContent = `
       //           ${user.name}
       //           ${user.surname}

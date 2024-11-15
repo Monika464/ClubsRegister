@@ -5,6 +5,7 @@ const messageError = document.querySelector("#message-error");
 
 const listTitle = document.querySelector("#list-title");
 
+//ZCZYTYWANIE USEROW WSZYSTKICH Z KLUBU
 const readUsers = async (arena) => {
   try {
     const response = await fetch("/users", {
@@ -15,7 +16,7 @@ const readUsers = async (arena) => {
       },
     });
     const data = await response.json();
-    console.log("datausers", data);
+    //console.log("datausers", data);
 
     // Oczyszczanie listy użytkowników przed ponownym renderowaniem
     userList.innerHTML = "";
@@ -43,14 +44,6 @@ const readUsers = async (arena) => {
         ${user.name} ${user.surname} - Age: ${user.age}, Weight: ${user.weight}, Fights: ${user.fights}
       `;
 
-      //   li.textContent = `
-      //           ${user.name}
-      //           ${user.surname}
-      //           ${user.age}
-      //           ${user.weight}
-      //           ${user.fights}
-
-      //           `;
       userList.appendChild(li); // Dodanie elementu <li> do listy
     });
 
@@ -74,12 +67,16 @@ const readUsers = async (arena) => {
     const participateButton = document.getElementById("participate-users");
     participateButton.addEventListener("click", () => {
       console.log("Zaznaczone ID użytkowników:", selectedUserIds);
-      //wyslij je do bazy
+      sendParticipantsToBase(arena._id, selectedUserIds);
+      ///
     });
   } catch (error) {
     console.error("Error:", error);
   }
 };
+//KONIEC ZCZYTAWANIU WSZYSTKICH USEROW KLUBU
+
+//ZCZYTYWANIE ARENY
 
 const readArenas = async () => {
   messageError.textContent = "";
@@ -112,10 +109,6 @@ const readArenas = async () => {
       applyButton.addEventListener("click", () => {
         // console.log("Arena ID:", arena._id);
         readUsers(arena);
-        //tu sie mja wyswietlic users
-        //z mozliwoscia zaznaczenia wielu checkboxem
-        //a pond nimi przycisk zgłos
-        //i przycisk usun gdzie
       });
 
       // Dodanie przycisku do elementu <li>
@@ -129,3 +122,24 @@ const readArenas = async () => {
   }
 };
 readArenas();
+
+sendParticipantsToBase = async (arenaId, selected) => {
+  try {
+    const response = await fetch("/arenas/apply/bulk", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ arenaId, userIds: selected }),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Server error: ${response.statusText}`);
+    }
+    const data = await response.json();
+    console.log("co my tu mamy", data);
+  } catch (error) {
+    console.error("Error:", error);
+  }
+};
