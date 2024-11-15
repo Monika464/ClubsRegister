@@ -36,7 +36,7 @@ router.post("/clubs", async (req, res) => {
 
   //Zweryfikuj odpowiedź CAPTCHA
 
-  const secretKey = CAPTCHA_SECRET_KEY;
+  const secretKey = process.env.CAPTCHA_SECRET_KEY;
   //const verificationUrl = `https://www.google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${captchaResponse}`;
 
   try {

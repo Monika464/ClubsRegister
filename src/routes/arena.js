@@ -177,6 +177,36 @@ router.get("/arenas/participants", authClub, async (req, res) => {
   }
 });
 
+// Route to delete selected users from the participants array
+router.delete("/arenas/participants/delete", authClub, async (req, res) => {
+  try {
+    const { arenaId, selectedUsers } = req.body;
+
+    // Check if arenaId and selectedUsers are provided
+    if (!arenaId || !selectedUsers || !Array.isArray(selectedUsers)) {
+      return res.status(400).send({ error: "Invalid request data" });
+    }
+
+    // Find the arena and update the participants array by removing selected users
+    const arena = await Arena.findByIdAndUpdate(
+      arenaId,
+      {
+        $pull: { participants: { $in: selectedUsers } },
+      },
+      { new: true } // Return the updated document
+    );
+
+    if (!arena) {
+      return res.status(404).send({ error: "Arena not found" });
+    }
+
+    res.status(200).send({ message: "Selected participants removed", arena });
+  } catch (error) {
+    console.error("Error deleting participants:", error);
+    res.status(500).send({ error: "Server error" });
+  }
+});
+
 module.exports = router;
 
 // router.get("/arenas/all", authClub, async (req, res) => {

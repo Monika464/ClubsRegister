@@ -2,6 +2,9 @@ const token = localStorage.getItem("authToken");
 const arenaList = document.querySelector("#arena-list");
 const userList = document.querySelector("#user-list");
 const messageError = document.querySelector("#message-error");
+const withdraw = document.querySelector("#withdraw-users");
+
+const selectedUserIds = [];
 
 const listTitle = document.querySelector("#list-title");
 
@@ -36,63 +39,11 @@ const readArenas = async () => {
       applyButton.addEventListener("click", () => {
         console.log("Arena ID:", arena._id);
         readUsers(arena);
-        //tu sie mja wyswietlic users
-        //z mozliwoscia zaznaczenia wielu checkboxem
-        //a pond nimi przycisk zgłos
-        //i przycisk usun gdzie
       });
 
       // Dodanie przycisku do elementu <li>
       li.appendChild(applyButton);
       arenaList.appendChild(li); // Dodanie elementu <li> do listy
-
-      //     // Tablica do przechowywania ID zaznaczonych użytkowników
-      //     const selectedUserIds = [];
-
-      //     data.forEach((user) => {
-      //       const li = document.createElement("li"); // Tworzenie nowego elementu <li>
-      //
-      //       li.innerHTML = `
-      //         <input type="checkbox" value="${user._id}" class="user-checkbox">
-      //         ${user.name} ${user.surname} - Age: ${user.age}, Weight: ${user.weight}, Fights: ${user.fights}
-      //       `;
-
-      //       //   li.textContent = `
-      //       //           ${user.name}
-      //       //           ${user.surname}
-      //       //           ${user.age}
-      //       //           ${user.weight}
-      //       //           ${user.fights}
-
-      //       //           `;
-      //       userList.appendChild(li); // Dodanie elementu <li> do listy
-      //     });
-
-      //     // Dodanie event listenera do checkboxów
-      //     userList.addEventListener("change", (event) => {
-      //       const checkbox = event.target;
-      //       if (checkbox.classList.contains("user-checkbox")) {
-      //         if (checkbox.checked) {
-      //           selectedUserIds.push(checkbox.value);
-      //         } else {
-      //           // Usuń ID z tablicy, jeśli checkbox jest odznaczony
-      //           const index = selectedUserIds.indexOf(checkbox.value);
-      //           if (index > -1) {
-      //             selectedUserIds.splice(index, 1);
-      //           }
-      //         }
-      //       }
-      //     });
-
-      //     // Obsługa przycisku, który loguje tablicę ID zaznaczonych użytkowników
-      //     const participateButton = document.getElementById("participate-users");
-      //     participateButton.addEventListener("click", () => {
-      //       console.log("Zaznaczone ID użytkowników:", selectedUserIds);
-      //     });
-      //   } catch (error) {
-      //     console.error("Error:", error);
-      //   }
-      // };
     });
   } catch (error) {
     console.error("Error:", error);
@@ -132,9 +83,8 @@ const readUsers = async (arena) => {
     });
 
     const data = await response.json();
-    console.log("datauserspartic", data);
+    //console.log("datauserspartic", data);
 
-    // tu masz userow wlozyc a nie wyzej
     // Oczyszczanie listy użytkowników przed ponownym renderowaniem
     userList.innerHTML = "";
 
@@ -149,10 +99,7 @@ const readUsers = async (arena) => {
    `;
     userList.appendChild(arenaDetails);
 
-    ///
-
-    // Tablica do przechowywania ID zaznaczonych użytkowników
-    const selectedUserIds = [];
+    //duplikaty
     const duplicateIds = findDuplicates(data);
 
     data.forEach((user) => {
@@ -166,21 +113,77 @@ const readUsers = async (arena) => {
       if (duplicateIds.includes(user._id)) {
         li.style.backgroundColor = "red";
       }
-      //   li.textContent = `
-      //           ${user.name}
-      //           ${user.surname}
-      //           ${user.age}
-      //           ${user.weight}
-      //           ${user.fights}
+      ///
+      // Dodanie event listenera do checkboxa
+      const checkbox = li.querySelector(".user-checkbox");
+      checkbox.addEventListener("change", (event) => {
+        if (event.target.checked) {
+          selectedUserIds.push(user._id); // Dodanie ID użytkownika do tablicy
+        } else {
+          const index = selectedUserIds.indexOf(user._id);
+          if (index > -1) {
+            selectedUserIds.splice(index, 1); // Usunięcie ID użytkownika z tablicy
+          }
+        }
+        //console.log("Selected user IDs:", selectedUserIds);
+      });
 
-      //           `;
+      ///
       userList.appendChild(li); // Dodanie elementu <li> do listy
     });
 
     //reszta
-
+    // Example of calling the deleteParticipants function after selecting users
+    //console.log("arena", arena);
+    //const withdrawButton = document.createElement("button");
+    //applyButton.textContent = "Withdraw participants";
+    withdraw.addEventListener("click", () => {
+      if (selectedUserIds.length > 0) {
+        //console.log("Selected user IDs:", selectedUserIds);
+        //console.log("arena :", arena);
+        deleteParticipants(arena._id, selectedUserIds);
+      } else {
+        messageError.textContent = "No users selected for deletion.";
+      }
+    });
+    // userList.appendChild(withdrawButton);
     /////////////////
   } catch (error) {
     console.error("Error:", error);
+  }
+};
+
+const deleteParticipants = async (arenaId, selectedUserIds) => {
+  messageError.textContent = "";
+
+  try {
+    const response = await fetch("/arenas/participants/delete", {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        arenaId: arenaId,
+        selectedUsers: selectedUserIds,
+      }),
+    });
+
+    const result = await response.json();
+
+    if (response.ok) {
+      console.log("Participants successfully removed:", result);
+      messageError.textContent = "Participants removed successfully!";
+      // Optionally refresh the list of participants after deletion
+      readUsers({ _id: arenaId });
+    } else {
+      console.error("Failed to remove participants:", result);
+      messageError.textContent =
+        result.message || "Failed to remove participants.";
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    messageError.textContent =
+      "An error occurred while trying to remove participants.";
   }
 };

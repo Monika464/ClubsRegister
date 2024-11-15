@@ -66,7 +66,7 @@ const readUsers = async (arena) => {
     // Obsługa przycisku, który loguje tablicę ID zaznaczonych użytkowników
     const participateButton = document.getElementById("participate-users");
     participateButton.addEventListener("click", () => {
-      console.log("Zaznaczone ID użytkowników:", selectedUserIds);
+      //console.log("Zaznaczone ID użytkowników:", selectedUserIds);
       sendParticipantsToBase(arena._id, selectedUserIds);
       ///
     });
@@ -103,7 +103,7 @@ const readArenas = async () => {
 
       // Tworzenie przycisku "Apply"
       const applyButton = document.createElement("button");
-      applyButton.textContent = "Apply";
+      applyButton.textContent = "Choose arena";
 
       // Dodanie funkcji kliknięcia, która loguje arena._id
       applyButton.addEventListener("click", () => {
@@ -138,7 +138,7 @@ sendParticipantsToBase = async (arenaId, selected) => {
       throw new Error(`Server error: ${response.statusText}`);
     }
     const data = await response.json();
-    console.log("co my tu mamy", data);
+    // console.log("co my tu mamy", data);
   } catch (error) {
     console.error("Error:", error);
   }
