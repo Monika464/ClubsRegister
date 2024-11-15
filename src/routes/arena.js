@@ -137,8 +137,8 @@ router.post("/arenas/apply/bulk", authClub, async (req, res) => {
 router.get("/arenas/participants", authClub, async (req, res) => {
   //const arenaId = req.body.arenaid;
   const arenaId = req.headers["arenaid"];
-  console.log("reqheaders", req.headers);
-  console.log("arenaId", arenaId);
+  //console.log("reqheaders", req.headers);
+  //console.log("arenaId", arenaId);
 
   try {
     if (!arenaId) {
@@ -147,7 +147,7 @@ router.get("/arenas/participants", authClub, async (req, res) => {
     const arena = await Arena.findById(arenaId).populate("participants");
     //const arena = await Arena.findById(arenaId);
 
-    console.log("czy mamy arena", arena);
+    // console.log("czy mamy arena", arena);
 
     if (!arena) {
       return res.status(404).send({ error: "Arena not found" });

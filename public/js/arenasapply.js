@@ -5,7 +5,7 @@ const messageError = document.querySelector("#message-error");
 
 const listTitle = document.querySelector("#list-title");
 
-const readUsers = async () => {
+const readUsers = async (arena) => {
   try {
     const response = await fetch("/users", {
       method: "GET",
@@ -22,6 +22,18 @@ const readUsers = async () => {
 
     // Tablica do przechowywania ID zaznaczonych użytkowników
     const selectedUserIds = [];
+    console.log("selected", selectedUserIds);
+    //////
+    // Wyświetlenie danych areny na początku listy użytkowników
+    const arenaDetails = document.createElement("div");
+    arenaDetails.innerHTML = `
+ <h2>${arena.title}</h2>
+ <p>Start Time: ${arena.arenaTimeStart}</p>
+ <p>Description: ${arena.description}</p>
+`;
+    userList.appendChild(arenaDetails);
+
+    ////////
 
     data.forEach((user) => {
       const li = document.createElement("li"); // Tworzenie nowego elementu <li>
@@ -62,6 +74,7 @@ const readUsers = async () => {
     const participateButton = document.getElementById("participate-users");
     participateButton.addEventListener("click", () => {
       console.log("Zaznaczone ID użytkowników:", selectedUserIds);
+      //wyslij je do bazy
     });
   } catch (error) {
     console.error("Error:", error);
@@ -98,7 +111,7 @@ const readArenas = async () => {
       // Dodanie funkcji kliknięcia, która loguje arena._id
       applyButton.addEventListener("click", () => {
         // console.log("Arena ID:", arena._id);
-        readUsers();
+        readUsers(arena);
         //tu sie mja wyswietlic users
         //z mozliwoscia zaznaczenia wielu checkboxem
         //a pond nimi przycisk zgłos

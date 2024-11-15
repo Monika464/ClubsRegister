@@ -170,6 +170,14 @@ app.get("/arenasapply", (req, res) => {
   });
 });
 
+app.get("/arenasparticipants", (req, res) => {
+  res.render("arenasparticipants", {
+    helpText: "ccc",
+    title: "participants for an arena",
+    name: "Monika",
+  });
+});
+
 // Eksport aplikacji
 module.exports = app;
 
