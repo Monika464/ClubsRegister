@@ -3,7 +3,8 @@ const arenaList = document.querySelector("#arena-list");
 const userList = document.querySelector("#user-list");
 const messageError = document.querySelector("#message-error");
 const withdraw = document.querySelector("#withdraw-users");
-
+const logoutLink = document.querySelector("#logout-link");
+const messageOne = document.querySelector("#message-1");
 let editMode = false;
 const selectedUserIds = [];
 
@@ -23,6 +24,7 @@ const readArenas = async () => {
     });
     const data = await response.json();
     console.log("data", data);
+
     //zrob wysweiltanie przypadku jak data jest errorem bo np. brak autentifikacji
 
     data.forEach((arena) => {
@@ -48,6 +50,8 @@ const readArenas = async () => {
       li.appendChild(applyButton);
       arenaList.appendChild(li); // Dodanie elementu <li> do listy
     });
+
+    logoutLink.style.display = "block";
   } catch (error) {
     console.error("Error:", error);
     messageOne.textContent = "Error loading arenas";
