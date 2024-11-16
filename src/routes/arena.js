@@ -68,7 +68,7 @@ router.post("/arenas", authManager, async (req, res) => {
   //console.log("hello tu", user);
 });
 
-router.get("/arenas", authManager, async (req, res) => {
+router.get("/arenas/manager", authManager, async (req, res) => {
   try {
     //console.log("co mamy req", req.body);
     //const users = await User.find({});
@@ -146,11 +146,39 @@ router.post("/arenas/apply/bulk", authClub, async (req, res) => {
   }
 });
 
+//participants wiev for the club
+
 router.get("/arenas/participants", authClub, async (req, res) => {
-  //const arenaId = req.body.arenaid;
   const arenaId = req.headers["arenaid"];
-  //console.log("reqheaders", req.headers);
-  //console.log("arenaId", arenaId);
+
+  try {
+    if (!arenaId) {
+      return res.status(400).send({ error: "Arena ID is required" });
+    }
+    const arena = await Arena.findById(arenaId).populate("participants");
+    //const arena = await Arena.findById(arenaId);
+
+    // console.log("czy mamy arena", arena);
+
+    if (!arena) {
+      return res.status(404).send({ error: "Arena not found" });
+    }
+
+    const participants = arena.participants;
+
+    if (!participants) {
+      return res.status(404).send({ error: "No one apllied!" });
+    }
+
+    res.send(participants);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+//participants wiev for the manager
+
+router.get("/arenas/participants/manager", authManager, async (req, res) => {
+  const arenaId = req.headers["arenaid"];
 
   try {
     if (!arenaId) {
@@ -206,6 +234,40 @@ router.delete("/arenas/participants/delete", authClub, async (req, res) => {
     res.status(500).send({ error: "Server error" });
   }
 });
+
+// Route to delete selected users from the participants array by manager
+router.delete(
+  "/arenas/participants/delete/manager",
+  authManager,
+  async (req, res) => {
+    try {
+      const { arenaId, selectedUsers } = req.body;
+
+      // Check if arenaId and selectedUsers are provided
+      if (!arenaId || !selectedUsers || !Array.isArray(selectedUsers)) {
+        return res.status(400).send({ error: "Invalid request data" });
+      }
+
+      // Find the arena and update the participants array by removing selected users
+      const arena = await Arena.findByIdAndUpdate(
+        arenaId,
+        {
+          $pull: { participants: { $in: selectedUsers } },
+        },
+        { new: true } // Return the updated document
+      );
+
+      if (!arena) {
+        return res.status(404).send({ error: "Arena not found" });
+      }
+
+      res.status(200).send({ message: "Selected participants removed", arena });
+    } catch (error) {
+      console.error("Error deleting participants:", error);
+      res.status(500).send({ error: "Server error" });
+    }
+  }
+);
 
 module.exports = router;
 
