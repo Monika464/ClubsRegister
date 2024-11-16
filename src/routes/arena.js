@@ -155,19 +155,24 @@ router.get("/arenas/participants", authClub, async (req, res) => {
     if (!arenaId) {
       return res.status(400).send({ error: "Arena ID is required" });
     }
-    const arena = await Arena.findById(arenaId).populate("participants");
-    //const arena = await Arena.findById(arenaId);
 
-    // console.log("czy mamy arena", arena);
+    // Pobranie areny z uczestnikami
+    const arena = await Arena.findById(arenaId).populate("participants");
 
     if (!arena) {
       return res.status(404).send({ error: "Arena not found" });
     }
 
-    const participants = arena.participants;
+    // Filtrowanie uczestników, aby wyświetlać tylko tych, których `owner` pasuje do ID klubu
+    const clubId = req.club._id;
+    const participants = arena.participants.filter((participant) => {
+      return participant.owner.equals(clubId);
+    });
 
-    if (!participants) {
-      return res.status(404).send({ error: "No one apllied!" });
+    if (participants.length === 0) {
+      return res
+        .status(404)
+        .send({ error: "No participants from this club found!" });
     }
 
     res.send(participants);
@@ -175,6 +180,35 @@ router.get("/arenas/participants", authClub, async (req, res) => {
     res.status(500).send(error);
   }
 });
+
+// router.get("/arenas/participants", authClub, async (req, res) => {
+//   const arenaId = req.headers["arenaid"];
+
+//   try {
+//     if (!arenaId) {
+//       return res.status(400).send({ error: "Arena ID is required" });
+//     }
+//     const arena = await Arena.findById(arenaId).populate("participants");
+//     //const arena = await Arena.findById(arenaId);
+
+//     // console.log("czy mamy arena", arena);
+
+//     if (!arena) {
+//       return res.status(404).send({ error: "Arena not found" });
+//     }
+
+//     const participants = arena.participants;
+
+//     if (!participants) {
+//       return res.status(404).send({ error: "No one apllied!" });
+//     }
+
+//     res.send(participants);
+//   } catch (error) {
+//     res.status(500).send(error);
+//   }
+// });
+
 //participants wiev for the manager
 
 router.get("/arenas/participants/manager", authManager, async (req, res) => {
@@ -214,7 +248,9 @@ router.delete("/arenas/participants/delete", authClub, async (req, res) => {
     if (!arenaId || !selectedUsers || !Array.isArray(selectedUsers)) {
       return res.status(400).send({ error: "Invalid request data" });
     }
+    //
 
+    //
     // Find the arena and update the participants array by removing selected users
     const arena = await Arena.findByIdAndUpdate(
       arenaId,

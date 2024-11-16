@@ -23,10 +23,6 @@ router.get("/users/arena", authManager, async (req, res) => {
 
 router.get("/users", authClub, async (req, res) => {
   try {
-    //const users = await User.find({});
-    //res.send(users);
-    //await req.club.populate("clubs").execPopulate();
-    // await req.club.populate("clubs");
     await req.club.populate("users");
     res.send(req.club.users);
     //console.log("req.club", req.club);
