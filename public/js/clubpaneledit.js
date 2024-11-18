@@ -2,6 +2,7 @@
 const token = localStorage.getItem("authToken");
 const userList = document.querySelector("#user-list");
 const messageError = document.querySelector("#message-error");
+const messageTwo = document.querySelector("#message-2");
 const logoutLink = document.querySelector("#logout-link");
 const listTitle = document.querySelector("#list-title");
 const createUserButton = document.querySelector("#create-user");
@@ -30,7 +31,7 @@ try {
       },
     });
     const user = await response.json();
-    console.log("czy tu jest data", user);
+
     localStorage.setItem("userIdedit", id);
 
     document.getElementById("email-input").value = user.email;
@@ -72,15 +73,16 @@ const updatingUser = async (id) => {
       }),
     });
     const data = await response.json();
-    console.log("response", data);
+    console.log("response", response.ok);
+    //to przerobic
     if (response.ok) {
-      messageOne.textContent = "";
+      messageError.textContent = "";
       messageTwo.textContent = "User updated successfully!";
       form.reset();
       localStorage.removeItem("userIdedit");
     } else {
       //   // Obsługa błędu logowania
-      messageThree.textContent = data.error || "Failed to update user.";
+      messageError.textContent = data.error || "Failed to update user.";
     }
   } catch (error) {
     console.error("Błąd przy aktualizacji:", error);
@@ -143,6 +145,7 @@ fetch("/users", {
         });
         //trzeba podłaczyć wybranego usera do pol default forma
         checkbox.addEventListener("change", (event) => {
+          messageTwo.textContent = "";
           const existingButtons =
             document.querySelectorAll("#user-list button");
           existingButtons.forEach((btn) => btn.remove());

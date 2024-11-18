@@ -44,7 +44,7 @@ router.patch("/users/:id", authClub, async (req, res) => {
       _id: req.params.id,
       owner: req.club._id,
     });
-    console.log("czy jest tu user", user);
+    // console.log("czy jest tu user", user);
     if (!user) {
       return res.status(404).send({ error: "User not found" });
     }
