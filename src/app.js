@@ -178,6 +178,14 @@ app.get("/arenasparticipants", (req, res) => {
   });
 });
 
+app.get("/clubpaneledit", (req, res) => {
+  res.render("clubpaneledit", {
+    helpText: "ccc",
+    title: "club coorecting users page",
+    name: "Monika",
+  });
+});
+
 // Eksport aplikacji
 module.exports = app;
 

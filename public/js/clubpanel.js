@@ -37,7 +37,7 @@ fetch("/users", {
       //   messageTwo.textContent = "";
       //   messageThree.textContent = "";
     } else {
-      // console.log("data jakie", data);
+      console.log("data jakie", data);
       data.forEach((user) => {
         const li = document.createElement("li"); // Tworzenie nowego elementu <li>
         // console.log("lista userow", user);

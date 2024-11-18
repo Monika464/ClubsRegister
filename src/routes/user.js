@@ -6,6 +6,58 @@ const authManager = require("../middleware/authManager");
 
 const router = new express.Router();
 
+router.get("/users/:id", authClub, async (req, res) => {
+  try {
+    const user = await User.findOne({
+      _id: req.params.id,
+      owner: req.club._id,
+    });
+    if (!user) {
+      return res.status(404).send({ error: "User not found" });
+    }
+    res.send(user);
+  } catch (error) {
+    res.status(400).send({ error: e.message });
+  }
+});
+
+router.patch("/users/:id", authClub, async (req, res) => {
+  const updates = Object.keys(req.body);
+  const allowedUpdates = [
+    "name",
+    "surname",
+    "email",
+    "age",
+    "weight",
+    "fights",
+  ];
+  const isValidOperation = updates.every((update) =>
+    allowedUpdates.includes(update)
+  );
+
+  if (!isValidOperation) {
+    return res.status(400).send({ error: "Invalid updates!" });
+  }
+
+  try {
+    const user = await User.findOne({
+      _id: req.params.id,
+      owner: req.club._id,
+    });
+    console.log("czy jest tu user", user);
+    if (!user) {
+      return res.status(404).send({ error: "User not found" });
+    }
+
+    updates.forEach((update) => (user[update] = req.body[update]));
+    await user.save();
+
+    res.status(200).send({ message: "User updated successfully", user });
+  } catch (e) {
+    res.status(400).send({ error: e.message });
+  }
+});
+
 router.get("/users/arena", authManager, async (req, res) => {
   try {
     console.log("co z request", req.body);
