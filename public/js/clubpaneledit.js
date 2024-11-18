@@ -78,8 +78,9 @@ const updatingUser = async (id) => {
     if (response.ok) {
       messageError.textContent = "";
       messageTwo.textContent = "User updated successfully!";
-      form.reset();
       localStorage.removeItem("userIdedit");
+      console.log("item removed from storage");
+      form.reset();
     } else {
       //   // Obsługa błędu logowania
       messageError.textContent = data.error || "Failed to update user.";
@@ -140,29 +141,29 @@ fetch("/users", {
       `;
 
         const checkbox = li.querySelector(".user-checkbox");
-        data.forEach((user) => {
-          //console.log("uss", user);
-        });
+        //data.forEach((user) => {
+        //console.log("uss", user);
+        // });
         //trzeba podłaczyć wybranego usera do pol default forma
         checkbox.addEventListener("change", (event) => {
           messageTwo.textContent = "";
-          const existingButtons =
-            document.querySelectorAll("#user-list button");
-          existingButtons.forEach((btn) => btn.remove());
+          // const existingButtons =
+          //  document.querySelectorAll("#user-list button");
+          //  existingButtons.forEach((btn) => btn.remove());
           if (event.target.checked) {
             console.log("event", event.target.value);
 
             //tutaj warunek i funkcje(ebent target value)
             gettingDataFromBase(event.target.value);
 
-            const editButton = document.createElement("button");
-            editButton.textContent = "Editing";
-            editButton.addEventListener("click", () => {
-              console.log("usssid", event.target.value);
+            // const editButton = document.createElement("button");
+            // editButton.textContent = "Editing";
+            // editButton.addEventListener("click", () => {
+            //   console.log("usssid", event.target.value);
 
-              editButton.textContent = isEditMode ? "Finish Editing" : "Edit";
-              isEditMode = !isEditMode;
-            });
+            //   editButton.textContent = isEditMode ? "Finish Editing" : "Edit";
+            //   isEditMode = !isEditMode;
+            //});
             if (isEditMode) {
               form.style.display = "block";
             }

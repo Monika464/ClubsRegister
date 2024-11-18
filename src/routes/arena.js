@@ -239,6 +239,8 @@ router.get("/arenas/participants/manager", authManager, async (req, res) => {
   }
 });
 
+//przerobic delete na arena id jako parametr i selectedusers jako body
+
 // Route to delete selected users from the participants array
 router.delete("/arenas/participants/delete", authClub, async (req, res) => {
   try {
