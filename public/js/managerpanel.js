@@ -107,15 +107,15 @@ const readUsers = async (arena) => {
     userList.appendChild(arenaDetails);
 
     //edit button
-    const editButton = document.createElement("button");
-    editButton.textContent = "Edit";
-    editButton.addEventListener("click", () => {
-      editMode = !editMode;
-      toggleCheckboxes(editMode);
-      editButton.textContent = editMode ? "Finish Editing" : "Edit";
-      withdraw.style.display = editMode ? "block" : "none";
-    });
-    userList.appendChild(editButton);
+    // const editButton = document.createElement("button");
+    // editButton.textContent = "Edit";
+    // editButton.addEventListener("click", () => {
+    //   editMode = !editMode;
+    //   toggleCheckboxes(editMode);
+    //   editButton.textContent = editMode ? "Finish Editing" : "Edit";
+    //   withdraw.style.display = editMode ? "block" : "none";
+    // });
+    // userList.appendChild(editButton);
 
     //duplikaty
     const duplicateIds = findDuplicates(data);
@@ -150,7 +150,15 @@ const readUsers = async (arena) => {
       ///
       userList.appendChild(li); // Dodanie elementu <li> do listy
     });
-
+    const editButton = document.createElement("button");
+    editButton.textContent = "Edit";
+    editButton.addEventListener("click", () => {
+      editMode = !editMode;
+      toggleCheckboxes(editMode);
+      editButton.textContent = editMode ? "Finish Editing" : "Edit";
+      withdraw.style.display = editMode ? "block" : "none";
+    });
+    userList.appendChild(editButton);
     //reszta
     // Example of calling the deleteParticipants function after selecting users
     //console.log("arena", arena);

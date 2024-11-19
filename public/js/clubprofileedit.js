@@ -32,8 +32,8 @@ const fetchingClubsData = async () => {
     // }),
   });
   const club = await response.json();
-  console.log("response", response.ok);
-  console.log("respp data", club);
+  // console.log("response", response.ok);
+  //console.log("respp data", club);
 
   document.getElementById("email-input").value = club.email;
   document.getElementById("text-name-input").value = club.name;
