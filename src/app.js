@@ -186,6 +186,14 @@ app.get("/clubpaneledit", (req, res) => {
   });
 });
 
+app.get("/clubprofileedit", (req, res) => {
+  res.render("clubprofileedit", {
+    helpText: "ccc",
+    title: "club profile edit page",
+    name: "Monika",
+  });
+});
+
 // Eksport aplikacji
 module.exports = app;
 

@@ -17,13 +17,52 @@ router.get("/clubs", auth, async (req, res) => {
 
 router.get("/clubs/me", auth, async (req, res) => {
   try {
-    //const clubs = await Club.find({});
-    //console.log("me tutaj", req.club);
+    if (!req.club) {
+      return res.status(404).send({ error: "Club not found" });
+    }
     res.send(req.club);
-  } catch {
+  } catch (e) {
     res.status(500).send({ error: e.message });
   }
 });
+
+router.patch("/clubs/me", auth, async (req, res) => {
+  const updates = Object.keys(req.body);
+  const allowedUpdates = ["name", "email", "city", "region", "phone"]; // lista dozwolonych pól do aktualizacji
+  const isValidOperation = updates.every((update) =>
+    allowedUpdates.includes(update)
+  );
+
+  if (!isValidOperation) {
+    return res.status(400).send({ error: "Invalid updates!" });
+  }
+
+  try {
+    if (!req.club) {
+      return res.status(404).send({ error: "Club not found" });
+    }
+
+    updates.forEach((update) => {
+      req.club[update] = req.body[update];
+    });
+
+    await req.club.save(); // Zapisanie zaktualizowanych danych do bazy
+
+    res.send(req.club);
+  } catch (e) {
+    res.status(500).send({ error: e.message });
+  }
+});
+// router.patch("/clubs/me/edit", auth, async (req, res) => {
+//   try {
+//     if (!req.club) {
+//       return res.status(404).send({ error: "Club not found" });
+//     }
+//     res.send(req.club);
+//   } catch (e) {
+//     res.status(500).send({ error: e.message });
+//   }
+// });
 
 router.post("/clubs", async (req, res) => {
   //Pobierz odpowiedź CAPTCHA z żądania

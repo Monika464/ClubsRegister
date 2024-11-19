@@ -49,7 +49,6 @@ try {
 
 const updatingUser = async (id) => {
   const email = emailInput.value;
-
   const name = nameInput.value;
   const surname = surnameInput.value;
   const age = ageInput.value;
