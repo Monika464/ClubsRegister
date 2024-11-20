@@ -202,6 +202,14 @@ app.get("/managerpaneledit", (req, res) => {
   });
 });
 
+app.get("/arenacreate", (req, res) => {
+  res.render("arenacreate", {
+    helpText: "ccc",
+    title: "arenacreate",
+    name: "Monika",
+  });
+});
+
 // Eksport aplikacji
 module.exports = app;
 

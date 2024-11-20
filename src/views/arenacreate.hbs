@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+  <title>{{title}}</title>
+   <link rel="icon" href="/img/weather.png">
+    <link rel="stylesheet" href="/css/styles.css">
+    
+</head>
+
+<body>
+
+   <div class="main-content">
+{{>header}}
+
+<p>Create arena</p>
+
+<form id="arena-create-form"> 
+   <p>Title</p>
+    <input id="title-input" type="text" placeholder="Title">
+    <p>Description</p>
+<textarea id="description-input" placeholder="Description" rows="4" cols="50" required></textarea>
+   <p>arenaTimeRelease</p>
+        <input id="arenaTimeRelease-input" type="datetime-local" placeholder="Registration Open"> 
+    <p>TimeRegisOpen</p>
+        <input id="arenaTimeRegisOpen-input" type="datetime-local" placeholder="Registration Open">
+    <p>TimeRegisClose</p>
+    <input id="arenaTimeRegisClose-input" type="datetime-local" placeholder="Registration Close">
+    <p>TimeStart</p>
+    <input id="arenaTimeStart-input" type="datetime-local" placeholder="Arena Start Time">
+   <p>Time Close the event</p>
+    <input id="arenaTimeClose-input" type="datetime-local" placeholder="Arena Close Time">
+    <div> <button>Send</button></div>
+  
+</form>
+
+{{!-- <form> 
+   <input placeholder="Email">
+   <input placeholder="Password">
+   <button>send</button>
+</form>  --}}
+
+<p id="message-3"></p>
+<p id="message-1"></p>
+<p id="message-2"></p>
+<p id="message-4"></p>
+
+   </div>
+    
+  {{>footer}}  
+
+  <script src="/js/arenacreate.js"></script> 
+
+</body>
+
+</html>

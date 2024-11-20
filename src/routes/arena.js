@@ -10,11 +10,11 @@ const router = new express.Router();
 
 router.post("/arenas", authManager, async (req, res) => {
   // Konwersja pól datowych na obiekty Date
+  const arenaTimeRelease = new Date(req.body.arenaTimeRelease);
   const arenaTimeRegisOpen = new Date(req.body.arenaTimeRegisOpen);
   const arenaTimeRegisClose = new Date(req.body.arenaTimeRegisClose);
   const arenaTimeStart = new Date(req.body.arenaTimeStart);
   const arenaTimeClose = new Date(req.body.arenaTimeClose);
-  const arenaTimeRelease = new Date(req.body.arenaTimeRelease);
 
   // Sprawdzenie poprawności konwersji
   if (
