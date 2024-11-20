@@ -73,7 +73,7 @@ const updatingUser = async (id) => {
     });
     const data = await response.json();
     console.log("response", response.ok);
-    //to przerobic
+
     if (response.ok) {
       messageError.textContent = "";
       messageTwo.textContent = "User updated successfully!";

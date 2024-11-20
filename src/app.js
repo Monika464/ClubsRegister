@@ -194,6 +194,14 @@ app.get("/clubprofileedit", (req, res) => {
   });
 });
 
+app.get("/managerpaneledit", (req, res) => {
+  res.render("managerpaneledit", {
+    helpText: "ccc",
+    title: "managerpaneledit",
+    name: "Monika",
+  });
+});
+
 // Eksport aplikacji
 module.exports = app;
 

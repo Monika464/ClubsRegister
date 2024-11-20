@@ -58,15 +58,15 @@ router.post("/arenas", authManager, async (req, res) => {
   }
 });
 
-router.post("/arenas", authManager, async (req, res) => {
-  // console.log("recbody", req.body);
-  //const user = new User(req.body);
-  // const arena = new Arena({
-  //   ...req.body,
-  //   owner: req.manager._id,
-  // });
-  //console.log("hello tu", user);
-});
+// router.post("/arenas", authManager, async (req, res) => {
+//   // console.log("recbody", req.body);
+//   //const user = new User(req.body);
+//   // const arena = new Arena({
+//   //   ...req.body,
+//   //   owner: req.manager._id,
+//   // });
+//   //console.log("hello tu", user);
+// });
 
 router.get("/arenas/manager", authManager, async (req, res) => {
   try {
@@ -83,14 +83,14 @@ router.get("/arenas/manager", authManager, async (req, res) => {
   }
 });
 
-router.get("/arenas/all", authClub, async (req, res) => {
-  try {
-    const arenas = await Arena.find({}); // Pobranie danych z bazy
-    res.render("displayallarenas", { arenas });
-  } catch (error) {
-    res.status(500).send(error);
-  }
-});
+// router.get("/arenas/all", authManager, async (req, res) => {
+//   try {
+//     const arenas = await Arena.find({}); // Pobranie danych z bazy
+//     res.render("arenasList", { arenas });
+//   } catch (error) {
+//     res.status(500).send(error);
+//   }
+// });
 
 router.get("/arenas/apply", authClub, async (req, res) => {
   try {
@@ -180,36 +180,6 @@ router.get("/arenas/participants", authClub, async (req, res) => {
     res.status(500).send(error);
   }
 });
-
-// router.get("/arenas/participants", authClub, async (req, res) => {
-//   const arenaId = req.headers["arenaid"];
-
-//   try {
-//     if (!arenaId) {
-//       return res.status(400).send({ error: "Arena ID is required" });
-//     }
-//     const arena = await Arena.findById(arenaId).populate("participants");
-//     //const arena = await Arena.findById(arenaId);
-
-//     // console.log("czy mamy arena", arena);
-
-//     if (!arena) {
-//       return res.status(404).send({ error: "Arena not found" });
-//     }
-
-//     const participants = arena.participants;
-
-//     if (!participants) {
-//       return res.status(404).send({ error: "No one apllied!" });
-//     }
-
-//     res.send(participants);
-//   } catch (error) {
-//     res.status(500).send(error);
-//   }
-// });
-
-//participants wiev for the manager
 
 router.get("/arenas/participants/manager", authManager, async (req, res) => {
   const arenaId = req.headers["arenaid"];
@@ -306,6 +276,58 @@ router.delete(
     }
   }
 );
+
+router.get("/arenas/:id", authManager, async (req, res) => {
+  const _id = req.params.id;
+
+  try {
+    const arena = await Arena.findOne({ _id, owner: req.manager._id });
+
+    if (!arena) {
+      return res.status(404).send();
+    }
+
+    res.send(arena);
+  } catch (e) {
+    res.status(500).send();
+  }
+});
+
+router.patch("/arenas/:id", authManager, async (req, res) => {
+  const updates = Object.keys(req.body);
+  const allowedUpdates = [
+    "title",
+    "description",
+    "arenaTimeRegisOpen",
+    "arenaTimeRegisClose",
+    "arenaTimeStart",
+    "arenaTimeClose",
+  ];
+  const isValidOperation = updates.every((update) =>
+    allowedUpdates.includes(update)
+  );
+
+  if (!isValidOperation) {
+    return res.status(400).send({ error: "Invalid updates!" });
+  }
+
+  try {
+    const arena = await Arena.findOne({
+      _id: req.params.id,
+      owner: req.manager._id,
+    });
+
+    if (!arena) {
+      return res.status(404).send();
+    }
+
+    updates.forEach((update) => (arena[update] = req.body[update]));
+    await arena.save();
+    res.send(arena);
+  } catch (e) {
+    res.status(400).send(e);
+  }
+});
 
 module.exports = router;
 

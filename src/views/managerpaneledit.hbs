@@ -1,0 +1,96 @@
+
+<html>
+  <head>
+    <title>{{title}}</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+  </head>
+
+  <body>
+   <div class="menu-container">
+    {{>header}}
+    {{!-- <a href="/clublogout" id="logout-link" style="display: none;">Logout</a> --}}
+</div>
+
+{{!-- 
+ <div> <ol id="arena-all-list"></ol> </div>
+    {{>displayallarenas}}
+  <script src="/js/displayallarenas.js"></script>
+
+ --}}
+<div> <ol id="arena-list"></ol> <!-- Kontener na listę użytkowników --></div>
+  
+ <div> <ol id="user-list"></ol> 
+
+{{!-- <p id="list-title" style="display: none;">Club members</p>
+ <div> <ol id="user-list"></ol> <!-- Kontener na listę użytkowników --></div> --}}
+  
+
+{{!-- <button id="create-user" style="display: none;">Edit User</button> --}}
+
+<form id="arena-edit-form" style="display: block;">
+    <!-- Pola tekstowe -->
+    <p>Title</p>
+    <input id="title-input" type="text" placeholder="Title">
+    <p>Description</p>
+    <input id="description-input" type="text" placeholder="Description">
+    <p>TimeRegisOpen</p>
+        <input id="arenaTimeRegisOpen-input" type="datetime-local" placeholder="Registration Open">
+    <p>TimeRegisClose</p>
+    <input id="arenaTimeRegisClose-input" type="datetime-local" placeholder="Registration Close">
+    <p>TimeStart</p>
+    <input id="arenaTimeStart-input" type="datetime-local" placeholder="Arena Start Time">
+   <p>Time Close the event</p>
+    <input id="arenaTimeClose-input" type="datetime-local" placeholder="Arena Close Time">
+    
+    <button>Send</button>
+</form>
+
+    <div>
+       <p id="message-3"></p>
+              <p id="message-1"></p>
+<p id="message-error"></p>
+<p id="message-2"></p>
+<p id="message-4"></p>
+    </div>
+
+
+{{!-- tu sie ma otworzyc nowy form --}}
+
+
+
+
+
+{{!-- <a href="/clubdelete" id="delete-link" style="display: none;">Delete</a> --}}
+    <script src="/js/managerpaneledit.js"></script>
+    {{!-- {{#if clubLogin}}
+  <script src="/js/clublogin.js"></script>
+{{/if}} --}}
+  </body>
+</html>
+
+{{!-- <html>
+  <head>
+    <title>{{title}}</title>
+        <link rel="icon" href="/img/weather.png">
+    <link rel="stylesheet" href="/css/styles.css">
+  </head>
+  <body>
+
+    <div class="main-content">
+     {{>header}}
+{{errorMessage}}
+<div class="smiley">
+      ;-) 
+
+      lista userow przypisanych do tego kluubu z bazy
+      
+    </div>
+</div>
+
+    
+
+      {{>footer}}
+  </body>  
+
+
+</html> --}}
