@@ -63,13 +63,28 @@ const readUsers = async (arena) => {
       }
     });
 
-    // Obsługa przycisku, który loguje tablicę ID zaznaczonych użytkowników
     const participateButton = document.getElementById("participate-users");
-    participateButton.addEventListener("click", () => {
-      //console.log("Zaznaczone ID użytkowników:", selectedUserIds);
-      sendParticipantsToBase(arena._id, selectedUserIds);
-      ///
-    });
+    if (arena.withhold) {
+      participateButton.disabled = true;
+      participateButton.textContent = "Application withhold";
+      participateButton.classList.add("disabled-button"); // Opcjonalnie: stylizacja
+    } else {
+      participateButton.disabled = false;
+      participateButton.textContent = "Participate";
+      participateButton.classList.remove("disabled-button");
+
+      participateButton.addEventListener("click", () => {
+        sendParticipantsToBase(arena._id, selectedUserIds);
+      });
+    }
+
+    // // Obsługa przycisku, który loguje tablicę ID zaznaczonych użytkowników
+    // const participateButton = document.getElementById("participate-users");
+    // participateButton.addEventListener("click", () => {
+    //   //console.log("Zaznaczone ID użytkowników:", selectedUserIds);
+    //   sendParticipantsToBase(arena._id, selectedUserIds);
+    //   ///
+    // });
   } catch (error) {
     console.error("Error:", error);
   }

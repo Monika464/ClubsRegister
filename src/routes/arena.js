@@ -302,6 +302,7 @@ router.patch("/arenas/:id", authManager, async (req, res) => {
     "arenaTimeRegisClose",
     "arenaTimeStart",
     "arenaTimeClose",
+    "withhold",
   ];
   const isValidOperation = updates.every((update) =>
     allowedUpdates.includes(update)

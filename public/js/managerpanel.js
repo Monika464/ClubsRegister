@@ -49,6 +49,41 @@ const readArenas = async () => {
       // Dodanie przycisku do elementu <li>
       li.appendChild(applyButton);
       arenaList.appendChild(li); // Dodanie elementu <li> do listy
+
+      //przycisk withhold
+
+      const withholdButton = document.createElement("button");
+      let withhold = arena.withhold;
+      // withholdButton.textContent = "Withhold OFF"; // Domyślny stan
+      // withholdButton.style.backgroundColor = "red";
+      if (withhold) {
+        withholdButton.textContent = "Withhold ON";
+        withholdButton.style.backgroundColor = "green";
+      } else {
+        withholdButton.textContent = "Withhold OFF";
+        withholdButton.style.backgroundColor = "red";
+      }
+      // Obsługa kliknięcia przycisku
+      withholdButton.addEventListener("click", () => {
+        console.log("Arena ID:", arena._id);
+        console.log("arena", arena);
+
+        if (withhold) {
+          restoreApplications(arena._id); // Przywrócenie aplikacji
+          withhold = false;
+          withholdButton.textContent = "Withhold OFF";
+          withholdButton.style.backgroundColor = "red";
+        } else {
+          withholdApplications(arena._id); // Wstrzymanie aplikacji
+          withhold = true;
+          withholdButton.textContent = "Withhold ON";
+          withholdButton.style.backgroundColor = "green";
+        }
+      });
+
+      // Dodanie przycisku do elementu <li>
+      li.appendChild(withholdButton);
+      arenaList.appendChild(li); // Dodanie elementu <li> do listy
     });
 
     logoutLink.style.display = "block";
@@ -58,6 +93,62 @@ const readArenas = async () => {
   }
 };
 readArenas();
+
+//WITHOLD AND RESTORE
+
+const withholdApplications = async (arenaId) => {
+  try {
+    const response = await fetch(`/arenas/${arenaId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json", // Informujemy serwer, że ciało żądania to JSON
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        withhold: true,
+      }),
+    });
+    const data = await response.json();
+    console.log("response", response.ok);
+
+    if (response.ok) {
+      messageError.textContent = "";
+      messageTwo.textContent = "Arena updated successfully!";
+    } else {
+      //   // Obsługa błędu logowania
+      messageError.textContent = data.error || "Failed to update arena.";
+    }
+  } catch (error) {
+    console.error("Błąd przy aktualizacji:", error);
+  }
+};
+
+const restoreApplications = async (arenaId) => {
+  try {
+    const response = await fetch(`/arenas/${arenaId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json", // Informujemy serwer, że ciało żądania to JSON
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        withhold: false,
+      }),
+    });
+    const data = await response.json();
+    console.log("response", response.ok);
+
+    if (response.ok) {
+      messageError.textContent = "";
+      messageTwo.textContent = "Arena updated successfully!";
+    } else {
+      //   // Obsługa błędu logowania
+      messageError.textContent = data.error || "Failed to update arena.";
+    }
+  } catch (error) {
+    console.error("Błąd przy aktualizacji:", error);
+  }
+};
 
 const findDuplicates = (users) => {
   const duplicates = [];

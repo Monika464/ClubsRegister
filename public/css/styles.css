@@ -54,6 +54,13 @@ button {
   padding: 8px;
   max-width: 200px;
 }
+
+.disabled-button {
+  background-color: gray;
+  color: white;
+  cursor: not-allowed;
+}
+
 .smiley {
   font-size: 24px;
   margin

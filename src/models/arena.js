@@ -40,6 +40,9 @@ const arenaSchema = new mongoose.Schema(
       //default: false,
       required: true,
     },
+    withhold: {
+      type: Boolean,
+    },
 
     announcements: [
       {
