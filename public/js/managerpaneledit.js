@@ -2,6 +2,7 @@
 const token = localStorage.getItem("authManagerToken");
 //const userList = document.querySelector("#user-list");
 const messageError = document.querySelector("#message-error");
+const messageOne = document.querySelector("#message-1");
 const messageTwo = document.querySelector("#message-2");
 const logoutLink = document.querySelector("#logout-link");
 const listTitle = document.querySelector("#list-title");
@@ -25,7 +26,14 @@ const arenaTimeCloseInput = document.querySelector("#arenaTimeClose-input");
 //let isEditMode = true;
 
 const readArenas = async () => {
+  arenaList.innerHTML = ""; // Clear previous list
   messageError.textContent = "";
+  messageOne.textContent = "";
+
+  if (!token) {
+    messageError.textContent = "Authentication token not found. Please log in.";
+    return;
+  }
 
   try {
     // console.log("czy jest token", token);
@@ -37,6 +45,9 @@ const readArenas = async () => {
       },
     });
     const data = await response.json();
+    if (!response.ok) {
+      throw new Error(data.error || "Failed to fetch data.");
+    }
     console.log("data", data);
 
     //zrob wysweiltanie przypadku jak data jest errorem bo np. brak autentifikacji
@@ -60,15 +71,27 @@ const readArenas = async () => {
         gettingDataFromBase(arena._id);
       });
 
+      const deleteButton = document.createElement("button");
+      deleteButton.textContent = "Delete";
+      deleteButton.addEventListener("click", () => {
+        // kasowanie starych
+        showDeleteForm(arena._id, arena.title);
+      });
+
       // Dodanie przycisku do elementu <li>
       li.appendChild(applyButton);
+      li.appendChild(deleteButton);
       arenaList.appendChild(li); // Dodanie elementu <li> do listy
     });
+
+    ///
+
+    ///
 
     logoutLink.style.display = "block";
   } catch (error) {
     console.error("Error:", error);
-    messageOne.textContent = "Error loading arenas";
+    // messageOne.textContent = "Error loading arenas";
   }
 };
 readArenas();
@@ -194,3 +217,76 @@ form.addEventListener("submit", async (e) => {
     messageError.textContent = "Wystąpił błąd podczas aktualizacji areny.";
   }
 });
+
+const showDeleteForm = (arenaId, arenaTitle) => {
+  // Tworzenie formularza
+  const form = document.createElement("form");
+  form.id = "delete-form";
+
+  const label = document.createElement("label");
+  label.textContent = `Type the title of the arena ("${arenaTitle}") to confirm:`;
+  form.appendChild(label);
+
+  const input = document.createElement("input");
+  input.type = "text";
+  input.required = true;
+  input.placeholder = "Enter arena title";
+  form.appendChild(input);
+
+  const submitButton = document.createElement("button");
+  submitButton.type = "submit";
+  submitButton.textContent = "Confirm";
+  form.appendChild(submitButton);
+
+  // Dodanie formularza do listy (lub innego elementu)
+  arenaList.appendChild(form);
+
+  // Obsługa zdarzenia "submit"
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    if (input.value === `${arenaTitle}`) {
+      console.log("Deleted Arena ID:", arenaId);
+      //DELETING
+
+      const deleteArena = async () => {
+        const response = await fetch(`/arenas/${arenaId}`, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        if (response.ok) {
+          console.log("Deleted Arena ID:", arenaId);
+          messageTwo.textContent = `Arena "${arenaTitle}" deleted successfully!`;
+          arenaList.removeChild(form); // Usunięcie formularza po zatwierdzeniu
+          readArenas(); // Odświeżenie listy aren
+        } else {
+          const data = await response.json();
+          messageError.textContent = data.error || "Failed to delete arena.";
+        }
+      };
+      deleteArena();
+      //  try {
+      //
+      //   });
+
+      //   if (response.ok) {
+      //
+      //
+      //   ;
+      //   }
+      // } catch (error) {
+      //   console.error("Error deleting arena:", error);
+      //   messageError.textContent = "Error deleting arena.";
+      // }
+      // } else {
+      //   alert(`Incorrect title. Please type "${arenaTitle}" to confirm.`);
+      // }
+
+      ///
+    } else {
+      alert("Incorrect confirmation text. Please type arena Title.");
+    }
+  });
+};

@@ -330,6 +330,23 @@ router.patch("/arenas/:id", authManager, async (req, res) => {
   }
 });
 
+router.delete("/arenas/:id", authManager, async (req, res) => {
+  try {
+    const arena = await Arena.findOneAndDelete({
+      _id: req.params.id,
+      owner: req.manager._id,
+    });
+
+    if (!arena) {
+      res.status(404).send();
+    }
+
+    res.send(arena);
+  } catch (e) {
+    res.status(500).send();
+  }
+});
+
 module.exports = router;
 
 // router.get("/arenas/all", authClub, async (req, res) => {
