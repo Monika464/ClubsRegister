@@ -54,6 +54,7 @@ const readUsers = async (arena) => {
       const checkbox = event.target;
       if (checkbox.classList.contains("user-checkbox")) {
         if (checkbox.checked) {
+          messageOne.textContent = "";
           selectedUserIds.push(checkbox.value);
         } else {
           // Usuń ID z tablicy, jeśli checkbox jest odznaczony
