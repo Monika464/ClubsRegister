@@ -3,7 +3,6 @@ const User = require("../models/user");
 const authUser = require("../middleware/authUser");
 const authClub = require("../middleware/authClub");
 const authManager = require("../middleware/authManager");
-
 const router = new express.Router();
 
 router.get("/users/:id", authClub, async (req, res) => {
@@ -17,7 +16,7 @@ router.get("/users/:id", authClub, async (req, res) => {
     }
     res.send(user);
   } catch (error) {
-    res.status(400).send({ error: e.message });
+    res.status(400).send({ error: "not able to fetch" });
   }
 });
 
@@ -115,24 +114,35 @@ router.post("/users/login", async (req, res) => {
     res.status(400).send({ error: e.message });
   }
 });
-router.get("/users/me", authUser, async (req, res) => {
+// router.get("/users/me", authUser, async (req, res) => {
+//   try {
+//     //const clubs = await Club.find({});
+//     //console.log("me tutaj", req.club);
+//     console.log("meee tutaj", req);
+//     res.send(req.user);
+//   } catch {
+//     res.status(500).send({ error: e.message });
+//   }
+// });
+router.get("/userss/me", authUser, async (req, res) => {
   try {
     //const clubs = await Club.find({});
     //console.log("me tutaj", req.club);
+
     res.send(req.user);
   } catch {
     res.status(500).send({ error: e.message });
   }
 });
 
-router.delete("/users/me", authUser, async (req, res) => {
+router.delete("/userss/me", authUser, async (req, res) => {
   try {
     // await req.club.remove();
     //sendCancelationEmail(req.user.email, req.user.name);
 
     await User.deleteOne({ _id: req.user._id });
     res.send(req.user);
-    console.log("user", req.user);
+    //console.log("user", req.user);
   } catch (e) {
     res.status(500).send();
   }

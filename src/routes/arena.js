@@ -215,6 +215,7 @@ router.get("/arenas/participants/manager", authManager, async (req, res) => {
 router.delete("/arenas/participants/delete", authClub, async (req, res) => {
   try {
     const { arenaId, selectedUsers } = req.body;
+    //console.log("co tu jest", arenaId, selectedUsers);
 
     // Check if arenaId and selectedUsers are provided
     if (!arenaId || !selectedUsers || !Array.isArray(selectedUsers)) {
@@ -224,8 +225,8 @@ router.delete("/arenas/participants/delete", authClub, async (req, res) => {
 
     //
     // Find the arena and update the participants array by removing selected users
-    const arena = await Arena.findByIdAndUpdate(
-      arenaId,
+    const arena = await Arena.findOneAndUpdate(
+      { _id: arenaId },
       {
         $pull: { participants: { $in: selectedUsers } },
       },

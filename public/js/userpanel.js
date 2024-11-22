@@ -14,39 +14,42 @@ const warningAuth = document.querySelector("#warning-auth");
 //sprobij na const responce = a potem jak w ktoryms
 //messageError.textContent = "";
 
-fetch("/users/me", {
-  method: "GET", // lub POST w zależności od operacji
-  headers: {
-    "Content-Type": "application/json",
-    Authorization: `Bearer ${token}`, // Dodanie tokena do nagłówka
-  },
-})
-  .then((response) => {
-    //console.log("response", response);
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
-    }
-    return response.json();
-  })
-  .then((data) => {
-    if (data.error) {
-      // console.log("tu", data.error);
-      messageError.textContent = data.error;
-    } else {
-      // console.log("data", data.name);
-      profileUserAuth.style.display = "block";
-      warningAuth.style.display = "none";
-      // logoutLink.style.display = "block";
-      // userInfo.style.display = "block";
-      userInfo.textContent = `
-      name ${data.name}, 
-      surname ${data.surname},
-      age ${data.age},
-      weight ${data.weight},
-      fights ${data.fights}
-      `;
-    }
-  });
+if (token) {
+  profileUserAuth.style.display = "block";
+  warningAuth.style.display = "none";
+}
+
+const showProfile = async () => {
+  try {
+    const response = await fetch("/userss/me", {
+      method: "GET", // lub POST w zależności od operacji
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`, // Dodanie tokena do nagłówka
+      },
+    });
+
+    const data = await response.json();
+    //console.log("arena", data);
+
+    // console.log("data", data.name);
+
+    // logoutLink.style.display = "block";
+    // userInfo.style.display = "block";
+    userInfo.textContent = `
+     name ${data.name}, 
+     surname ${data.surname},
+     age ${data.age},
+     weight ${data.weight},
+     fights ${data.fights}
+     `;
+  } catch (error) {
+    console.log(error);
+    messageError.textContent = error;
+  }
+};
+
+showProfile();
 
 //fetch areny a w niej przycisk ktorego wcisniecie pokazuje id danej areny
 

@@ -2,11 +2,13 @@ const token = localStorage.getItem("authToken");
 const arenaList = document.querySelector("#arena-list");
 const userList = document.querySelector("#user-list");
 const messageError = document.querySelector("#message-error");
-
+const messageOne = document.querySelector("#message-1");
 const listTitle = document.querySelector("#list-title");
 
 //ZCZYTYWANIE USEROW WSZYSTKICH Z KLUBU
 const readUsers = async (arena) => {
+  console.log("arena", arena);
+  messageError.textContent = "";
   try {
     const response = await fetch("/users", {
       method: "GET",
@@ -23,7 +25,7 @@ const readUsers = async (arena) => {
 
     // Tablica do przechowywania ID zaznaczonych użytkowników
     const selectedUserIds = [];
-    console.log("selected", selectedUserIds);
+
     //////
     // Wyświetlenie danych areny na początku listy użytkowników
     const arenaDetails = document.createElement("div");
@@ -61,6 +63,7 @@ const readUsers = async (arena) => {
           }
         }
       }
+      console.log("selected", selectedUserIds);
     });
 
     const participateButton = document.getElementById("participate-users");
@@ -75,6 +78,7 @@ const readUsers = async (arena) => {
 
       participateButton.addEventListener("click", () => {
         sendParticipantsToBase(arena._id, selectedUserIds);
+        messageOne.textContent = "User send";
       });
     }
 
@@ -87,6 +91,7 @@ const readUsers = async (arena) => {
     // });
   } catch (error) {
     console.error("Error:", error);
+    messageError.textContent = "Error";
   }
 };
 //KONIEC ZCZYTAWANIU WSZYSTKICH USEROW KLUBU
@@ -123,6 +128,7 @@ const readArenas = async () => {
       // Dodanie funkcji kliknięcia, która loguje arena._id
       applyButton.addEventListener("click", () => {
         // console.log("Arena ID:", arena._id);
+        messageOne.textContent = "";
         readUsers(arena);
       });
 
@@ -133,6 +139,7 @@ const readArenas = async () => {
     });
   } catch (error) {
     console.error("Error:", error);
+    messageError.textContent = "Error";
     messageOne.textContent = "";
   }
 };

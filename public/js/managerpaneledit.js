@@ -206,7 +206,7 @@ form.addEventListener("submit", async (e) => {
   try {
     const arenaId = localStorage.getItem("arenaIdedit");
     //const userId = document.querySelector('input[name="user-selection"]:checked')?.value;
-    console.log("czy jest tu id", arenaId);
+    //console.log("czy jest tu id", arenaId);
     if (!arenaId) {
       messageError.textContent = "Wybierz użytkownika do edycji.";
       return;

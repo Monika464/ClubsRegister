@@ -68,6 +68,12 @@ const arenaSchema = new mongoose.Schema(
   }
 );
 
+arenaSchema.pre("save", function (next) {
+  // Usuń duplikaty z tablicy participants
+  this.participants = [...new Set(this.participants.map(String))];
+  next();
+});
+
 // arenaSchema.pre("save", function (next) {
 //   if (
 //     this.participants.length !== new Set(this.participants.map(String)).size

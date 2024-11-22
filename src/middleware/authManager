@@ -3,7 +3,7 @@ const Manager = require("../models/manager");
 
 const auth = async (req, res, next) => {
   const tokenenv = process.env.TOKEN_DECIFER_MANAGER;
-  require("dotenv").config();
+  //require("dotenv").config();
   try {
     //console.log("hej form auth");
     const token = req.header("Authorization").replace("Bearer ", "");

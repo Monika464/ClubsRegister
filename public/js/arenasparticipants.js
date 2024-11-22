@@ -132,15 +132,10 @@ const readUsers = async (arena) => {
       userList.appendChild(li); // Dodanie elementu <li> do listy
     });
 
-    //reszta
-    // Example of calling the deleteParticipants function after selecting users
-    //console.log("arena", arena);
-    //const withdrawButton = document.createElement("button");
-    //applyButton.textContent = "Withdraw participants";
     withdraw.addEventListener("click", () => {
       if (selectedUserIds.length > 0) {
         //console.log("Selected user IDs:", selectedUserIds);
-        //console.log("arena :", arena);
+        console.log("arena :", arena._id);
         deleteParticipants(arena._id, selectedUserIds);
       } else {
         messageError.textContent = "No users selected for deletion.";

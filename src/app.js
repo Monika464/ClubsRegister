@@ -138,6 +138,14 @@ app.get("/usersignupbyclub", (req, res) => {
   });
 });
 
+app.get("/userdelete", (req, res) => {
+  res.render("userdelete", {
+    helpText: "ccc",
+    title: "User delete panel",
+    name: "Monika",
+  });
+});
+
 app.get("/managerlogin", (req, res) => {
   res.render("managerlogin", {
     helpText: "ccc",
