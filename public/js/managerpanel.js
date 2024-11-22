@@ -89,7 +89,7 @@ const readArenas = async () => {
     logoutLink.style.display = "block";
   } catch (error) {
     console.error("Error:", error);
-    messageOne.textContent = "Error loading arenas";
+    messageOne.textContent = "Error loading arenas please login";
   }
 };
 readArenas();

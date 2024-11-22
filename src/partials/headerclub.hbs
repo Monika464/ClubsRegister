@@ -1,0 +1,33 @@
+<header>
+  <h1>{{title}}</h1>
+  <div id="menu-container">
+    <!-- Linki będą zarządzane dynamicznie przez JavaScript -->
+  </div>
+</header>
+
+<script>
+  const tokena = localStorage.getItem("authToken"); const menuContainer =
+  document.getElementById("menu-container"); if (tokena) {
+  menuContainer.innerHTML = ` <a href="/">Home</a> <a href="/clubpanel">Club
+  panel</a> <a href="/clublogout">Logout</a> `;} if(!tokena){
+  menuContainer.innerHTML = ` <a href="/">Home</a> <a
+  href="/clublogin">Login</a> <a href="/clubsignup">Signup</a> `; }
+</script>
+
+{{!-- <header>
+  <h1>{{title}}</h1>
+  <div>
+    <a href="/">Home</a>
+    <p>{tokena}</p>
+
+    <a href="/clubpanel">Club panel</a>
+    <a href="/clublogout">Logout</a>
+
+    <a href="/clublogin">Login</a>
+    <a href="/clubsignup">Signup</a>
+
+  </div>
+</header>
+<script>
+  const tokena = localStorage.getItem("authToken");
+</script> --}}

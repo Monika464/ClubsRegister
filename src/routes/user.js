@@ -2,6 +2,7 @@ const express = require("express");
 const User = require("../models/user");
 const authUser = require("../middleware/authUser");
 const authClub = require("../middleware/authClub");
+const authClubStatus = require("../middleware/authClubStatus");
 const authManager = require("../middleware/authManager");
 const router = new express.Router();
 
