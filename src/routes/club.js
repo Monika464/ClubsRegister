@@ -98,7 +98,7 @@ router.post("/clubs", async (req, res) => {
     const club = new Club(req.body);
     await club.save();
     const token = await club.generateAuthToken();
-    res.status(201).send({ club, token, redirectTo: "/clubpanel" });
+    res.send({ club, token, redirectTo: "/clubpanel" });
   } catch (e) {
     res
       .status(500)

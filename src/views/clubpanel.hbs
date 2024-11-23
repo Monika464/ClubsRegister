@@ -12,7 +12,7 @@
     {{!-- <a href="/clublogout" id="logout-link" style="display: none;">Logout</a> --}}
     <a href="/arenasapply" id="but-link1" style="display: none;">Applications for arena</a>
     <a href="/arenasparticipants" id="but-link2" style="display: none;">Arena members</a>
-{{isClubLoggedIn}}
+{{!-- {{isClubLoggedIn}} --}}
 
 </div>
 
@@ -37,37 +37,20 @@
 <p id="message-2"></p>
 <p id="message-1"></p>
     </div>
-<a href="/clubdelete" id="delete-link" style="display: none;">Delete</a>
-    <script src="/js/clubpanel.js"></script>
-    {{!-- {{#if clubLogin}}
-  <script src="/js/clublogin.js"></script>
-{{/if}} --}}
-  </body>
-</html>
+{{!-- <a href="/clubdelete" id="delete-link" style="display: none;">Delete</a> --}}
 
-{{!-- <html>
-  <head>
-    <title>{{title}}</title>
-        <link rel="icon" href="/img/weather.png">
-    <link rel="stylesheet" href="/css/styles.css">
-  </head>
-  <body>
 
-    <div class="main-content">
-     {{>header}}
-{{errorMessage}}
-<div class="smiley">
-      ;-) 
-
-      lista userow przypisanych do tego kluubu z bazy
-      
-    </div>
+<div id="delete-container" style="display: none;">
+  <button id="delete-button">Delete your club</button>
+  <form id="delete-form" style="display: none;">
+    <label for="delete-input">Type "delete" to confirm deleting your club:</label>
+    <input type="text" id="delete-input" placeholder="delete">
+    <button type="submit">Confirm</button>
+  </form>
+  <a href="/clubdelete" id="delete-link" style="display: none;">Delete the club here</a>
 </div>
 
-    
+    <script src="/js/clubpanel.js"></script>
 
-      {{>footer}}
-  </body>  
-
-
-</html> --}}
+  </body>
+</html>

@@ -60,7 +60,8 @@ signupForm.addEventListener("submit", async (e) => {
     if (response.ok) {
       localStorage.setItem("authToken", data.token);
       messageOne.textContent = "";
-      messageTwo.textContent = "User logged in";
+      messageTwo.textContent = "Club logged in";
+      window.location.href = data.redirectTo;
     } else {
       //   // Obsługa błędu logowania
       messageThree.textContent = data.error;

@@ -13,6 +13,11 @@ const listTitle = document.querySelector("#list-title");
 const createUserButton = document.querySelector("#create-user");
 const deleteMe = document.querySelector("#delete-link");
 
+const deleteButton = document.querySelector("#delete-button");
+const deleteForm = document.querySelector("#delete-form");
+const deleteInput = document.querySelector("#delete-input");
+const deleteLink = document.querySelector("#delete-link");
+const deleteCintainer = document.querySelector("#delete-container");
 //////////////////////////////////////////
 //wyswietlanie memebrs w klubie
 messageError.textContent = "";
@@ -47,10 +52,30 @@ fetch("/users", {
       butLink2.style.display = "block";
       createUserButton.style.display = "block";
       listTitle.style.display = "block";
-      deleteMe.style.display = "block";
+      deleteCintainer.style.display = "block";
+      //deleteMe.style.display = "block";
       //loginRequired.style.display = "block";
     }
   });
-createUserButton.addEventListener("click", () => {
-  window.location.href = "/usersignupbyclub"; // Opens the specified link
+// createUserButton.addEventListener("click", () => {
+//   window.location.href = "/usersignupbyclub"; // Opens the specified link
+// });
+
+// Obsługa kliknięcia przycisku "Delete"
+deleteButton.addEventListener("click", () => {
+  deleteForm.style.display = "block"; // Pokazanie formularza
+  deleteButton.style.display = "none"; // Ukrycie przycisku
+});
+
+// Obsługa przesłania formularza
+deleteForm.addEventListener("submit", (event) => {
+  event.preventDefault(); // Zatrzymanie domyślnego działania formularza
+  const userInput = deleteInput.value.trim().toLowerCase();
+
+  if (userInput === "delete") {
+    deleteLink.style.display = "block"; // Pokazanie linku
+    deleteForm.style.display = "none"; // Ukrycie formularza
+  } else {
+    alert("You must type 'delete' to confirm.");
+  }
 });
