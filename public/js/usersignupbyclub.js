@@ -57,6 +57,7 @@ signupForm.addEventListener("submit", async (e) => {
       //localStorage.setItem("authUserToken", data.token);
       messageOne.textContent = "";
       messageTwo.textContent = "User created successfully!";
+      window.location.href = data.redirectTo;
     } else {
       //   // Obsługa błędu logowania
       messageThree.textContent = data.error;

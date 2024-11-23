@@ -22,9 +22,19 @@
    
     <p id="user-info" >User info</p>
    
-   
-   <a href="/userlogout" id="logout-link" >Logout</a>
-   <a href="/userdelete" id="delete-link" >Delete</a>
+   <div id="delete-container" style="display: none;">
+  <button id="delete-button">Delete your profile</button>
+  <form id="delete-form" style="display: none;">
+    <label for="delete-input">Type "delete" to confirm</label>
+    <input type="text" id="delete-input" placeholder="delete">
+    <button type="submit">Confirm</button>
+  </form>
+  <a href="/userdelete" id="delete-link" style="display: none;">Delete account here</a>
+</div>
+
+
+   {{!-- <a href="/userlogout" id="logout-link" >Logout</a> --}}
+   {{!-- <a href="/userdelete" id="delete-link" >Delete</a> --}}
 
     </div>
       

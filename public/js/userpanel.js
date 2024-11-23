@@ -10,9 +10,11 @@ const messageError = document.querySelector("#message-error");
 const userInfo = document.querySelector("#user-info");
 const profileUserAuth = document.querySelector("#profile-user-auth");
 const warningAuth = document.querySelector("#warning-auth");
-//wyswietlanie users w klubie
-//sprobij na const responce = a potem jak w ktoryms
-//messageError.textContent = "";
+const deleteButton = document.querySelector("#delete-button");
+const deleteForm = document.querySelector("#delete-form");
+const deleteInput = document.querySelector("#delete-input");
+const deleteLink = document.querySelector("#delete-link");
+const deleteContainer = document.querySelector("#delete-container");
 
 if (token) {
   profileUserAuth.style.display = "block";
@@ -43,6 +45,7 @@ const showProfile = async () => {
      weight ${data.weight},
      fights ${data.fights}
      `;
+    deleteContainer.style.display = "block";
   } catch (error) {
     console.log(error);
     messageError.textContent = error;
@@ -50,6 +53,31 @@ const showProfile = async () => {
 };
 
 showProfile();
+
+//createUserButton.style.display = "block";
+
+// Obsługa kliknięcia przycisku "Delete"
+deleteButton.addEventListener("click", () => {
+  deleteForm.style.display = "block"; // Pokazanie formularza
+  deleteButton.style.display = "none"; // Ukrycie przycisku
+});
+
+// Obsługa przesłania formularza
+deleteForm.addEventListener("submit", (event) => {
+  event.preventDefault(); // Zatrzymanie domyślnego działania formularza
+  const userInput = deleteInput.value.trim().toLowerCase();
+
+  if (userInput === "delete") {
+    deleteLink.style.display = "block"; // Pokazanie linku
+    deleteForm.style.display = "none"; // Ukrycie formularza
+  } else {
+    alert("You must type 'delete' to confirm.");
+  }
+});
+
+//createUserButton.addEventListener("click", () => {
+//window.location.href = "/usersignupbyclub"; // Opens the specified link
+//});
 
 //fetch areny a w niej przycisk ktorego wcisniecie pokazuje id danej areny
 

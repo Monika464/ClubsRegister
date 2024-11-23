@@ -17,7 +17,7 @@ const deleteButton = document.querySelector("#delete-button");
 const deleteForm = document.querySelector("#delete-form");
 const deleteInput = document.querySelector("#delete-input");
 const deleteLink = document.querySelector("#delete-link");
-const deleteCintainer = document.querySelector("#delete-container");
+const deleteContainer = document.querySelector("#delete-container");
 //////////////////////////////////////////
 //wyswietlanie memebrs w klubie
 messageError.textContent = "";
@@ -52,14 +52,14 @@ fetch("/users", {
       butLink2.style.display = "block";
       createUserButton.style.display = "block";
       listTitle.style.display = "block";
-      deleteCintainer.style.display = "block";
+      deleteContainer.style.display = "block";
       //deleteMe.style.display = "block";
       //loginRequired.style.display = "block";
     }
   });
-// createUserButton.addEventListener("click", () => {
-//   window.location.href = "/usersignupbyclub"; // Opens the specified link
-// });
+createUserButton.addEventListener("click", () => {
+  window.location.href = "/usersignupbyclub"; // Opens the specified link
+});
 
 // Obsługa kliknięcia przycisku "Delete"
 deleteButton.addEventListener("click", () => {
