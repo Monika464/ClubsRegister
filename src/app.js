@@ -35,7 +35,7 @@ app.use(arenaRouter);
 // Definicje tras
 app.get("", (req, res) => {
   res.render("index", {
-    title: "Club registration",
+    title: "Competition Management Database",
     name: "Monika",
   });
 });
@@ -43,7 +43,7 @@ app.get("", (req, res) => {
 app.get("/clubpanel", (req, res) => {
   res.render("clubpanel", {
     helpText: "This is some helpful text.",
-    title: "Club panel",
+    title: "Club Panel",
     name: "Monika",
   });
 });
@@ -51,7 +51,7 @@ app.get("/clubpanel", (req, res) => {
 app.get("/clubsignup", (req, res) => {
   res.render("clubsignup", {
     helpText: "signup",
-    title: "clubsignup",
+    title: "Club Signup",
     name: "Monika",
   });
 });
@@ -59,7 +59,7 @@ app.get("/clubsignup", (req, res) => {
 app.get("/clublogin", (req, res) => {
   res.render("clublogin", {
     helpText: "login",
-    title: "Club login",
+    title: "Club Login",
     name: "Monika",
   });
 });
@@ -67,23 +67,23 @@ app.get("/clublogin", (req, res) => {
 app.get("/clublogout", (req, res) => {
   res.render("clublogout", {
     helpText: "logout",
-    title: "Club logout",
+    title: "Club Logout",
     name: "Monika",
   });
 });
 
-app.get("/clubsignpanel", (req, res) => {
-  res.render("clubsignpanel", {
-    helpText: "ccc",
-    title: "Club sign panel",
-    name: "Monika",
-  });
-});
+// app.get("/clubsignpanel", (req, res) => {
+//   res.render("clubsignpanel", {
+//     helpText: "ccc",
+//     title: "Club signin panel",
+//     name: "Monika",
+//   });
+// });
 
 app.get("/clubdelete", (req, res) => {
   res.render("clubdelete", {
     helpText: "ccc",
-    title: "Club delete panel",
+    title: "Club Delete Panel",
     name: "Monika",
   });
 });
@@ -93,7 +93,7 @@ app.get("/clubdelete", (req, res) => {
 app.get("/userpanel", (req, res) => {
   res.render("userpanel", {
     helpText: "This is some helpful text.",
-    title: "Member panel",
+    title: "Member Panel",
     name: "Monika",
   });
 });
@@ -101,7 +101,7 @@ app.get("/userpanel", (req, res) => {
 app.get("/usersignup", (req, res) => {
   res.render("membersignup", {
     helpText: "signup",
-    title: "membersignup",
+    title: "Member Signup",
     name: "Monika",
   });
 });
@@ -109,7 +109,7 @@ app.get("/usersignup", (req, res) => {
 app.get("/userlogin", (req, res) => {
   res.render("userlogin", {
     helpText: "login",
-    title: "member login",
+    title: "Member Login",
     name: "Monika",
   });
 });
@@ -117,7 +117,7 @@ app.get("/userlogin", (req, res) => {
 app.get("/userlogout", (req, res) => {
   res.render("userlogout", {
     helpText: "logout",
-    title: "member logout",
+    title: "Member Logout",
     name: "Monika",
   });
 });
@@ -125,7 +125,7 @@ app.get("/userlogout", (req, res) => {
 app.get("/usersignpanel", (req, res) => {
   res.render("usersignpanel", {
     helpText: "ccc",
-    title: "member sign panel",
+    title: "Member Sign Panel",
     name: "Monika",
   });
 });
@@ -133,7 +133,7 @@ app.get("/usersignpanel", (req, res) => {
 app.get("/usersignupbyclub", (req, res) => {
   res.render("usersignupbyclub", {
     helpText: "ccc",
-    title: "usersignupbyclub",
+    title: "User signup by club",
     name: "Monika",
   });
 });
@@ -141,7 +141,7 @@ app.get("/usersignupbyclub", (req, res) => {
 app.get("/userdelete", (req, res) => {
   res.render("userdelete", {
     helpText: "ccc",
-    title: "User delete panel",
+    title: "User Delete Panel",
     name: "Monika",
   });
 });
@@ -149,7 +149,7 @@ app.get("/userdelete", (req, res) => {
 app.get("/managerlogin", (req, res) => {
   res.render("managerlogin", {
     helpText: "ccc",
-    title: "managerlogin",
+    title: "Manager Login",
     name: "Monika",
   });
 });
@@ -157,7 +157,7 @@ app.get("/managerlogin", (req, res) => {
 app.get("/managerlogout", (req, res) => {
   res.render("managerlogout", {
     helpText: "ccc",
-    title: "managerlogin",
+    title: "Manager Login",
     name: "Monika",
   });
 });
@@ -165,7 +165,7 @@ app.get("/managerlogout", (req, res) => {
 app.get("/managerpanel", (req, res) => {
   res.render("managerpanel", {
     helpText: "ccc",
-    title: "managerpanel",
+    title: "Manager Panel",
     name: "Monika",
   });
 });
@@ -173,7 +173,7 @@ app.get("/managerpanel", (req, res) => {
 app.get("/arenasapply", (req, res) => {
   res.render("arenasapply", {
     helpText: "ccc",
-    title: "apply for an arena",
+    title: "Apply for an arena",
     name: "Monika",
   });
 });
@@ -181,7 +181,7 @@ app.get("/arenasapply", (req, res) => {
 app.get("/arenasparticipants", (req, res) => {
   res.render("arenasparticipants", {
     helpText: "ccc",
-    title: "participants for an arena",
+    title: "Participants for an arena",
     name: "Monika",
   });
 });
@@ -189,13 +189,13 @@ app.get("/arenasparticipants", (req, res) => {
 app.get("/clubpaneledit", (req, res) => {
   res.render("clubpaneledit", {
     helpText: "ccc",
-    title: "club coorecting users page",
+    title: "Club corecting users page",
     name: "Monika",
   });
 });
 
 app.get("/clubprofileedit", (req, res) => {
-  res.render("clubprofileedit", {
+  res.render("Club Profile Edit", {
     helpText: "ccc",
     title: "club profile edit page",
     name: "Monika",
@@ -203,7 +203,7 @@ app.get("/clubprofileedit", (req, res) => {
 });
 
 app.get("/managerpaneledit", (req, res) => {
-  res.render("managerpaneledit", {
+  res.render("Manager Panel Edit", {
     helpText: "ccc",
     title: "managerpaneledit",
     name: "Monika",
@@ -213,7 +213,7 @@ app.get("/managerpaneledit", (req, res) => {
 app.get("/arenacreate", (req, res) => {
   res.render("arenacreate", {
     helpText: "ccc",
-    title: "arenacreate",
+    title: "Arena Create",
     name: "Monika",
   });
 });

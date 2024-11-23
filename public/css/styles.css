@@ -104,4 +104,21 @@ button {
   margin-top: 100px;
   margin-right: 270;
 }
+
+.link-images {
+  display: flex;
+  justify-content: space-around;
+  margin: 20px 0;
+}
+
+.link-image {
+  width: 100px;
+  height: auto;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.link-image:hover {
+  transform: scale(1.1);
+}
   
