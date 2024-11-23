@@ -10,7 +10,7 @@ const auth = async (req, res, next) => {
 
     //const token = authHeader.replace("Bearer ", "");
     const token = req.header("Authorization").replace("Bearer ", "");
-    console.log("token w authClub", token);
+    // console.log("token w authClub", token);
     //const decoded = jwt.verify(token, "thisistokenclub");
     const decoded = jwt.verify(token, tokenenv);
 

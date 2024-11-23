@@ -1,18 +1,15 @@
 <header>
   <h1>{{title}}</h1>
+  <div id="menu-container">
 
-  <div>
-    <a href="/">Home</a>
-    {{! <a href="/clubsignpanel">Club login</a> }}
-    <a href="/clubpanel">Club panel</a>
-    <a href="/userpanel">Member panel</a>
-    {{! <a href="/userlogin">Member login</a>
-    <a href="/managerlogin">Manager login</a> }}
-    <a href="/managerpanel">Manager panel</a>
-    {{! <a href="/clublogin">Login</a>
-    <a href="/clubsignup">Signup</a>
-    <a href="/clublogout">Logout</a>
-    <a href="/userpanel">Member</a> }}
-    {{! <a href="/help">Admin</a> }}
   </div>
 </header>
+
+<script>
+  const tokenb = localStorage.getItem("authUserToken"); const menuContainer =
+  document.getElementById("menu-container"); if (tokenb) {
+  menuContainer.innerHTML = ` <a href="/">Home</a> <a href="/userpanel">Memeber
+  Panel</a> <a href="/userlogout">Logout</a> `;} if(!tokenb){
+  menuContainer.innerHTML = ` <a href="/">Home</a> <a
+  href="/userlogin">Login</a>`; }
+</script>

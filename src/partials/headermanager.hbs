@@ -1,0 +1,15 @@
+<header>
+  <h1>{{title}}</h1>
+  <div id="menu-container">
+
+  </div>
+</header>
+
+<script>
+  const tokenc = localStorage.getItem("authManagerToken"); const menuContainer =
+  document.getElementById("menu-container"); if (tokenc) {
+  menuContainer.innerHTML = ` <a href="/">Home</a> <a
+  href="/managerpanel">Manager Panel</a> <a href="/managerlogout">Logout</a> `;}
+  if(!tokenc){ menuContainer.innerHTML = ` <a href="/">Home</a> <a
+  href="/managerlogin">Login</a>`; }
+</script>
