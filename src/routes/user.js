@@ -162,4 +162,94 @@ router.post("/users/logout", authUser, async (req, res) => {
   }
 });
 
+const multer = require("multer");
+const sharp = require("sharp");
+const upload = multer({
+  limits: {
+    fileSize: 1000000,
+  },
+  fileFilter(req, file, cb) {
+    if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
+      return cb(new Error("File must be a .jpg or .png"));
+    }
+    // cb(new Error('File must be a pdf'))
+    // cb(undefined,true)
+    cb(undefined, true);
+  },
+});
+
+router.post(
+  "/users/me/avatar",
+  authUser,
+  upload.single("avatar"),
+  async (req, res) => {
+    const buffer = await sharp(req.file.buffer)
+      .resize({ width: 250, height: 250 })
+      .png()
+      .toBuffer();
+    req.user.avatar = buffer;
+    console.log("req user", req.user.avatar);
+    await req.user.save();
+    res.send();
+  },
+  (error, req, res, next) => {
+    res.status(400).send({ error: error.message });
+  }
+);
+
+router.delete(
+  "/users/me/avatar",
+  authUser,
+  async (req, res) => {
+    req.user.avatar = undefined;
+    await req.user.save();
+    res.send();
+  },
+  (error, req, res, next) => {
+    res.status(400).send({ error: error.message });
+  }
+);
+
+router.get(
+  "/users/me/avatar",
+  authUser, // Middleware do autoryzacji użytkownika
+  async (req, res) => {
+    try {
+      const avatar = req.user.avatar;
+
+      if (!avatar) {
+        return res.status(404).send({ error: "Awatar nie został znaleziony" });
+      }
+
+      // Ustawienie nagłówka Content-Type odpowiednio do formatu obrazu
+      res.set("Content-Type", "image/jpg"); // Dopasuj typ MIME do faktycznego formatu
+      res.send(avatar); // Wysłanie danych awatara jako odpowiedź
+    } catch (error) {
+      res.status(500).send({ error: "Błąd serwera" });
+    }
+  }
+);
+
+//console.log("file", __filename); // Pełna ścieżka do pliku
+router.get("/users/:id/avatar", async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+
+    if (!user) {
+      throw new Error();
+    }
+
+    res.set("Content-Type", "image/jpg");
+    res.send(user.avatar);
+
+    if (!user.avatar) {
+      res.set("Content-Type", "image/png");
+      res.sendFile("img/anonimblank.png");
+      return;
+    }
+  } catch (e) {
+    res.status(404).send();
+  }
+});
+
 module.exports = router;

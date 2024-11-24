@@ -15,6 +15,12 @@ const cityInput = document.querySelector("#text-city-input");
 const regionInput = document.querySelector("#text-region-input");
 const phoneInput = document.querySelector("#number-phone-input");
 
+const deleteButton = document.querySelector("#delete-button");
+const deleteForm = document.querySelector("#delete-form");
+const deleteInput = document.querySelector("#delete-input");
+const deleteLink = document.querySelector("#delete-link");
+const deleteContainer = document.querySelector("#delete-container");
+
 const fetchingClubsData = async () => {
   const response = await fetch("/clubs/me", {
     method: "GET",
@@ -42,6 +48,7 @@ const fetchingClubsData = async () => {
   document.getElementById("number-phone-input").value = club.phone;
 };
 fetchingClubsData();
+deleteContainer.style.display = "block";
 
 const updateClub = async () => {
   const email = emailInput.value;
@@ -79,4 +86,23 @@ const updateClub = async () => {
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
   updateClub();
+});
+
+// Obsługa kliknięcia przycisku "Delete"
+deleteButton.addEventListener("click", () => {
+  deleteForm.style.display = "block"; // Pokazanie formularza
+  deleteButton.style.display = "none"; // Ukrycie przycisku
+});
+
+// Obsługa przesłania formularza
+deleteForm.addEventListener("submit", (event) => {
+  event.preventDefault(); // Zatrzymanie domyślnego działania formularza
+  const userInput = deleteInput.value.trim().toLowerCase();
+
+  if (userInput === "delete") {
+    deleteLink.style.display = "block"; // Pokazanie linku
+    deleteForm.style.display = "none"; // Ukrycie formularza
+  } else {
+    alert("You must type 'delete' to confirm.");
+  }
 });

@@ -121,4 +121,12 @@ button {
 .link-image:hover {
   transform: scale(1.1);
 }
-  
+
+#avatar{
+  height: 100px
+} 
+
+#avataruser{
+  height: 50px
+} 
+   

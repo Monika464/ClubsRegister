@@ -195,7 +195,7 @@ app.get("/clubpaneledit", (req, res) => {
 });
 
 app.get("/clubprofileedit", (req, res) => {
-  res.render("Club Profile Edit", {
+  res.render("clubprofileedit", {
     helpText: "ccc",
     title: "club profile edit page",
     name: "Monika",
