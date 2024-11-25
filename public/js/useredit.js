@@ -147,17 +147,12 @@ const updateAvatar = async () => {
     if (!response.ok) {
       const errorData = await response.json();
       throw new Error(errorData.error || "Failed to update avatar");
+    } else {
+      console.log("avatar updated");
+      messageOne.textContent = "Avatar updated";
+
+      await displayAvatar();
     }
-
-    // Aktualizacja obrazu na stronie
-    const blob = await response.blob();
-    console.log("jaki tu blob", blob.size);
-    const imageUrl = URL.createObjectURL(blob);
-
-    console.log("imageUrl", imageUrl);
-    avatarImg.src = imageUrl; // Ustaw nowy URL obrazu
-    console.log("avatarImg.src", avatarImg.src);
-    alert("Avatar updated!");
   } catch (error) {
     console.error("Error updating avatar:", error);
     alert(`Error: ${error.message}`);
@@ -166,9 +161,39 @@ const updateAvatar = async () => {
 
 // Obsługa zmiany pliku i wywołanie funkcji
 fileInput.addEventListener("change", updateAvatar);
-fileInput.addEventListener("change", () => {
-  console.log("File input changed!");
-  updateAvatar();
-});
+// fileInput.addEventListener("change", () => {
+//   console.log("File input changed!");
+//   updateAvatar();
+// });
+
+const displayAvatar = async () => {
+  try {
+    const response = await fetch("users/me/avatar", {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`, // Dodanie tokena do nagłówka
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error("Nie udało się pobrać awatara");
+    }
+
+    // Pobranie danych obrazu jako blob
+    const blob = await response.blob();
+
+    // Tworzenie obiektu URL dla obrazu
+    const imageURL = URL.createObjectURL(blob);
+
+    // Wyświetlenie obrazu na stronie
+    const avatarImg = document.getElementById("avatar"); // Zakładamy, że masz <img id="avatar">
+    avatarImg.src = imageURL;
+
+    console.log("Awatar został wyświetlony");
+  } catch (error) {
+    console.error("Błąd podczas pobierania awatara:", error);
+  }
+};
+displayAvatar();
 
 messageError.textContent = "";
