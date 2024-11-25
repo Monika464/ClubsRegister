@@ -149,6 +149,45 @@ router.delete("/userss/me", authUser, async (req, res) => {
   }
 });
 
+router.patch("/userss/me", authUser, async (req, res) => {
+  try {
+    // const updates = Object.keys(req.body);
+    const updates = Object.keys(req.body);
+    const allowedUpdates = [
+      "name",
+      "surname",
+      "email",
+      "age",
+      "weight",
+      "fights",
+    ];
+    const isValidOperation = updates.every((update) =>
+      allowedUpdates.includes(update)
+    );
+
+    if (!isValidOperation) {
+      return res.status(400).send({ error: "Invalid updates!" });
+    }
+    //const clubs = await Club.find({});
+    //console.log("me tutaj", req.club);
+    const user = req.user;
+
+    if (!user) {
+      return res.status(404).send({ error: "User not found" });
+    }
+
+    // Aktualizacja wartości
+    updates.forEach((update) => (user[update] = req.body[update]));
+
+    await user.save();
+
+    // console.log("to user", user);
+    res.send(user);
+  } catch {
+    res.status(500).send({ error: e.message });
+  }
+});
+
 router.post("/users/logout", authUser, async (req, res) => {
   try {
     req.user.tokens = req.user.tokens.filter((token) => {
@@ -188,7 +227,7 @@ router.post(
       .png()
       .toBuffer();
     req.user.avatar = buffer;
-    console.log("req user", req.user.avatar);
+    //console.log("req user", req.user.avatar);
     await req.user.save();
     res.send();
   },
@@ -227,6 +266,33 @@ router.get(
     } catch (error) {
       res.status(500).send({ error: "Błąd serwera" });
     }
+  }
+);
+
+router.patch(
+  "/users/me/avatar",
+  authUser,
+  upload.single("avatar"),
+  async (req, res) => {
+    try {
+      if (!req.file) {
+        return res.status(400).send({ error: "Please upload a file" });
+      }
+
+      const buffer = await sharp(req.file.buffer)
+        .resize({ width: 250, height: 250 })
+        .png()
+        .toBuffer();
+
+      req.user.avatar = buffer;
+      await req.user.save();
+      res.send({ message: "Avatar updated successfully" });
+    } catch (e) {
+      res.status(500).send({ error: e.message });
+    }
+  },
+  (error, req, res, next) => {
+    res.status(400).send({ error: error.message });
   }
 );
 

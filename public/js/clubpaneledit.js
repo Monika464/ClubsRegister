@@ -3,7 +3,7 @@ const token = localStorage.getItem("authToken");
 const userList = document.querySelector("#user-list");
 const messageError = document.querySelector("#message-error");
 const messageTwo = document.querySelector("#message-2");
-const logoutLink = document.querySelector("#logout-link");
+//const logoutLink = document.querySelector("#logout-link");
 const listTitle = document.querySelector("#list-title");
 const createUserButton = document.querySelector("#create-user");
 const deleteMe = document.querySelector("#delete-link");
@@ -86,6 +86,8 @@ const updatingUser = async (id) => {
     }
   } catch (error) {
     console.error("Błąd przy aktualizacji:", error);
+  } finally {
+    localStorage.removeItem("userIdedit"); // Ensure cleanup
   }
 };
 
@@ -96,7 +98,7 @@ form.addEventListener("submit", async (e) => {
   try {
     const userId = localStorage.getItem("userIdedit");
     //const userId = document.querySelector('input[name="user-selection"]:checked')?.value;
-    console.log("czy jest tu id", userId);
+    //console.log("czy jest tu id", userId);
     if (!userId) {
       messageError.textContent = "Wybierz użytkownika do edycji.";
       return;
@@ -178,7 +180,7 @@ fetch("/users", {
 
         userList.appendChild(li); // Dodanie elementu <li> do listy
       });
-      logoutLink.style.display = "block";
+      //logoutLink.style.display = "block";
       //createUserButton.style.display = "block";
       listTitle.style.display = "block";
       //deleteMe.style.display = "block";

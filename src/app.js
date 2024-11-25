@@ -146,6 +146,14 @@ app.get("/userdelete", (req, res) => {
   });
 });
 
+app.get("/useredit", (req, res) => {
+  res.render("useredit", {
+    helpText: "ccc",
+    title: "User Edit Panel",
+    name: "Monika",
+  });
+});
+
 app.get("/managerlogin", (req, res) => {
   res.render("managerlogin", {
     helpText: "ccc",

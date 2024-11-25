@@ -5,6 +5,7 @@ const messageOne = document.querySelector("#message-1");
 const butLink1 = document.querySelector("#but-link1");
 const butLink2 = document.querySelector("#but-link2");
 const butLink3 = document.querySelector("#but-link3");
+const butLink4 = document.querySelector("#but-link4");
 const listTitle = document.querySelector("#list-title");
 const createUserButton = document.querySelector("#create-user");
 
@@ -52,6 +53,7 @@ const panelDisplay = async () => {
       butLink1.style.display = "block";
       butLink2.style.display = "block";
       butLink3.style.display = "block";
+      butLink4.style.display = "block";
       createUserButton.style.display = "block";
       listTitle.style.display = "block";
     }
@@ -70,13 +72,13 @@ const getAvatar = async (userId) => {
       },
     });
     //console.log("jaka response ", response.ok);
-    if (!response.ok) {
-      console.warn(`Awatar dla użytkownika ${userId} nie został znaleziony.`);
-      return "/default-avatar.png"; // Ścieżka do awatara domyślnego
-    }
 
     const blob = await response.blob();
-    //console.log("blob", blob);
+    console.log("blob", blob.size);
+    if (blob.size === 0) {
+      console.warn(`Awatar dla użytkownika ${userId} nie został znaleziony.`);
+      return "/img/anonim.png"; // Ścieżka do awatara domyślnego
+    }
     return URL.createObjectURL(blob);
   } catch (error) {
     console.error(
