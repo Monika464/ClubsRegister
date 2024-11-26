@@ -1,5 +1,5 @@
-const arenaid = "673e41197979a56feabe326c";
-
+//const arenaid = "673e41197979a56feabe326c";
+const arenaid = localStorage.getItem("arenaid");
 const token = localStorage.getItem("authManagerToken");
 //const userList = document.querySelector("#user-list");
 const messageError = document.querySelector("#message-error");
@@ -28,6 +28,11 @@ const arenaTimeCloseInput = document.querySelector("#arenaTimeClose-input");
 const viewClubContactsButton = document.querySelector("#view-club-contacts");
 const clubContactList = document.querySelector("#club-contact-list");
 //let isEditMode = true;
+
+// Usuwanie arenaid z localStorage po opuszczeniu strony
+window.addEventListener("beforeunload", () => {
+  localStorage.removeItem("arenaid");
+});
 
 const readArenas = async () => {
   arenaList.innerHTML = "";

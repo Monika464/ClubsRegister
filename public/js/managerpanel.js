@@ -58,6 +58,18 @@ const readArenas = async () => {
       li.appendChild(applyButton);
       arenaList.appendChild(li); // Dodanie elementu <li> do listy
 
+      //przycis details
+      const detailsButton = document.createElement("button");
+      detailsButton.textContent = "Details";
+
+      detailsButton.addEventListener("click", () => {
+        console.log("Arena ID:", arena._id);
+        localStorage.setItem("arenaid", arena._id);
+        window.location.href = "/arenaspartdetails";
+      });
+      li.appendChild(detailsButton);
+      arenaList.appendChild(li);
+
       //przycisk withhold
 
       const withholdButton = document.createElement("button");
