@@ -348,18 +348,21 @@ router.delete("/arenas/:id", authManager, async (req, res) => {
   }
 });
 
-module.exports = router;
+router.get("/arenass/all", async (req, res) => {
+  try {
+    // Pobierz wszystkie areny z bazy danych
+    const arenas = await Arena.find({}); // Zakładając, że masz odpowiedni model Arena
+    if (!arenas.length) {
+      return res.status(404).send({ message: "No arenas found" });
+    }
+    res.status(200).json(arenas); // Użyj .json zamiast .send dla poprawnej struktury odpowiedzi
+  } catch (error) {
+    console.error("Error fetching arenas:", error);
+    res.status(500).send({ error: "Failed to fetch arenas" });
+  }
+});
 
-// router.get("/arenas/all", authClub, async (req, res) => {
-//   try {
-//     // Pobierz wszystkie areny z bazy danych
-//     const arenas = await Arena.find({});
-//     res.status(200).send(arenas);
-//   } catch (error) {
-//     console.error("Error fetching arenas:", error);
-//     res.status(500).send({ error: "Failed to fetch arenas" });
-//   }
-// });
+module.exports = router;
 
 //add one user to arena
 

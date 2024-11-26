@@ -13,6 +13,12 @@ const avatarImg = document.getElementById("user-avatar"); // Obrazek awatara
 
 const form = document.querySelector("#user-edit-form");
 
+const deleteButton = document.querySelector("#delete-button");
+const deleteForm = document.querySelector("#delete-form");
+const deleteInput = document.querySelector("#delete-input");
+const deleteLink = document.querySelector("#delete-link");
+const deleteContainer = document.querySelector("#delete-container");
+
 const emailInput = document.querySelector("#email-input");
 const nameInput = document.querySelector("#text-name-input");
 const surnameInput = document.querySelector("#text-surname-input");
@@ -26,6 +32,7 @@ let isEditMode = true;
 
 if (token) {
   form.style.display = "block";
+  deleteContainer.style.display = "block";
 }
 
 try {
@@ -196,4 +203,22 @@ const displayAvatar = async () => {
 };
 displayAvatar();
 
+// Obsługa kliknięcia przycisku "Delete"
+deleteButton.addEventListener("click", () => {
+  deleteForm.style.display = "block"; // Pokazanie formularza
+  deleteButton.style.display = "none"; // Ukrycie przycisku
+});
+
+// Obsługa przesłania formularza
+deleteForm.addEventListener("submit", (event) => {
+  event.preventDefault(); // Zatrzymanie domyślnego działania formularza
+  const userInput = deleteInput.value.trim().toLowerCase();
+
+  if (userInput === "delete") {
+    deleteLink.style.display = "block"; // Pokazanie linku
+    deleteForm.style.display = "none"; // Ukrycie formularza
+  } else {
+    alert("You must type 'delete' to confirm.");
+  }
+});
 messageError.textContent = "";

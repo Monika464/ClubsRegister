@@ -16,16 +16,19 @@
       <p id="warning-auth" style="display: block">You must login to get access</p>
  
  <div id="profile-user-auth" style="display: none">
-  <img id="avatar" alt="Avatar użytkownika" />
+  <img id="avatar" style="display: none" alt="Avatar użytkownika" />
 
     
     {{!-- <img src="/img/me.png" img class="portrait"   alt="My Image" /> --}}
     <div id="user-avatar"></div>
- 
-   
+ <p id="message-1"></p>
+   <p id="arenas"></p>
+    <div> <ol id="arena-list"></ol> 
     <p id="user-info" >User info</p>
+
+    <a href="/useredit" id="but-link1" style="display: none;">Edit profile</a>
    
-   <div id="delete-container" style="display: none;">
+   {{!-- <div id="delete-container" style="display: none;">
   <button id="delete-button">Delete your profile</button>
   <form id="delete-form" style="display: none;">
     <label for="delete-input">Type "delete" to confirm</label>
@@ -33,7 +36,7 @@
     <button type="submit">Confirm</button>
   </form>
   <a href="/userdelete" id="delete-link" style="display: none;">Delete account here</a>
-</div>
+</div> --}}
 
 
    {{!-- <a href="/userlogout" id="logout-link" >Logout</a> --}}
@@ -44,6 +47,6 @@
  </div>
 
 <script src="/js/userpanel.js"></script>
-     {{>footer}}
+     
       </body>
 </html>
