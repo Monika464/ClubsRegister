@@ -28,7 +28,7 @@ const arenaTimeCloseInput = document.querySelector("#arenaTimeClose-input");
 const viewClubContactsButton = document.querySelector("#view-club-contacts");
 const clubContactList = document.querySelector("#club-contact-list");
 //let isEditMode = true;
-
+const exportToXmlButton = document.querySelector("#export-to-xml");
 // Usuwanie arenaid z localStorage po opuszczeniu strony
 window.addEventListener("beforeunload", () => {
   localStorage.removeItem("arenaid");
@@ -246,3 +246,58 @@ viewClubContactsButton.addEventListener("click", async () => {
     clubContactList.appendChild(errorLi);
   }
 });
+
+//button export
+//button export
+exportToXmlButton.addEventListener("click", async () => {
+  if (usersData.length === 0) {
+    alert("Nie ma użytkowników do wyeksportowania.");
+    return;
+  }
+
+  // Nagłówki CSV
+  let csvContent = "Name,Surname,Age,Weight,Fights,Club Name\n";
+
+  // Dodanie wierszy użytkowników
+  for (const user of usersData) {
+    // Pobierz nazwę klubu asynchronicznie
+    const clubName = await getClubName(user.owner);
+
+    // Dodaj dane użytkownika do CSV
+    csvContent += `${user.name},${user.surname},${user.age},${user.weight},${
+      user.fights
+    },${clubName || "Unknown"}\n`;
+  }
+
+  const blob = new Blob([csvContent], { type: "text/csv" });
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = "users.csv";
+  link.click();
+});
+
+// exportToXmlButton.addEventListener("click", () => {
+//   if (usersData.length === 0) {
+//     alert("Nie ma użytkowników do wyeksportowania.");
+//     return;
+//   }
+
+//   // Nagłówki CSV
+//   let csvContent = "Name,Surname,Age,Weight,Fights,Club Name\n";
+
+//   // Dodanie wierszy użytkowników
+//   csvContent += usersData
+//     .map(
+//       (user) =>
+//         `${user.name},${user.surname},${user.age},${user.weight},${
+//           user.fights
+//         },${user.clubName || "Unknown"}`
+//     )
+//     .join("\n");
+
+//   const blob = new Blob([csvContent], { type: "text/csv" });
+//   const link = document.createElement("a");
+//   link.href = URL.createObjectURL(blob);
+//   link.download = "users.csv";
+//   link.click();
+// });
