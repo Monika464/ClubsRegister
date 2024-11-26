@@ -1,12 +1,13 @@
 const express = require("express");
 const Club = require("../models/club");
 const auth = require("../middleware/authClub");
+const authManager = require("../middleware/authManager");
 const router = new express.Router();
 const axios = require("axios");
 //const fetch = require("node-fetch");
 //do catcha//
 
-router.get("/clubs", auth, async (req, res) => {
+router.get("/clubs", authManager, async (req, res) => {
   try {
     const clubs = await Club.find({});
     res.send(clubs);

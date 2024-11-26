@@ -211,9 +211,9 @@ app.get("/clubprofileedit", (req, res) => {
 });
 
 app.get("/managerpaneledit", (req, res) => {
-  res.render("Manager Panel Edit", {
+  res.render("managerpaneledit", {
     helpText: "ccc",
-    title: "managerpaneledit",
+    title: "Manager Panel Edit",
     name: "Monika",
   });
 });
@@ -222,6 +222,13 @@ app.get("/arenacreate", (req, res) => {
   res.render("arenacreate", {
     helpText: "ccc",
     title: "Arena Create",
+    name: "Monika",
+  });
+});
+app.get("/arenaspartdetails", (req, res) => {
+  res.render("arenaspartdetails", {
+    helpText: "ccc",
+    title: "Arena Participants Details",
     name: "Monika",
   });
 });

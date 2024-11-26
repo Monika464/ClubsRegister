@@ -10,6 +10,14 @@ const selectedUserIds = [];
 
 const listTitle = document.querySelector("#list-title");
 
+//dorobic przycisk 'details' ktory wysyla
+//nowe id areny do storage
+//pozatym przekirowuje na link
+//pod ktorym jest funkcja pobierajaca ta id
+//wyszukujaca odpowiednia arene
+//wypisujeca uzytkownikow
+//uzytkownikow bedziemy sortowli
+
 const readArenas = async () => {
   messageError.textContent = "";
 

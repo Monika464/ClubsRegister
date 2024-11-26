@@ -1,0 +1,50 @@
+
+<html>
+  <head>
+    <title>{{title}}</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+  </head>
+
+  <body>
+   <div class="menu-container">
+    {{>headermanager}}
+    {{!-- <a href="/clublogout" id="logout-link" style="display: none;">Logout</a> --}}
+</div>
+
+{{!-- 
+ <div> <ol id="arena-all-list"></ol> </div>
+    {{>displayallarenas}}
+  <script src="/js/displayallarenas.js"></script>
+
+ --}}
+
+
+{{!-- <p id="list-title" style="display: none;">Club members</p> --}}
+ <div> <ol id="arena-list"></ol> <!-- Kontener na listę użytkowników --></div>
+  
+  <button id="sort-by-weight">Sort by Weight</button>
+
+<button id="sort-by-club">Sort by Club</button>
+ 
+ <div> <ol id="user-list"></ol> <!-- Kontener na listę użytkowników --></div>
+  
+<button id="view-club-contacts">Clubs Contacts</button>
+<ul id="club-contact-list"></ul>
+{{!-- <button id="withdraw-users" style="display: block;">Wycofaj</button> --}}
+
+{{!-- <button id="withdraw-users" style="display: block;">Withddraw</button> --}}
+
+
+    <div>
+       <p id="message-3"></p>
+<p id="message-error"></p>
+<p id="message-2"></p>
+<p id="message-4"></p>
+    </div>
+{{!-- <a href="/clubdelete" id="delete-link" style="display: none;">Delete</a> --}}
+    <script src="/js/arenaspartdetails.js"></script>
+    {{!-- {{#if clubLogin}}
+  <script src="/js/clublogin.js"></script>
+{{/if}} --}}
+  </body>
+</html>

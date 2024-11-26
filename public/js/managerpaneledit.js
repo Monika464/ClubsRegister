@@ -193,9 +193,11 @@ const updatingArena = async (id) => {
     } else {
       //   // Obsługa błędu logowania
       messageError.textContent = data.error || "Failed to update arena.";
+      localStorage.removeItem("arenaIdedit");
     }
   } catch (error) {
     console.error("Błąd przy aktualizacji:", error);
+    localStorage.removeItem("arenaIdedit");
   }
 };
 
