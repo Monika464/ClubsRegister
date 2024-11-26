@@ -5,22 +5,14 @@ const messageError = document.querySelector("#message-error");
 const withdraw = document.querySelector("#withdraw-users");
 const logoutLink = document.querySelector("#logout-link");
 const messageOne = document.querySelector("#message-1");
+const messageTwo = document.querySelector("#message-2");
 let editMode = false;
 const selectedUserIds = [];
 
 const listTitle = document.querySelector("#list-title");
 
-//dorobic przycisk 'details' ktory wysyla
-//nowe id areny do storage
-//pozatym przekirowuje na link
-//pod ktorym jest funkcja pobierajaca ta id
-//wyszukujaca odpowiednia arene
-//wypisujeca uzytkownikow
-//uzytkownikow bedziemy sortowli
-
 const readArenas = async () => {
-  messageError.textContent = "";
-
+  messageTwo.textContent = "Loading...";
   try {
     // console.log("czy jest token", token);
     const response = await fetch("/arenas/manager", {
@@ -33,6 +25,7 @@ const readArenas = async () => {
     const data = await response.json();
     console.log("data", data);
 
+    //messageOne.textContent = "";
     //zrob wysweiltanie przypadku jak data jest errorem bo np. brak autentifikacji
 
     data.forEach((arena) => {
@@ -78,10 +71,10 @@ const readArenas = async () => {
       // withholdButton.style.backgroundColor = "red";
       if (withhold) {
         withholdButton.textContent = "Withhold ON";
-        withholdButton.style.backgroundColor = "green";
+        withholdButton.style.backgroundColor = "red";
       } else {
         withholdButton.textContent = "Withhold OFF";
-        withholdButton.style.backgroundColor = "red";
+        withholdButton.style.backgroundColor = "green";
       }
       // Obsługa kliknięcia przycisku
       withholdButton.addEventListener("click", () => {
@@ -92,12 +85,12 @@ const readArenas = async () => {
           restoreApplications(arena._id); // Przywrócenie aplikacji
           withhold = false;
           withholdButton.textContent = "Withhold OFF";
-          withholdButton.style.backgroundColor = "red";
+          withholdButton.style.backgroundColor = "green";
         } else {
           withholdApplications(arena._id); // Wstrzymanie aplikacji
           withhold = true;
           withholdButton.textContent = "Withhold ON";
-          withholdButton.style.backgroundColor = "green";
+          withholdButton.style.backgroundColor = "red";
         }
       });
 
@@ -105,11 +98,14 @@ const readArenas = async () => {
       li.appendChild(withholdButton);
       arenaList.appendChild(li); // Dodanie elementu <li> do listy
     });
-
-    logoutLink.style.display = "block";
+    messageError.textContent = "";
+    messageOne.textContent = "";
+    messageTwo.textContent = "";
+    // logoutLink.style.display = "block";
   } catch (error) {
     console.error("Error:", error);
     messageOne.textContent = "Error loading arenas please login";
+    messageTwo.textContent = "";
   }
 };
 readArenas();
