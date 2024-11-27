@@ -74,7 +74,7 @@ const getAvatar = async (userId) => {
     //console.log("jaka response ", response.ok);
 
     const blob = await response.blob();
-    console.log("blob", blob.size);
+    //console.log("blob", blob.size);
     if (blob.size === 0) {
       console.warn(`Awatar dla użytkownika ${userId} nie został znaleziony.`);
       return "/img/anonim.png"; // Ścieżka do awatara domyślnego

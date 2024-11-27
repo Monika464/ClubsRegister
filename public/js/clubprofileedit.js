@@ -14,6 +14,7 @@ const nameInput = document.querySelector("#text-name-input");
 const cityInput = document.querySelector("#text-city-input");
 const regionInput = document.querySelector("#text-region-input");
 const phoneInput = document.querySelector("#number-phone-input");
+const passwordInput = document.querySelector("#text-password-input");
 
 const deleteButton = document.querySelector("#delete-button");
 const deleteForm = document.querySelector("#delete-form");
@@ -56,6 +57,7 @@ const updateClub = async () => {
   const city = cityInput.value;
   const region = regionInput.value;
   const phone = phoneInput.value;
+  const password = passwordInput.value;
 
   const response = await fetch("/clubs/me", {
     method: "PATCH",
@@ -69,6 +71,7 @@ const updateClub = async () => {
       city: city,
       region: region,
       phone: phone,
+      password: password,
     }),
   });
   const data = await response.json();

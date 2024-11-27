@@ -29,7 +29,14 @@ router.get("/clubs/me", auth, async (req, res) => {
 
 router.patch("/clubs/me", auth, async (req, res) => {
   const updates = Object.keys(req.body);
-  const allowedUpdates = ["name", "email", "city", "region", "phone"]; // lista dozwolonych pól do aktualizacji
+  const allowedUpdates = [
+    "name",
+    "email",
+    "city",
+    "region",
+    "phone",
+    "password",
+  ]; // lista dozwolonych pól do aktualizacji
   const isValidOperation = updates.every((update) =>
     allowedUpdates.includes(update)
   );
