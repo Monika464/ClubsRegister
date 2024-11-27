@@ -160,6 +160,7 @@ router.patch("/userss/me", authUser, async (req, res) => {
       "age",
       "weight",
       "fights",
+      "password",
     ];
     const isValidOperation = updates.every((update) =>
       allowedUpdates.includes(update)

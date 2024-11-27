@@ -233,6 +233,30 @@ app.get("/arenaspartdetails", (req, res) => {
   });
 });
 
+app.get("/passwordrecuser", (req, res) => {
+  res.render("passwordrecuser", {
+    helpText: "ccc",
+    title: "passwordrecuser",
+    name: "Monika",
+  });
+});
+
+app.get("/passwordrecclub", (req, res) => {
+  res.render("passwordrecclub", {
+    helpText: "ccc",
+    title: "passwordrecclub",
+    name: "Monika",
+  });
+});
+
+app.get("/passwordrecmanager", (req, res) => {
+  res.render("passwordrecuser", {
+    helpText: "ccc",
+    title: "passwordrecuser",
+    name: "Monika",
+  });
+});
+
 // Eksport aplikacji
 module.exports = app;
 

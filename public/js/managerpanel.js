@@ -3,7 +3,7 @@ const arenaList = document.querySelector("#arena-list");
 const userList = document.querySelector("#user-list");
 const messageError = document.querySelector("#message-error");
 const withdraw = document.querySelector("#withdraw-users");
-const logoutLink = document.querySelector("#logout-link");
+const paneledit = document.querySelector("#paneledit-link");
 const messageOne = document.querySelector("#message-1");
 const messageTwo = document.querySelector("#message-2");
 let editMode = false;
@@ -101,7 +101,7 @@ const readArenas = async () => {
     messageError.textContent = "";
     messageOne.textContent = "";
     messageTwo.textContent = "";
-    // logoutLink.style.display = "block";
+    paneledit.style.display = "block";
   } catch (error) {
     console.error("Error:", error);
     messageOne.textContent = "Error loading arenas please login";

@@ -20,6 +20,7 @@ const deleteLink = document.querySelector("#delete-link");
 const deleteContainer = document.querySelector("#delete-container");
 
 const emailInput = document.querySelector("#email-input");
+const passwordInput = document.querySelector("#password-input");
 const nameInput = document.querySelector("#text-name-input");
 const surnameInput = document.querySelector("#text-surname-input");
 const ageInput = document.querySelector("#number-age-input");
@@ -66,6 +67,7 @@ try {
 
 const updatingUser = async () => {
   const email = emailInput.value;
+  const password = passwordInput.value;
   const name = nameInput.value;
   const surname = surnameInput.value;
   const age = ageInput.value;
@@ -86,6 +88,7 @@ const updatingUser = async () => {
         age: age,
         weight: weight,
         fights: fights,
+        password: password,
       }),
     });
     const data = await response.json();
