@@ -320,9 +320,10 @@ router.get("/users/:id/avatar", async (req, res) => {
     res.status(404).send();
   }
 });
-router.get("/userss/reset-password", (req, res) => {
-  res.render("resetpassword"); // formularz HTML
+router.get("/userss/reset-password/:token", (req, res) => {
+  res.render("userresetpassword.hbs", { token: req.params.token }); // Przekazanie tokenu do widoku (opcjonalne)
 });
+
 router.post("/userss/reset-password/:token", async (req, res) => {
   try {
     const user = await User.findOne({
@@ -350,6 +351,7 @@ router.post("/userss/reset-password/:token", async (req, res) => {
 });
 
 // Trasa do wyświetlania formularza resetowania hasła
+
 router.get("/userss/forgot-password", (req, res) => {
   res.render("userforgotpassword"); // formularz HTML
 });
@@ -366,12 +368,13 @@ router.post("/userss/forgot-password", async (req, res) => {
     user.resetToken = token; // Zapisz token w bazie
     console.log("token w bazie", user.resetToken);
     user.tokenExpiry = Date.now() + 3600000; // Ważność tokenu: 1 godzina
-    console.log("co w user", user);
+    //console.log("co w user", user);
     await user.save();
 
     const resetUrl = `${req.protocol}://${req.get(
       "host"
     )}/userss/reset-password/${token}`;
+    console.log("url przed wysłaniem", resetUrl);
     sendEmail(user.email, "Resetowanie hasła", `Kliknij link: ${resetUrl}`);
 
     res.status(200).send({ message: "E-mail resetu wysłany" });
@@ -379,35 +382,5 @@ router.post("/userss/forgot-password", async (req, res) => {
     res.status(500).send({ error: e.message });
   }
 });
-
-// router.patch("/users/passrec/:id", async (req, res) => {
-//   const updates = Object.keys(req.body);
-//   const allowedUpdates = ["password"];
-//   const isValidOperation = updates.every((update) =>
-//     allowedUpdates.includes(update)
-//   );
-
-//   if (!isValidOperation) {
-//     return res.status(400).send({ error: "Invalid updates!" });
-//   }
-
-//   try {
-//     const user = await User.findOne({
-//       _id: req.params.id,
-//       owner: req.club._id,
-//     });
-//     // console.log("czy jest tu user", user);
-//     if (!user) {
-//       return res.status(404).send({ error: "User not found" });
-//     }
-
-//     updates.forEach((update) => (user[update] = req.body[update]));
-//     await user.save();
-
-//     res.status(200).send({ message: "User updated successfully", user });
-//   } catch (e) {
-//     res.status(400).send({ error: e.message });
-//   }
-// });
 
 module.exports = router;
