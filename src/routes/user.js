@@ -343,8 +343,8 @@ router.post("/userss/reset-password/:token", async (req, res) => {
     user.resetToken = undefined; // Usuń token po użyciu
     user.tokenExpiry = undefined;
     await user.save();
-
-    res.status(200).send({ message: "Hasło changed" });
+    res.render("passwordchanged");
+    // res.status(200).send({ message: "Hasło changed" });
   } catch (e) {
     res.status(500).send({ error: e.message });
   }
@@ -376,8 +376,8 @@ router.post("/userss/forgot-password", async (req, res) => {
     )}/userss/reset-password/${token}`;
     console.log("url przed wysłaniem", resetUrl);
     sendEmail(user.email, "Resetowanie hasła", `Kliknij link: ${resetUrl}`);
-
-    res.status(200).send({ message: "E-mail resetu wysłany" });
+    res.render("emailsent", { email: user.email });
+    //res.status(200).send({ message: "E-mail resetu wysłany" });
   } catch (e) {
     res.status(500).send({ error: e.message });
   }
