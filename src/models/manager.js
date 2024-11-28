@@ -65,6 +65,14 @@ const managerSchema = new mongoose.Schema(
         ref: "Arenas",
       },
     ],
+    resetToken: {
+      type: String,
+      default: null,
+    },
+    tokenExpiry: {
+      type: Date,
+      default: null,
+    },
   },
   {
     timestamps: true,

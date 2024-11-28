@@ -3,7 +3,8 @@ const Manager = require("../models/manager");
 const authClub = require("../middleware/authClub");
 const authManager = require("../middleware/authManager");
 const router = new express.Router();
-
+const crypto = require("crypto");
+const { sendEmail } = require("../emails/account");
 //router.post("/managers", authClub, async (req, res) => {
 router.post("/managers", async (req, res) => {
   //const user = new User(req.body);
@@ -72,33 +73,69 @@ router.delete("/managers/me", authManager, async (req, res) => {
   }
 });
 
-router.patch("/managers/passrec/:id", async (req, res) => {
-  const updates = Object.keys(req.body);
-  const allowedUpdates = ["password"];
-  const isValidOperation = updates.every((update) =>
-    allowedUpdates.includes(update)
-  );
+///PASSWORD RECOVERY
+//Password reset
+router.get("/managerss/reset-password/:token", (req, res) => {
+  res.render("managerresetpassword.hbs", { token: req.params.token }); // Przekazanie tokenu do widoku (opcjonalne)
+});
 
-  if (!isValidOperation) {
-    return res.status(400).send({ error: "Invalid updates!" });
-  }
-
+router.post("/managerss/reset-password/:token", async (req, res) => {
   try {
     const manager = await Manager.findOne({
-      _id: req.params.id,
-      //owner: req.club._id,
+      resetToken: req.params.token,
+      tokenExpiry: { $gt: Date.now() },
     });
-    // console.log("czy jest tu user", user);
+
     if (!manager) {
-      return res.status(404).send({ error: "User not found" });
+      return res.status(400).send({ error: "Token incorrect or expired" });
     }
 
-    updates.forEach((update) => (manager[update] = req.body[update]));
+    if (req.body.newPassword !== req.body.confirmPassword) {
+      return res.status(400).send({ error: "Passwords not match" });
+    }
+
+    manager.password = req.body.newPassword;
+    manager.resetToken = undefined; // Usuń token po użyciu
+    manager.tokenExpiry = undefined;
+    await manager.save();
+    res.render("email/passwordchanged");
+    // res.status(200).send({ message: "Hasło changed" });
+  } catch (e) {
+    res.status(500).send({ error: e.message });
+  }
+});
+
+// Trasa do wyświetlania formularza resetowania hasła
+
+router.get("/managerss/forgot-password", (req, res) => {
+  res.render("managerforgotpassword"); // formularz HTML
+});
+
+router.post("/managerss/forgot-password", async (req, res) => {
+  try {
+    console.log("req", req.body.email);
+    const manager = await Manager.findOne({ email: req.body.email });
+    if (!manager) {
+      return res.status(404).send({ error: "User nie istnieje" });
+    }
+
+    const token = crypto.randomBytes(32).toString("hex");
+    //console.log("czy jest token", token);
+    manager.resetToken = token; // Zapisz token w bazie
+    //console.log("token w bazie", user.resetToken);
+    manager.tokenExpiry = Date.now() + 3600000; // Ważność tokenu: 1 godzina
+    //console.log("co w user", user);
     await manager.save();
 
-    res.status(200).send({ message: "User updated successfully", manager });
+    const resetUrl = `${req.protocol}://${req.get(
+      "host"
+    )}/managerss/reset-password/${token}`;
+    // console.log("url przed wysłaniem", resetUrl);
+    sendEmail(manager.email, "Resetowanie hasła", `Kliknij link: ${resetUrl}`);
+    res.render("email/emailsent", { email: manager.email });
+    //res.status(200).send({ message: "E-mail resetu wysłany" });
   } catch (e) {
-    res.status(400).send({ error: e.message });
+    res.status(500).send({ error: e.message });
   }
 });
 
