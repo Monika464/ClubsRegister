@@ -5,6 +5,8 @@ const authClub = require("../middleware/authClub");
 const authClubStatus = require("../middleware/authClubStatus");
 const authManager = require("../middleware/authManager");
 const router = new express.Router();
+const { sendEmail } = require("../emails/account");
+const crypto = require("crypto"); // Do generowania unikalnych tokenów
 
 router.get("/users/:id", authClub, async (req, res) => {
   try {
@@ -318,5 +320,94 @@ router.get("/users/:id/avatar", async (req, res) => {
     res.status(404).send();
   }
 });
+router.get("/userss/reset-password", (req, res) => {
+  res.render("resetpassword"); // formularz HTML
+});
+router.post("/userss/reset-password/:token", async (req, res) => {
+  try {
+    const user = await User.findOne({
+      resetToken: req.params.token,
+      tokenExpiry: { $gt: Date.now() },
+    });
+
+    if (!user) {
+      return res.status(400).send({ error: "Token incorrect or expired" });
+    }
+
+    if (req.body.newPassword !== req.body.confirmPassword) {
+      return res.status(400).send({ error: "Passwords not match" });
+    }
+
+    user.password = req.body.newPassword;
+    user.resetToken = undefined; // Usuń token po użyciu
+    user.tokenExpiry = undefined;
+    await user.save();
+
+    res.status(200).send({ message: "Hasło changed" });
+  } catch (e) {
+    res.status(500).send({ error: e.message });
+  }
+});
+
+// Trasa do wyświetlania formularza resetowania hasła
+router.get("/userss/forgot-password", (req, res) => {
+  res.render("userforgotpassword"); // formularz HTML
+});
+
+router.post("/userss/forgot-password", async (req, res) => {
+  try {
+    const user = await User.findOne({ email: req.body.email });
+    if (!user) {
+      return res.status(404).send({ error: "Użytkownik nie istnieje" });
+    }
+
+    const token = crypto.randomBytes(32).toString("hex");
+    console.log("czy jest token", token);
+    user.resetToken = token; // Zapisz token w bazie
+    console.log("token w bazie", user.resetToken);
+    user.tokenExpiry = Date.now() + 3600000; // Ważność tokenu: 1 godzina
+    console.log("co w user", user);
+    await user.save();
+
+    const resetUrl = `${req.protocol}://${req.get(
+      "host"
+    )}/userss/reset-password/${token}`;
+    sendEmail(user.email, "Resetowanie hasła", `Kliknij link: ${resetUrl}`);
+
+    res.status(200).send({ message: "E-mail resetu wysłany" });
+  } catch (e) {
+    res.status(500).send({ error: e.message });
+  }
+});
+
+// router.patch("/users/passrec/:id", async (req, res) => {
+//   const updates = Object.keys(req.body);
+//   const allowedUpdates = ["password"];
+//   const isValidOperation = updates.every((update) =>
+//     allowedUpdates.includes(update)
+//   );
+
+//   if (!isValidOperation) {
+//     return res.status(400).send({ error: "Invalid updates!" });
+//   }
+
+//   try {
+//     const user = await User.findOne({
+//       _id: req.params.id,
+//       owner: req.club._id,
+//     });
+//     // console.log("czy jest tu user", user);
+//     if (!user) {
+//       return res.status(404).send({ error: "User not found" });
+//     }
+
+//     updates.forEach((update) => (user[update] = req.body[update]));
+//     await user.save();
+
+//     res.status(200).send({ message: "User updated successfully", user });
+//   } catch (e) {
+//     res.status(400).send({ error: e.message });
+//   }
+// });
 
 module.exports = router;

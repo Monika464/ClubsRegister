@@ -70,6 +70,14 @@ const userSchema = new mongoose.Schema(
     avatar: {
       type: Buffer,
     },
+    resetToken: {
+      type: String,
+      default: null,
+    },
+    tokenExpiry: {
+      type: Date,
+      default: null,
+    },
   },
   {
     timestamps: true,

@@ -72,4 +72,34 @@ router.delete("/managers/me", authManager, async (req, res) => {
   }
 });
 
+router.patch("/managers/passrec/:id", async (req, res) => {
+  const updates = Object.keys(req.body);
+  const allowedUpdates = ["password"];
+  const isValidOperation = updates.every((update) =>
+    allowedUpdates.includes(update)
+  );
+
+  if (!isValidOperation) {
+    return res.status(400).send({ error: "Invalid updates!" });
+  }
+
+  try {
+    const manager = await Manager.findOne({
+      _id: req.params.id,
+      //owner: req.club._id,
+    });
+    // console.log("czy jest tu user", user);
+    if (!manager) {
+      return res.status(404).send({ error: "User not found" });
+    }
+
+    updates.forEach((update) => (manager[update] = req.body[update]));
+    await manager.save();
+
+    res.status(200).send({ message: "User updated successfully", manager });
+  } catch (e) {
+    res.status(400).send({ error: e.message });
+  }
+});
+
 module.exports = router;

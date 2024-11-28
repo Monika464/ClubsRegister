@@ -167,6 +167,34 @@ router.delete("/clubs/me", auth, async (req, res) => {
   }
 });
 
-///signup, delete, waszystkie routes
+router.patch("/clubs/passrec/:id", async (req, res) => {
+  const updates = Object.keys(req.body);
+  const allowedUpdates = ["password"];
+  const isValidOperation = updates.every((update) =>
+    allowedUpdates.includes(update)
+  );
+
+  if (!isValidOperation) {
+    return res.status(400).send({ error: "Invalid updates!" });
+  }
+
+  try {
+    const club = await Club.findOne({
+      _id: req.params.id,
+      //owner: req.club._id,
+    });
+    // console.log("czy jest tu user", user);
+    if (!club) {
+      return res.status(404).send({ error: "User not found" });
+    }
+
+    updates.forEach((update) => (club[update] = req.body[update]));
+    await club.save();
+
+    res.status(200).send({ message: "User updated successfully", club });
+  } catch (e) {
+    res.status(400).send({ error: e.message });
+  }
+});
 
 module.exports = router;
