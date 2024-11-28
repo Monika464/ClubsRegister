@@ -321,6 +321,8 @@ router.get("/users/:id/avatar", async (req, res) => {
     res.status(404).send();
   }
 });
+
+//Pssword reset
 router.get("/userss/reset-password/:token", (req, res) => {
   res.render("userresetpassword.hbs", { token: req.params.token }); // Przekazanie tokenu do widoku (opcjonalne)
 });

@@ -58,6 +58,14 @@ const clubSchema = new mongoose.Schema(
         },
       },
     ],
+    resetToken: {
+      type: String,
+      default: null,
+    },
+    tokenExpiry: {
+      type: Date,
+      default: null,
+    },
   },
   {
     timestamps: true,

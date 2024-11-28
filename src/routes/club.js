@@ -4,6 +4,8 @@ const auth = require("../middleware/authClub");
 const authManager = require("../middleware/authManager");
 const router = new express.Router();
 const axios = require("axios");
+const crypto = require("crypto");
+const { sendEmail } = require("../emails/account");
 //const fetch = require("node-fetch");
 //do catcha//
 
@@ -167,34 +169,101 @@ router.delete("/clubs/me", auth, async (req, res) => {
   }
 });
 
-router.patch("/clubs/passrec/:id", async (req, res) => {
-  const updates = Object.keys(req.body);
-  const allowedUpdates = ["password"];
-  const isValidOperation = updates.every((update) =>
-    allowedUpdates.includes(update)
-  );
+// router.patch("/clubs/passrec/:id", async (req, res) => {
+//   const updates = Object.keys(req.body);
+//   const allowedUpdates = ["password"];
+//   const isValidOperation = updates.every((update) =>
+//     allowedUpdates.includes(update)
+//   );
 
-  if (!isValidOperation) {
-    return res.status(400).send({ error: "Invalid updates!" });
-  }
+//   if (!isValidOperation) {
+//     return res.status(400).send({ error: "Invalid updates!" });
+//   }
 
+//   try {
+//     const club = await Club.findOne({
+//       _id: req.params.id,
+//       //owner: req.club._id,
+//     });
+//     // console.log("czy jest tu user", user);
+//     if (!club) {
+//       return res.status(404).send({ error: "User not found" });
+//     }
+
+//     updates.forEach((update) => (club[update] = req.body[update]));
+//     await club.save();
+
+//     res.status(200).send({ message: "User updated successfully", club });
+//   } catch (e) {
+//     res.status(400).send({ error: e.message });
+//   }
+// });
+
+///PASSWORD RECOVERY
+//Password reset
+router.get("/clubss/reset-password/:token", (req, res) => {
+  res.render("clubresetpassword.hbs", { token: req.params.token }); // Przekazanie tokenu do widoku (opcjonalne)
+});
+
+router.post("/clubss/reset-password/:token", async (req, res) => {
   try {
     const club = await Club.findOne({
-      _id: req.params.id,
-      //owner: req.club._id,
+      resetToken: req.params.token,
+      tokenExpiry: { $gt: Date.now() },
     });
-    // console.log("czy jest tu user", user);
+
     if (!club) {
-      return res.status(404).send({ error: "User not found" });
+      return res.status(400).send({ error: "Token incorrect or expired" });
     }
 
-    updates.forEach((update) => (club[update] = req.body[update]));
-    await club.save();
+    if (req.body.newPassword !== req.body.confirmPassword) {
+      return res.status(400).send({ error: "Passwords not match" });
+    }
 
-    res.status(200).send({ message: "User updated successfully", club });
+    club.password = req.body.newPassword;
+    club.resetToken = undefined; // Usuń token po użyciu
+    club.tokenExpiry = undefined;
+    await club.save();
+    res.render("email/passwordchanged");
+    // res.status(200).send({ message: "Hasło changed" });
   } catch (e) {
-    res.status(400).send({ error: e.message });
+    res.status(500).send({ error: e.message });
   }
 });
+
+// Trasa do wyświetlania formularza resetowania hasła
+
+router.get("/clubss/forgot-password", (req, res) => {
+  res.render("clubforgotpassword"); // formularz HTML
+});
+
+router.post("/clubss/forgot-password", async (req, res) => {
+  try {
+    const club = await Club.findOne({ email: req.body.email });
+    if (!club) {
+      return res.status(404).send({ error: "Club nie istnieje" });
+    }
+
+    const token = crypto.randomBytes(32).toString("hex");
+    console.log("czy jest token", token);
+    club.resetToken = token; // Zapisz token w bazie
+    //console.log("token w bazie", user.resetToken);
+    club.tokenExpiry = Date.now() + 3600000; // Ważność tokenu: 1 godzina
+    //console.log("co w user", user);
+    await club.save();
+
+    const resetUrl = `${req.protocol}://${req.get(
+      "host"
+    )}/clubss/reset-password/${token}`;
+    console.log("url przed wysłaniem", resetUrl);
+    sendEmail(club.email, "Resetowanie hasła", `Kliknij link: ${resetUrl}`);
+    res.render("email/emailsent", { email: club.email });
+    //res.status(200).send({ message: "E-mail resetu wysłany" });
+  } catch (e) {
+    res.status(500).send({ error: e.message });
+  }
+});
+
+///
 
 module.exports = router;
