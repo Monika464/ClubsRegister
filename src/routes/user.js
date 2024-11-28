@@ -5,6 +5,7 @@ const authClub = require("../middleware/authClub");
 const authClubStatus = require("../middleware/authClubStatus");
 const authManager = require("../middleware/authManager");
 const router = new express.Router();
+//const { sendEmail } = require("../emails/account");
 const { sendEmail } = require("../emails/account");
 const crypto = require("crypto"); // Do generowania unikalnych tokenów
 
@@ -343,7 +344,7 @@ router.post("/userss/reset-password/:token", async (req, res) => {
     user.resetToken = undefined; // Usuń token po użyciu
     user.tokenExpiry = undefined;
     await user.save();
-    res.render("passwordchanged");
+    res.render("email/passwordchanged");
     // res.status(200).send({ message: "Hasło changed" });
   } catch (e) {
     res.status(500).send({ error: e.message });
@@ -364,9 +365,9 @@ router.post("/userss/forgot-password", async (req, res) => {
     }
 
     const token = crypto.randomBytes(32).toString("hex");
-    console.log("czy jest token", token);
+    //console.log("czy jest token", token);
     user.resetToken = token; // Zapisz token w bazie
-    console.log("token w bazie", user.resetToken);
+    //console.log("token w bazie", user.resetToken);
     user.tokenExpiry = Date.now() + 3600000; // Ważność tokenu: 1 godzina
     //console.log("co w user", user);
     await user.save();
@@ -376,7 +377,7 @@ router.post("/userss/forgot-password", async (req, res) => {
     )}/userss/reset-password/${token}`;
     console.log("url przed wysłaniem", resetUrl);
     sendEmail(user.email, "Resetowanie hasła", `Kliknij link: ${resetUrl}`);
-    res.render("emailsent", { email: user.email });
+    res.render("email/emailsent", { email: user.email });
     //res.status(200).send({ message: "E-mail resetu wysłany" });
   } catch (e) {
     res.status(500).send({ error: e.message });
