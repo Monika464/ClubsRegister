@@ -4,6 +4,7 @@ const userList = document.querySelector("#user-list");
 const messageError = document.querySelector("#message-error");
 const withdraw = document.querySelector("#withdraw-users");
 const paneledit = document.querySelector("#paneledit-link");
+const paneledit2 = document.querySelector("#paneledit2-link");
 const messageOne = document.querySelector("#message-1");
 const messageTwo = document.querySelector("#message-2");
 let editMode = false;
@@ -13,6 +14,7 @@ const listTitle = document.querySelector("#list-title");
 
 const readArenas = async () => {
   messageTwo.textContent = "Loading...";
+  messageOne.textContent = "";
   try {
     // console.log("czy jest token", token);
     const response = await fetch("/arenas/manager", {
@@ -22,11 +24,18 @@ const readArenas = async () => {
         Authorization: `Bearer ${token}`, // Dodanie tokena do nagłówka
       },
     });
+
+    if (!response.ok) {
+      // Obsługa błędu serwera
+      const errorData = await response.json();
+      throw new Error(errorData.error || "Failed to load arenas.");
+    }
+
     const data = await response.json();
     console.log("data", data);
 
     //messageOne.textContent = "";
-    //zrob wysweiltanie przypadku jak data jest errorem bo np. brak autentifikacji
+    arenaList.innerHTML = "";
 
     data.forEach((arena) => {
       const li = document.createElement("li"); // Tworzenie nowego elementu <li>
@@ -102,11 +111,22 @@ const readArenas = async () => {
     messageOne.textContent = "";
     messageTwo.textContent = "";
     paneledit.style.display = "block";
+    if (paneledit2) {
+      paneledit2.style.display = "block"; // Pokazanie linku
+    } else {
+      console.error("Element #paneledit2-link is missing.");
+    }
   } catch (error) {
-    console.error("Error:", error);
-    messageOne.textContent = "Error loading arenas please login";
+    console.error("Error:", error.message || error);
+    messageOne.textContent =
+      error.message || "Error loading arenas. Please login.";
     messageTwo.textContent = "";
   }
+  // } catch (error) {
+  //   console.error("Error:", error);
+  //   messageOne.textContent = "Error loading arenas please login";
+  //   messageTwo.textContent = "";
+  // }
 };
 readArenas();
 
