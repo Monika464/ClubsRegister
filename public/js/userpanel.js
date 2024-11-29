@@ -147,7 +147,7 @@ displayAvatar();
 
 const readArenas = async () => {
   try {
-    const response = await fetch("/arenass/all", {
+    const userResponse = await fetch("/userss/me", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -155,42 +155,102 @@ const readArenas = async () => {
       },
     });
 
-    const data = await response.json();
+    const userData = await userResponse.json(); // Dane zalogowanego użytkownika
+    const userId = userData._id; // ID zalogowanego użytkownika
 
-    if (data.error) {
-      console.log(data.error);
-      messageError.textContent = data.error;
+    const arenaResponse = await fetch("/arenass/all", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    const arenaData = await arenaResponse.json(); // Dane aren
+    if (arenaData.error) {
+      console.error(arenaData.error);
+      messageError.textContent = arenaData.error;
       messageOne.textContent = "";
-    } else {
-      messageOne.textContent = "";
-      console.log("czy mamy areny", data);
-      // Użycie for...of zamiast forEach
-      for (const arena of data) {
-        const li = document.createElement("li");
-        li.classList.add("arena-item");
+      return;
+    }
 
-        // Pobranie awatara
-        // const avatarImg = await getAvatar(user._id);
+    messageOne.textContent = ""; // Czyszczenie komunikatu
+    console.log("Czy mamy areny:", arenaData);
 
-        // Dodanie informacji o użytkowniku i awataru
-        li.innerHTML = `
-          <div class="arena-info">
-                      <span>${arena.title} ${
-          arena.description
-        }, competition start: ${formatDate(
-          arena.arenaTimeStart
-        )} competition end ${formatDate(
-          arena.arenaTimeClose
-        )} application close ${formatDate(arena.arenaTimeClose)}</span>
-          </div>
-        `;
-        arenaList.appendChild(li);
-      }
+    for (const arena of arenaData) {
+      const li = document.createElement("li");
+      li.classList.add("arena-item");
+
+      // Sprawdź, czy użytkownik jest wśród uczestników
+      const isParticipant = arena.participants.includes(userId);
+
+      // Ustaw kolor czcionki na podstawie przynależności
+      li.style.color = isParticipant ? "green" : "red";
+
+      li.innerHTML = `
+        <div class="arena-info">
+          <span>
+            ${arena.title} ${arena.description}, 
+            competition start: ${formatDate(arena.arenaTimeStart)}, 
+            competition end: ${formatDate(arena.arenaTimeClose)}, 
+            application close: ${formatDate(arena.arenaTimeRegisClose)}
+          </span>
+        </div>
+      `;
+
+      arenaList.appendChild(li);
     }
   } catch (error) {
     console.error("Błąd podczas pobierania aren:", error);
   }
 };
+
+// const readArenas = async () => {
+//   try {
+//     const response = await fetch("/arenass/all", {
+//       method: "GET",
+//       headers: {
+//         "Content-Type": "application/json",
+//         Authorization: `Bearer ${token}`,
+//       },
+//     });
+
+//     const data = await response.json();
+
+//     if (data.error) {
+//       console.log(data.error);
+//       messageError.textContent = data.error;
+//       messageOne.textContent = "";
+//     } else {
+//       messageOne.textContent = "";
+//       console.log("czy mamy areny", data);
+//       // Użycie for...of zamiast forEach
+//       for (const arena of data) {
+//         const li = document.createElement("li");
+//         li.classList.add("arena-item");
+
+//         // Pobranie awatara
+//         // const avatarImg = await getAvatar(user._id);
+
+//         // Dodanie informacji o użytkowniku i awataru
+//         li.innerHTML = `
+//           <div class="arena-info">
+//                       <span>${arena.title} ${
+//           arena.description
+//         }, competition start: ${formatDate(
+//           arena.arenaTimeStart
+//         )} competition end ${formatDate(
+//           arena.arenaTimeClose
+//         )} application close ${formatDate(arena.arenaTimeClose)}</span>
+//           </div>
+//         `;
+//         arenaList.appendChild(li);
+//       }
+//     }
+//   } catch (error) {
+//     console.error("Błąd podczas pobierania aren:", error);
+//   }
+//};
 
 readArenas();
 
