@@ -6,6 +6,7 @@ const router = new express.Router();
 const crypto = require("crypto");
 const { sendEmail } = require("../emails/account");
 //router.post("/managers", authClub, async (req, res) => {
+
 router.post("/managers", async (req, res) => {
   //const user = new User(req.body);
   //console.log("req manager", req);
