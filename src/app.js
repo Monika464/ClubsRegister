@@ -10,8 +10,8 @@ const envFile = `./config/${process.env.NODE_ENV || "development"}.env`;
 // Wczytanie odpowiedniego pliku .env
 dotenv.config({ path: envFile });
 
-console.log("Using environment file:", envFile);
-console.log("Database URL:", process.env.DATABASE_URL);
+//console.log("Using environment file:", envFile);
+//console.log("Database URL:", process.env.DATABASE_URL);
 
 const app = express();
 //do captcha
