@@ -75,3 +75,12 @@ const loginClub = async (clubData) => {
   return loginResponse.body.token; // Zwraca token
 };
 ////////////
+
+test("Should delete club", async () => {
+  const token = await loginClub(clubOne);
+  await request(app)
+    .get("/clubs/me")
+    .set("Authorization", `Bearer ${token}`)
+    .send()
+    .expect(200);
+});

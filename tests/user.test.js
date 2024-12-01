@@ -103,3 +103,14 @@ test("Should get profile user", async () => {
 
   expect(response.body.email).toBe(userTwo.email);
 });
+
+test("Should delete user", async () => {
+  const token = await loginUser(userTwo);
+  const response = await request(app)
+    .get("/userss/me")
+    .set("Authorization", `Bearer ${token}`)
+    .send()
+    .expect(200);
+
+  // expect(response.body).toBe("undefined");
+});

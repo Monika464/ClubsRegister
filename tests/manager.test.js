@@ -74,3 +74,11 @@ const loginManager = async (managerData) => {
   return loginResponse.body.token; // Zwraca token
 };
 ////////////
+test("Should delete manager", async () => {
+  const token = await loginManager(managerOne);
+  await request(app)
+    .get("/managers/me")
+    .set("Authorization", `Bearer ${token}`)
+    .send()
+    .expect(200);
+});
