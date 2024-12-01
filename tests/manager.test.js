@@ -29,7 +29,7 @@ test("Should signup a new manager", async () => {
       phone: "1234",
     })
     .expect(201);
-}, 10000);
+});
 
 test("Should login existing manager", async () => {
   await request(app)
@@ -51,6 +51,26 @@ test("Should not login nonexisting manager", async () => {
     .expect(400);
 });
 
-// test("Should login a new user", async () => {
-//   await request(app).post("/users").send({});
-// }).expect(201);
+test("Should get profile manager", async () => {
+  const token = await loginManager(managerOne);
+
+  const response = await request(app)
+    .get("/managers/me")
+    .set("Authorization", `Bearer ${token}`)
+    .send()
+    .expect(200);
+
+  expect(response.body.email).toBe(managerOne.email);
+});
+//funkcja pomocnicza
+const loginManager = async (managerData) => {
+  // const manager = new Manager(managerData);
+  // await manager.save();
+
+  const loginResponse = await request(app).post("/managers/login").send({
+    email: managerData.email,
+    password: managerData.password,
+  });
+  return loginResponse.body.token; // Zwraca token
+};
+////////////

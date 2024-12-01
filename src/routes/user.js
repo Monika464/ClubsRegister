@@ -96,10 +96,8 @@ router.post("/users", authClub, async (req, res) => {
 
   try {
     await user.save();
-    //const token = await user.generateAuthToken();
-    //res.status(201).send({ user, token });
+
     res.status(201).send({ user, redirectTo: "/clubpanel" });
-    //res.status(201).send({ user });
   } catch (e) {
     res.status(400).send({ error: e.message });
   }
@@ -118,21 +116,9 @@ router.post("/users/login", async (req, res) => {
     res.status(400).send({ error: e.message });
   }
 });
-// router.get("/users/me", authUser, async (req, res) => {
-//   try {
-//     //const clubs = await Club.find({});
-//     //console.log("me tutaj", req.club);
-//     console.log("meee tutaj", req);
-//     res.send(req.user);
-//   } catch {
-//     res.status(500).send({ error: e.message });
-//   }
-// });
+
 router.get("/userss/me", authUser, async (req, res) => {
   try {
-    //const clubs = await Club.find({});
-    //console.log("me tutaj", req.club);
-
     res.send(req.user);
   } catch {
     res.status(500).send({ error: e.message });
