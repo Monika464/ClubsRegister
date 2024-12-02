@@ -2,6 +2,9 @@ const request = require("supertest");
 const app = require("../src/app");
 const Manager = require("../src/models/manager");
 
+const mongoose = require("mongoose");
+const managerOneId = new mongoose.Types.ObjectId();
+
 const managerOne = {
   email: "aa@aa.pl",
   password: "12345678",
@@ -81,4 +84,6 @@ test("Should delete manager", async () => {
     .set("Authorization", `Bearer ${token}`)
     .send()
     .expect(200);
+  const manager = await Manager.findById(managerOneId);
+  expect(manager).toBeNull();
 });

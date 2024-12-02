@@ -104,13 +104,26 @@ test("Should get profile user", async () => {
   expect(response.body.email).toBe(userTwo.email);
 });
 
-test("Should delete user", async () => {
+test("Should update user", async () => {
   const token = await loginUser(userTwo);
   const response = await request(app)
+    .patch("/userss/me")
+    .set("Authorization", `Bearer ${token}`)
+    .send({
+      name: "Adrianna",
+    })
+    .expect(200);
+  //const user = await User.findById(userTwoId);
+  expect(response.body.name).toEqual("Adrianna");
+});
+
+test("Should delete user", async () => {
+  const token = await loginUser(userTwo);
+  await request(app)
     .get("/userss/me")
     .set("Authorization", `Bearer ${token}`)
     .send()
     .expect(200);
-
-  // expect(response.body).toBe("undefined");
+  const user = await User.findById(userTwoId);
+  expect(user).toBeNull();
 });

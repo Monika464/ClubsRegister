@@ -51,6 +51,7 @@ test("Should login existing club", async () => {
   expect(response.body).toHaveProperty("token");
 });
 
+////////////
 test("Should get profile club", async () => {
   const token = await loginClub(clubOne);
 
@@ -61,6 +62,17 @@ test("Should get profile club", async () => {
     .expect(200);
 
   expect(response.body.email).toBe(clubOne.email);
+});
+
+test("Should delete club", async () => {
+  const token = await loginClub(clubOne);
+  await request(app)
+    .get("/clubs/me")
+    .set("Authorization", `Bearer ${token}`)
+    .send()
+    .expect(200);
+  const club = await Club.findById(clubOneId);
+  expect(club).toBeNull();
 });
 
 //funkcja pomocnicza
@@ -74,13 +86,3 @@ const loginClub = async (clubData) => {
   });
   return loginResponse.body.token; // Zwraca token
 };
-////////////
-
-test("Should delete club", async () => {
-  const token = await loginClub(clubOne);
-  await request(app)
-    .get("/clubs/me")
-    .set("Authorization", `Bearer ${token}`)
-    .send()
-    .expect(200);
-});
