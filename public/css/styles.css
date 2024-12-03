@@ -1,7 +1,7 @@
 body {
   color: #333333;
   font-family: arial;
-  max-width: 750px;
+  /* max-width: 750px; */
   margin: 0 auto;
   padding: 0 16px;
 
@@ -10,9 +10,80 @@ body {
   min-height: 100vh;
 }
 
-.main-content {
+#main-content {
   flex-grow: 1;
+  padding: 20px;
 }
+
+#wrapper {
+  display: flex;
+  min-height: 100vh; 
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); 
+  flex: 1;
+}
+
+/* Sidebar: boczny pasek po lewej stronie */
+#sidebar {
+   
+  background-color: #f4f4f4; 
+  padding: 16px; 
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); 
+   display: flex; /* Umożliwia dostosowanie szerokości menu-container */
+  justify-content: flex-start; /* Ustawienie zawartości na początku */
+  margin-left: 300px; /* Odstęp od lewej krawędzi */
+}
+
+#header {
+  /* background-color: #f4f4f4;  */
+  text-align: center; /* Wyśrodkowanie tekstu */
+  padding: 20px 0; /* Odstępy wewnętrzne */
+  /* box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);  */
+  font-size: 18px;
+  /* font-weight: bold;  */
+}
+
+#footer {
+  text-align: center; /* Wyśrodkowanie tekstu */
+  background-color: #f4f4f4; /* Kolor tła */
+  padding: 10px 0; /* Odstępy wewnętrzne */
+  font-size: 14px; /* Rozmiar czcionki */
+  border-top: 1px solid #dddddd; /* Linia oddzielająca stopkę */
+  margin-top: auto; /* Automatyczne odsunięcie w dół */
+}
+
+/* Menu w sidebarze */
+.menu-container {
+  /* display: inline-block;  */
+  background-color: #ffffff; /* Opcjonalne tło dla menu */
+  padding: 10px; /* Dodanie odstępów wewnętrznych */
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); /* Delikatny cień */
+  border-radius: 5px; /* Zaokrąglone rogi (opcjonalne) */
+  margin-top: 20px;
+  /* display: flex;
+  flex-direction: column; 
+  gap: 10px; 
+  align-items: flex-start; 
+  padding-left: 10px;  */
+}
+/* Linki w sidebarze */
+.menu-container a {
+  text-decoration: none; /* Usuń podkreślenie */
+  color: #333; /* Kolor tekstu */
+  font-size: 16px; /* Rozmiar czcionki */
+  padding: 5px 0; /* Odstępy między linkami */
+  transition: color 0.2s; /* Animacja koloru przy najechaniu */
+  display: block; /* Każdy link w nowej linii */
+}
+.menu-container a:hover {
+  color: #007bff; /* Kolor linku po najechaniu */
+}
+.container {
+  width: 100%;
+  max-width: 1200px; /* Maksymalna szerokość kontenera */
+  margin: 0 auto; /* Wyśrodkowanie kontenera */
+  padding: 0 20px; /* Odstęp wewnętrzny */
+}
+
 
 footer {
   color: #888888;
@@ -24,9 +95,10 @@ footer {
 header {
   margin-top: 16px;
   margin-bottom: 48px;
-
  
 }
+
+
 h1 {
   text-align: center; /* Wyśrodkowanie tekstu */
   font-size: 64px; /* Rozmiar tekstu */
@@ -41,8 +113,8 @@ h1 {
   margin-top: 16px; /* Odstęp od góry */
   margin-bottom: 48px; /* Odstęp od dołu */
 }
-.margin-left-60 {
-  margin-left: 60px;
+.margin-left-100 {
+  margin-left: 100px;
 }
 
 header a {
@@ -50,6 +122,7 @@ header a {
   margin-right: 16px;
   text-decoration: none;
 }
+
 
 .portrait {
   width: 250px;
@@ -100,10 +173,6 @@ button {
     background-color: darkblue; /* optional hover effect */
 }
 
-.menu-container {
-  /* display: flex; */
-  align-items: center; /* wyrównanie elementów w pionie */
-}
 
 #logout-link {
   /* margin-left: auto; */
@@ -121,7 +190,9 @@ button {
 
 .link-images {
   display: flex;
-  justify-content: space-around;
+  /* justify-content: space-around; */
+  justify-content: center;
+  gap: 150px;
   margin: 20px 0;
 }
 
@@ -136,6 +207,18 @@ button {
   transform: scale(1.1);
 }
 
+.user-info {
+  display: flex; /* Ustawienie flexbox do łatwego wyrównywania */
+  align-items: center; /* Wyśrodkowanie elementów w pionie */
+  gap: 8px; /* Odstęp między obrazkiem a tekstem */
+}
+
+#user-list {
+  list-style: none; /* Usunięcie numeracji/kropek */
+  padding: 0; /* Usuń odstęp wewnętrzny domyślny */
+  margin: 0; /* Usuń odstęp zewnętrzny domyślny */
+}
+
 #avatar{
   height: 100px
 } 
@@ -146,4 +229,49 @@ button {
   border-radius: 50%;
   object-fit: cover;
 } 
+
+@media screen and (max-width: 768px) {
+  /* Usunięcie marginesu z sidebaru */
+  #sidebar {
+    margin-left: 0; /* Brak marginesu z lewej strony */
+    width: 100%; /* Sidebar na pełną szerokość */
+  }
+
+  /* Powiększenie czcionki w menu-container */
+  .menu-container a {
+    font-size: 20px; /* Większa czcionka */
+    padding: 10px 0; /* Większe odstępy między linkami */
+  }
+
+  /* Ustawienie sidebaru nad main-content */
+  #wrapper {
+    flex-direction: column; /* Ustawienie elementów w kolumnie */
+  }
+
+  #main-content {
+    width: 100%; /* Main content na pełną szerokość */
+    padding-top: 16px; /* Odstęp od góry dla lepszej czytelności */
+  }
+  .link-images {
+    display: flex;
+    flex-direction: column; /* Wyświetlanie elementów w kolumnie */
+    justify-content: center;
+    gap: 20px; /* Odstęp między elementami */
+    margin: 20px 0;
+  }
+
+  .folders {
+    display: flex;
+    flex-direction: column; /* Wyświetlanie linków w kolumnie */
+    gap: 20px; /* Odstęp między elementami */
+    align-items: center; /* Wyrównanie elementów w poziomie na środku */
+    margin-top: 20px;
+  }
+
+  .folders a {
+    font-size: 18px; /* Możesz dostosować rozmiar czcionki na urządzenia mobilne */
+    padding: 10px; /* Większe odstępy między linkami */
+    text-align: center; /* Wyrównanie tekstu w linkach */
+  }
+}
    

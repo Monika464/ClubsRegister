@@ -1,4 +1,49 @@
+<html>
+  <head>
+    <title>{{title}}</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+  </head>
+<body>
+  <div id="header">
+    {{>headerclub}}
+  </div>
+  <div id="wrapper">
+    <div id="sidebar">
+      <div class="menu-container">
+        <a href="/arenasapply" id="but-link1" style="display: none;">Applications for arena</a>
+        <a href="/arenasparticipants" id="but-link2" style="display: none;">Arena members</a>
+        <a href="/clubpaneledit" id="but-link4" style="display: none;">Edit members</a>
+        <a href="/clubprofileedit" id="but-link3" style="display: none;">Edit profile</a>
+       <button id="create-user" style="display: none;">Create User</button>
+      </div>
+    </div>
+    <div id="main-content">
+      <p id="list-title" style="display: none;">Club members</p>
+      <div>
+        <ul id="user-list"></ul>
+      </div>
+     
+      <div>
+        <p id="message-3"></p>
+        <p id="message-error"></p>
+        <p id="message-2"></p>
+        <p id="message-1"></p>
+      </div>
+    </div>
+  </div>
+    <footer id="footer">
+    <p>© 2024 MK. All rights reserved.</p>
+  </footer>
+  <script src="/js/clubpanel.js"></script>
+</body>
 
+
+
+
+</html> 
+
+
+{{!-- 
 <html>
   <head>
     <title>{{title}}</title>
@@ -6,23 +51,20 @@
   </head>
 
   <body>
+   
    <div class="menu-container">
-    {{!-- {{>header}} --}}
+
     {{>headerclub}}
-    {{!-- <a href="/clublogout" id="logout-link" style="display: none;">Logout</a> --}}
+
+
     <a href="/arenasapply" id="but-link1" style="display: none;">Applications for arena</a>
     <a href="/arenasparticipants" id="but-link2" style="display: none;">Arena members</a>
      <a href="/clubpaneledit" id="but-link4" style="display: none;">Edit memebers</a>
-{{!-- {{isClubLoggedIn}} --}}
+
 <a href="/clubprofileedit" id="but-link3" style="display: none;">Edit profile</a> 
 </div>
 
-{{!-- 
- <div> <ol id="arena-all-list"></ol> </div>
-    {{>displayallarenas}}
-  <script src="/js/displayallarenas.js"></script>
 
- --}}
 
 
 <p id="list-title" style="display: none;">Club members</p>
@@ -40,18 +82,10 @@
     </div>
 
 
+</div>
 
-{{!-- <div id="delete-container" style="display: none;">
-  <button id="delete-button">Delete your club</button>
-  <form id="delete-form" style="display: none;">
-    <label for="delete-input">Type "delete" to confirm</label>
-    <input type="text" id="delete-input" placeholder="delete">
-    <button type="submit">Confirm</button>
-  </form>
-  <a href="/clubdelete" id="delete-link" style="display: none;">Delete the club here</a>
-</div> --}}
 
     <script src="/js/clubpanel.js"></script>
 
   </body>
-</html>
+</html> --}}
