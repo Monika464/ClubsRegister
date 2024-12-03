@@ -267,6 +267,14 @@ app.get("/passwordrecmanager", (req, res) => {
   });
 });
 
+app.get("/testtailwind", (req, res) => {
+  res.render("testtailwind", {
+    helpText: "ccc",
+    title: "testtailwind",
+    name: "Monika",
+  });
+});
+
 // Eksport aplikacji
 module.exports = app;
 
