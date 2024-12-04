@@ -31,15 +31,12 @@ const panelDisplay = async () => {
     } else {
       messageOne.textContent = "";
 
-      // Użycie for...of zamiast forEach
       for (const user of data) {
         const li = document.createElement("li");
         li.classList.add("user-item");
 
-        // Pobranie awatara
         const avatarImg = await getAvatar(user._id);
 
-        // Dodanie informacji o użytkowniku i awataru
         li.innerHTML = `
           <div class="user-info">
             <img id="avataruser" src="${avatarImg}" alt="Avatar of ${user.name}" />
@@ -49,7 +46,6 @@ const panelDisplay = async () => {
         userList.appendChild(li);
       }
 
-      // Wyświetlanie przycisków po załadowaniu danych
       butLink1.style.display = "block";
       butLink2.style.display = "block";
       butLink3.style.display = "block";
@@ -62,7 +58,6 @@ const panelDisplay = async () => {
   }
 };
 
-// Funkcja pobierająca awatar użytkownika
 const getAvatar = async (userId) => {
   try {
     const response = await fetch(`/users/${userId}/avatar`, {
@@ -71,13 +66,12 @@ const getAvatar = async (userId) => {
         Authorization: `Bearer ${token}`,
       },
     });
-    //console.log("jaka response ", response.ok);
 
     const blob = await response.blob();
     //console.log("blob", blob.size);
     if (blob.size === 0) {
       console.warn(`Awatar dla użytkownika ${userId} nie został znaleziony.`);
-      return "/img/anonim.png"; // Ścieżka do awatara domyślnego
+      return "/img/anonim.png";
     }
     return URL.createObjectURL(blob);
   } catch (error) {
@@ -89,10 +83,8 @@ const getAvatar = async (userId) => {
   }
 };
 
-// Wywołanie funkcji głównej
 panelDisplay();
 
-// Obsługa przycisku tworzenia użytkownika
 createUserButton.addEventListener("click", () => {
   window.location.href = "/usersignupbyclub";
 });

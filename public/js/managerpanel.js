@@ -16,49 +16,44 @@ const readArenas = async () => {
   messageTwo.textContent = "Loading...";
   messageOne.textContent = "";
   try {
-    // console.log("czy jest token", token);
     const response = await fetch("/arenas/manager", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`, // Dodanie tokena do nagłówka
+        Authorization: `Bearer ${token}`,
       },
     });
 
     if (!response.ok) {
-      // Obsługa błędu serwera
       const errorData = await response.json();
       throw new Error(errorData.error || "Failed to load arenas.");
     }
 
     const data = await response.json();
-    console.log("data", data);
 
     //messageOne.textContent = "";
     arenaList.innerHTML = "";
 
     data.forEach((arena) => {
       const li = document.createElement("li"); // Tworzenie nowego elementu <li>
-      //console.log("arena", arena);
+
       li.textContent = `
     ${arena.title} 
     ${arena.arenaTimeStart}
     ${arena.description}
     `;
 
-      // Tworzenie przycisku "Apply"
       const applyButton = document.createElement("button");
       applyButton.textContent = "Check participants";
 
-      // Dodanie funkcji kliknięcia, która loguje arena._id
       applyButton.addEventListener("click", () => {
-        console.log("Arena ID:", arena._id);
+        //console.log("Arena ID:", arena._id);
         readUsers(arena);
       });
 
       // Dodanie przycisku do elementu <li>
       li.appendChild(applyButton);
-      arenaList.appendChild(li); // Dodanie elementu <li> do listy
+      arenaList.appendChild(li);
 
       //przycis details
       const detailsButton = document.createElement("button");
@@ -76,8 +71,7 @@ const readArenas = async () => {
 
       const withholdButton = document.createElement("button");
       let withhold = arena.withhold;
-      // withholdButton.textContent = "Withhold OFF"; // Domyślny stan
-      // withholdButton.style.backgroundColor = "red";
+
       if (withhold) {
         withholdButton.textContent = "Withhold ON";
         withholdButton.style.backgroundColor = "red";
@@ -85,18 +79,18 @@ const readArenas = async () => {
         withholdButton.textContent = "Withhold OFF";
         withholdButton.style.backgroundColor = "green";
       }
-      // Obsługa kliknięcia przycisku
+
       withholdButton.addEventListener("click", () => {
         console.log("Arena ID:", arena._id);
         console.log("arena", arena);
 
         if (withhold) {
-          restoreApplications(arena._id); // Przywrócenie aplikacji
+          restoreApplications(arena._id);
           withhold = false;
           withholdButton.textContent = "Withhold OFF";
           withholdButton.style.backgroundColor = "green";
         } else {
-          withholdApplications(arena._id); // Wstrzymanie aplikacji
+          withholdApplications(arena._id);
           withhold = true;
           withholdButton.textContent = "Withhold ON";
           withholdButton.style.backgroundColor = "red";
