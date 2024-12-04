@@ -1,10 +1,10 @@
 const token = localStorage.getItem("authToken");
 const arenaList = document.querySelector("#arena-list");
-const userList = document.querySelector("#user-list");
+const userList = document.querySelector("#user-listA");
 const messageError = document.querySelector("#message-error");
 const messageOne = document.querySelector("#message-1");
 const listTitle = document.querySelector("#list-title");
-
+const arenaDetails = document.createElement("div");
 //ZCZYTYWANIE USEROW WSZYSTKICH Z KLUBU
 const readUsers = async (arena) => {
   console.log("arena", arena);
@@ -41,6 +41,7 @@ const readUsers = async (arena) => {
     data.forEach((user) => {
       const li = document.createElement("li"); // Tworzenie nowego elementu <li>
       // console.log("lista userow", user);
+      li.classList.add("user-item");
       li.innerHTML = `
         <input type="checkbox" value="${user._id}" class="user-checkbox">
         ${user.name} ${user.surname} - Age: ${user.age}, Weight: ${user.weight}, Fights: ${user.fights}
@@ -115,7 +116,7 @@ const readArenas = async () => {
     //console.log("data", data);
     data.forEach((arena) => {
       const li = document.createElement("li"); // Tworzenie nowego elementu <li>
-      // console.log("arena", arena);
+      arenaDetails.classList.add("arena-details");
       li.textContent = `
     ${arena.title} 
     ${arena.arenaTimeStart}

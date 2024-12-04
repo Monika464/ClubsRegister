@@ -6,10 +6,12 @@
   </head>
 
   <body>
-   <div class="menu-container">
-    {{>headermanager}}
-    {{!-- <a href="/clublogout" id="logout-link" style="display: none;">Logout</a> --}}
-</div>
+
+     {{>headermanager}}</div>
+  
+
+    
+    
 
 {{!-- 
  <div> <ol id="arena-all-list"></ol> </div>
@@ -21,20 +23,17 @@
 
 {{!-- <p id="list-title" style="display: none;">Club members</p> --}}
  <div> <ol id="arena-list"></ol> <!-- Kontener na listę użytkowników --></div>
-  
-  <button id="sort-by-weight">Sort by Weight</button>
-
-<button id="sort-by-club">Sort by Club</button>
  
- <div> <ol id="user-list"></ol> <!-- Kontener na listę użytkowników --></div>
-  <button id="export-to-xml">Eksportuj do XML</button>
-<button id="view-club-contacts">Clubs Contacts</button>
+
+  <button id="sort-by-weight" class="move-right">Sort by Weight</button>
+<button id="sort-by-club" class="move-right">Sort by Club</button>
+   <button id="export-to-xml" class="move-right">Export to XML</button>
+<button id="view-club-contacts" class="move-right">Clubs Contacts</button>
+
 <ul id="club-contact-list"></ul>
 
+<div> <ol id="user-listA"></ol></div>
 
-{{!-- <button id="withdraw-users" style="display: block;">Wycofaj</button> --}}
-
-{{!-- <button id="withdraw-users" style="display: block;">Withddraw</button> --}}
 
 
     <div>

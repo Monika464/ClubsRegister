@@ -14,20 +14,17 @@
    <div class="main-content">
 {{>headerclub}}
 
-<p>Login as a club</p>
 
+<div class="margin-left-600">
+<p>Login as a club</p>
 <form id="club-login-form"> 
    <input id="email-input" placeholder="Email">
    <input id="password-input" type="password" placeholder="Password">
    <button>Send</button>
 </form>
-<a href="/clubss/forgot-password">Zapomniałem hasła</a>
+<a href="/clubss/forgot-password" class="forgot">Zapomniałem hasła</a>
+</div>
 
-{{!-- <form> 
-   <input placeholder="Email">
-   <input placeholder="Password">
-   <button>send</button>
-</form>  --}}
 
 <p id="message-3"></p>
 <p id="message-1"></p>
@@ -36,7 +33,7 @@
 
    </div>
     
-  {{>footer}}  
+  
 
   <script src="/js/clublogin.js"></script>
 

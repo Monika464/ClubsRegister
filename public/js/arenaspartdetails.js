@@ -10,7 +10,7 @@ const listTitle = document.querySelector("#list-title");
 //const createUserButton = document.querySelector("#create-user");
 //const deleteMe = document.querySelector("#delete-link");
 const arenaList = document.querySelector("#arena-list");
-const userList = document.querySelector("#user-list");
+const userList = document.querySelector("#user-listA");
 const sortByWeightButton = document.querySelector("#sort-by-weight");
 const sortByClubButton = document.querySelector("#sort-by-club");
 
@@ -235,7 +235,7 @@ viewClubContactsButton.addEventListener("click", async () => {
         City: ${club.city || "N/A"}<br>
         Phone: ${club.phone || "N/A"}<br>
         Email: ${club.email || "N/A"}<br>
-        <hr>
+        
       `;
       clubContactList.appendChild(li);
     });

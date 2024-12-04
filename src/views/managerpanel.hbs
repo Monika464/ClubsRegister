@@ -6,36 +6,45 @@
 
   <body>
     
-    <div class="menu-container">
-    {{!-- {{>header}} --}}
+
+  <div id="header">
     {{>headermanager}}
-    {{!-- <a href="/managerlogout" id="logout-link" style="display: none;">Logout</a> --}}
-</div>
+   </div>
+<div id="wrapper">
+    <div id="sidebar">
+       <div class="menu-container">
+        <a href="/managerpaneledit" id="paneledit-link" style="display: none;">Edit arenas</a>
+        <a href="/arenacreate" id="paneledit2-link" style="display: none;">Create arena</a>
+      </div>
+    </div>
+
 {{!-- <div class="menu-container">{{>displayarenas}}</div> --}}
 
- <div> <ol id="arena-list"></ol> <!-- Kontener na listę użytkowników --></div>
+ {{!-- <div> <ol id="arena-list"></ol> <!-- Kontener na listę użytkowników --></div> --}}
     {{!-- {{>displayarenas}}
   <script src="/js/displayarenas.js"></script> --}}
 
  <div> <ol id="arena-list"></ol> <!-- Kontener na listę użytkowników --></div>
   
- <div> <ol id="user-list"></ol> <!-- Kontener na listę użytkowników --></div>
+ <div> <ol id="user-listA"></ol> <!-- Kontener na listę użytkowników --></div>
   
 
 <button id="withdraw-users" style="display: none;">Wycofaj</button>
 
-<a href="/managerpaneledit" id="paneledit-link" style="display: none;">Edit arenas</a>
-<a href="/arenacreate" id="paneledit2-link" style="display: none;">Create arena</a>
 
 {{!-- <button id="withold">Withhold</button> --}}
-    <div>
+    <div class="margin-left-600" >
        <p id="message-3"></p>
        <p id="message-1"></p>
-<p id="message-error"></p>
-<p id="message-2"></p>
-<p id="message-4"></p>
+      <p id="message-error"></p>
+      <p id="message-2"></p>
+      <p id="message-4"></p>
     </div>
-    <script src="/js/managerpanel.js"></script>
 
+       <footer id="footer">
+    <p>© 2024 MK. All rights reserved.</p>
+  </footer>
+    <script src="/js/managerpanel.js"></script>
+</div>
   </body>
 </html>

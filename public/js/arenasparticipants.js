@@ -1,6 +1,6 @@
 const token = localStorage.getItem("authToken");
 const arenaList = document.querySelector("#arena-list");
-const userList = document.querySelector("#user-list");
+const userList = document.querySelector("#user-listA");
 const messageError = document.querySelector("#message-error");
 const withdraw = document.querySelector("#withdraw-users");
 

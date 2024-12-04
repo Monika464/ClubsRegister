@@ -14,15 +14,16 @@
    <div class="main-content">
 {{>headermanager}}
 
-<p>Login as a manager</p>
 
+<div class="margin-left-600">
+   <p>Login as a manager</p>
 <form id="manager-login-form"> 
    <input id="email-input" placeholder="Email">
    <input id="password-input" type="password" placeholder="Password">
    <button>Send</button>
 </form>
-<a href="/managerss/forgot-password">Zapomniałem hasła</a>
-
+<a href="/managerss/forgot-password" class="forgot">Zapomniałem hasła</a>
+</div>
 {{!-- <form> 
    <input placeholder="Email">
    <input placeholder="Password">
@@ -36,7 +37,7 @@
 
    </div>
     
-  {{>footer}}  
+  {{!-- {{>footer}}   --}}
 
   <script src="/js/managerlogin.js"></script>
 

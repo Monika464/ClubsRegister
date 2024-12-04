@@ -241,11 +241,11 @@ router.post("/clubss/forgot-password", async (req, res) => {
   try {
     const club = await Club.findOne({ email: req.body.email });
     if (!club) {
-      return res.status(404).send({ error: "Club nie istnieje" });
+      return res.status(404).send({ error: "Club does not exists" });
     }
 
     const token = crypto.randomBytes(32).toString("hex");
-    console.log("czy jest token", token);
+    //console.log("czy jest token", token);
     club.resetToken = token; // Zapisz token w bazie
     //console.log("token w bazie", user.resetToken);
     club.tokenExpiry = Date.now() + 3600000; // Ważność tokenu: 1 godzina
@@ -256,7 +256,7 @@ router.post("/clubss/forgot-password", async (req, res) => {
       "host"
     )}/clubss/reset-password/${token}`;
     console.log("url przed wysłaniem", resetUrl);
-    sendEmail(club.email, "Resetowanie hasła", `Kliknij link: ${resetUrl}`);
+    sendEmail(club.email, "Password reset", `Click this link: ${resetUrl}`);
     res.render("email/emailsent", { email: club.email });
     //res.status(200).send({ message: "E-mail resetu wysłany" });
   } catch (e) {

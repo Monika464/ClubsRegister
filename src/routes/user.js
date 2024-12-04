@@ -349,7 +349,7 @@ router.post("/userss/forgot-password", async (req, res) => {
   try {
     const user = await User.findOne({ email: req.body.email });
     if (!user) {
-      return res.status(404).send({ error: "Użytkownik nie istnieje" });
+      return res.status(404).send({ error: "User does not exists" });
     }
 
     const token = crypto.randomBytes(32).toString("hex");
@@ -363,8 +363,8 @@ router.post("/userss/forgot-password", async (req, res) => {
     const resetUrl = `${req.protocol}://${req.get(
       "host"
     )}/userss/reset-password/${token}`;
-    console.log("url przed wysłaniem", resetUrl);
-    sendEmail(user.email, "Resetowanie hasła", `Kliknij link: ${resetUrl}`);
+    //console.log("url przed wysłaniem", resetUrl);
+    sendEmail(user.email, "Password reset", `Click this link: ${resetUrl}`);
     res.render("email/emailsent", { email: user.email });
     //res.status(200).send({ message: "E-mail resetu wysłany" });
   } catch (e) {
