@@ -106,8 +106,6 @@ router.post("/managerss/reset-password/:token", async (req, res) => {
   }
 });
 
-// Trasa do wyświetlania formularza resetowania hasła
-
 router.get("/managerss/forgot-password", (req, res) => {
   res.render("managerforgotpassword"); // formularz HTML
 });

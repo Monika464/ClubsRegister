@@ -63,16 +63,6 @@ router.patch("/clubs/me", auth, async (req, res) => {
     res.status(500).send({ error: e.message });
   }
 });
-// router.patch("/clubs/me/edit", auth, async (req, res) => {
-//   try {
-//     if (!req.club) {
-//       return res.status(404).send({ error: "Club not found" });
-//     }
-//     res.send(req.club);
-//   } catch (e) {
-//     res.status(500).send({ error: e.message });
-//   }
-// });
 
 router.post("/clubs", async (req, res) => {
   //Pobierz odpowiedź CAPTCHA z żądania

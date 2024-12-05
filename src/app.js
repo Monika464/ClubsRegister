@@ -7,7 +7,6 @@ console.log("NODE_ENV is:", process.env.NODE_ENV);
 // Domyślnie ustaw "development", jeśli NODE_ENV nie jest określone
 const envFile = `./config/${process.env.NODE_ENV || "development"}.env`;
 
-// Wczytanie odpowiedniego pliku .env
 dotenv.config({ path: envFile });
 
 //console.log("Using environment file:", envFile);
