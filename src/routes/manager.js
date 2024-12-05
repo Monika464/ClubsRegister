@@ -106,8 +106,6 @@ router.post("/managerss/reset-password/:token", async (req, res) => {
   }
 });
 
-// Trasa do wyświetlania formularza resetowania hasła
-
 router.get("/managerss/forgot-password", (req, res) => {
   res.render("managerforgotpassword"); // formularz HTML
 });
@@ -117,7 +115,7 @@ router.post("/managerss/forgot-password", async (req, res) => {
     console.log("req", req.body.email);
     const manager = await Manager.findOne({ email: req.body.email });
     if (!manager) {
-      return res.status(404).send({ error: "User nie istnieje" });
+      return res.status(404).send({ error: "User does not exists" });
     }
 
     const token = crypto.randomBytes(32).toString("hex");
@@ -132,7 +130,7 @@ router.post("/managerss/forgot-password", async (req, res) => {
       "host"
     )}/managerss/reset-password/${token}`;
     // console.log("url przed wysłaniem", resetUrl);
-    sendEmail(manager.email, "Resetowanie hasła", `Kliknij link: ${resetUrl}`);
+    sendEmail(manager.email, "Password reset", `Click this link: ${resetUrl}`);
     res.render("email/emailsent", { email: manager.email });
     //res.status(200).send({ message: "E-mail resetu wysłany" });
   } catch (e) {

@@ -209,7 +209,87 @@ router.get("/arenas/participants/manager", authManager, async (req, res) => {
   }
 });
 
-//przerobic delete na arena id jako parametr i selectedusers jako body
+try {
+  //router.patch("/arenass/:idarena", async (req, res) => {
+  router.patch("/arenass/:iduser/:idarena", async (req, res) => {
+    const idu = req.params.iduser;
+    const ida = req.params.idarena;
+    console.log("ida", ida);
+    console.log("idu", idu);
+
+    const arena = await Arena.findById(ida).populate("participants");
+    if (!arena) {
+      return res.status(404).send("Arena not found");
+    }
+
+    const participantIds = [];
+
+    arena.participants.forEach((elem) => {
+      console.log("elem", elem._id);
+      participantIds.push(elem._id); // Dodaj ID do tablicy
+    });
+
+    arena.participants = arena.participants.filter(
+      (participant) => participant._id.toString() !== idu
+    );
+
+    await arena.save();
+
+    // Zwróć odpowiedź z nową listą uczestników
+    res.json({
+      message: "User removed from participants",
+      participants: arena.participants,
+    });
+  });
+} catch (error) {
+  console.log(error);
+  res.status(500).send("Wystąpił błąd serwera");
+}
+
+//ten z arena w body
+try {
+  //router.patch("/arenass/:idarena", async (req, res) => {
+  router.patch("/arenass/:idarena", async (req, res) => {
+    const ida = req.params.idarena;
+    const usersToDeleteIds = req.body.usersToDeleteIds;
+
+    if (!Array.isArray(usersToDeleteIds)) {
+      return res
+        .status(400)
+        .send("Invalid request body: usersToDeleteIds should be an array");
+    }
+
+    console.log("ID Areny:", ida);
+    //console.log("ID użytkowników do usunięcia:", usersToDeleteIds);
+
+    const arena = await Arena.findById(ida).populate("participants");
+
+    if (!arena) {
+      return res.status(404).send("Arena not found");
+    }
+
+    arena.participants = arena.participants.filter(
+      (participant) => !usersToDeleteIds.includes(participant._id.toString())
+    );
+
+    console.log("Pozostali uczestnicy:", arena.participants);
+    arena.participants.forEach((el) => {
+      console.log("el", el);
+    });
+
+    // Zapisz zmodyfikowaną tablicę w bazie danych
+    await arena.save();
+
+    // Zwróć odpowiedź z nową listą uczestników
+    res.json({
+      message: "User removed from participants",
+      participants: arena.participants,
+    });
+  });
+} catch (error) {
+  console.log(error);
+  res.status(500).send("Wystąpił błąd serwera");
+}
 
 // Route to delete selected users from the participants array
 router.delete("/arenas/participants/delete", authClub, async (req, res) => {

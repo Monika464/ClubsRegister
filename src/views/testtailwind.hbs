@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 
 <html>
@@ -5,23 +7,23 @@
 <head>
   <title>{{title}}</title>
    <link rel="icon" href="/img/weather.png">
-
     <link rel="stylesheet" href="/css/styles.css">
     {{!-- <link rel="stylesheet" href="/public/output.css"> --}}
-
 </head>
 
 <body>
 
    <div class="main-content">
 {{!-- {{>header}} --}}
-<div id="header">
-{{>headermain}}
-</div>
-<div class="container">
-<p class="margin-left-100">Choose the correct field to come in!</p>
+<div>{{>headermain}}</div>
 
 
+<p>Choose the correct field to come in!</p>
+
+{{!-- <form>
+   <input placeholder="Location">
+   <button>Search</button>
+</form> --}}
 
  <div class="link-images">
       <a href="/clubpanel">
@@ -37,7 +39,9 @@
         <img src="/img/manager.png" alt="Manager Panel" class="link-image">
       </a>
     </div>
-
+    <h1 class="text-3xl font-bold underline">
+    Hello world!
+  </h1>
 
 <p id="message-3"></p>
 <p id="message-1"></p>
@@ -45,14 +49,12 @@
 <p id="message-4"></p>
 
    </div>
-   
-   </div>
- 
- {{!-- <div class ="margin-left-100">
- {{>footer}} 
- </div> --}}
- 
+    
+  {{>footer}}  
+
   <script src="/js/app.js"></script>
 </body>
 
 </html>
+
+

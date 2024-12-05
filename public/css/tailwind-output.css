@@ -558,6 +558,30 @@ video {
   position: static;
 }
 
+<<<<<<< HEAD
+=======
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.mb-12 {
+  margin-bottom: 3rem;
+}
+
+.mb-4 {
+  margin-bottom: 1rem;
+}
+
+.mr-4 {
+  margin-right: 1rem;
+}
+
+.mt-4 {
+  margin-top: 1rem;
+}
+
+>>>>>>> master
 .block {
   display: block;
 }
@@ -570,15 +594,71 @@ video {
   display: flex;
 }
 
+<<<<<<< HEAD
+=======
+.min-h-screen {
+  min-height: 100vh;
+}
+
+.w-64 {
+  width: 16rem;
+}
+
+.max-w-3xl {
+  max-width: 48rem;
+}
+
+.flex-grow {
+  flex-grow: 1;
+}
+
+>>>>>>> master
 .resize {
   resize: both;
 }
 
+<<<<<<< HEAD
+=======
+.flex-col {
+  flex-direction: column;
+}
+
+.border-t {
+  border-top-width: 1px;
+}
+
+.border-gray-200 {
+  --tw-border-opacity: 1;
+  border-color: rgb(229 231 235 / var(--tw-border-opacity, 1));
+}
+
+.p-4 {
+  padding: 1rem;
+}
+
+.py-4 {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.font-sans {
+  font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+>>>>>>> master
 .text-3xl {
   font-size: 1.875rem;
   line-height: 2.25rem;
 }
 
+<<<<<<< HEAD
+=======
+.text-6xl {
+  font-size: 3.75rem;
+  line-height: 1;
+}
+
+>>>>>>> master
 .font-bold {
   font-weight: 700;
 }
@@ -587,10 +667,37 @@ video {
   text-transform: lowercase;
 }
 
+<<<<<<< HEAD
+=======
+.text-gray-500 {
+  --tw-text-opacity: 1;
+  color: rgb(107 114 128 / var(--tw-text-opacity, 1));
+}
+
+.text-gray-800 {
+  --tw-text-opacity: 1;
+  color: rgb(31 41 55 / var(--tw-text-opacity, 1));
+}
+
+>>>>>>> master
 .underline {
   text-decoration-line: underline;
+}
+
+<<<<<<< HEAD
+.filter {
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+}
+=======
+.no-underline {
+  text-decoration-line: none;
 }
 
 .filter {
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
+
+.hover\:underline:hover {
+  text-decoration-line: underline;
+}
+>>>>>>> master

@@ -7,7 +7,6 @@ console.log("NODE_ENV is:", process.env.NODE_ENV);
 // Domyślnie ustaw "development", jeśli NODE_ENV nie jest określone
 const envFile = `./config/${process.env.NODE_ENV || "development"}.env`;
 
-// Wczytanie odpowiedniego pliku .env
 dotenv.config({ path: envFile });
 
 //console.log("Using environment file:", envFile);
@@ -263,6 +262,14 @@ app.get("/passwordrecmanager", (req, res) => {
   res.render("passwordrecuser", {
     helpText: "ccc",
     title: "passwordrecuser",
+    name: "Monika",
+  });
+});
+
+app.get("/testtailwind", (req, res) => {
+  res.render("testtailwind", {
+    helpText: "ccc",
+    title: "testtailwind",
     name: "Monika",
   });
 });

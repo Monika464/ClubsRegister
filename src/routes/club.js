@@ -63,16 +63,6 @@ router.patch("/clubs/me", auth, async (req, res) => {
     res.status(500).send({ error: e.message });
   }
 });
-// router.patch("/clubs/me/edit", auth, async (req, res) => {
-//   try {
-//     if (!req.club) {
-//       return res.status(404).send({ error: "Club not found" });
-//     }
-//     res.send(req.club);
-//   } catch (e) {
-//     res.status(500).send({ error: e.message });
-//   }
-// });
 
 router.post("/clubs", async (req, res) => {
   //Pobierz odpowiedź CAPTCHA z żądania
@@ -116,20 +106,6 @@ router.post("/clubs", async (req, res) => {
   }
 });
 
-//   const club = new Club(req.body);
-//   // console.log("hello tu", club);
-
-//   try {
-//     await club.save();
-//     // console.log("to club_id", club._id.toString());
-//     const token = await club.generateAuthToken();
-//     res.status(201).send({ club, token, redirectTo: "/clubpanel" });
-//     //res.status(201).send({ club });
-//   } catch (e) {
-//     res.status(400).send({ error: e.message });
-//   }
-// });
-
 router.post("/clubs/login", async (req, res) => {
   try {
     const club = await Club.findByCredentials(
@@ -169,37 +145,8 @@ router.delete("/clubs/me", auth, async (req, res) => {
   }
 });
 
-// router.patch("/clubs/passrec/:id", async (req, res) => {
-//   const updates = Object.keys(req.body);
-//   const allowedUpdates = ["password"];
-//   const isValidOperation = updates.every((update) =>
-//     allowedUpdates.includes(update)
-//   );
-
-//   if (!isValidOperation) {
-//     return res.status(400).send({ error: "Invalid updates!" });
-//   }
-
-//   try {
-//     const club = await Club.findOne({
-//       _id: req.params.id,
-//       //owner: req.club._id,
-//     });
-//     // console.log("czy jest tu user", user);
-//     if (!club) {
-//       return res.status(404).send({ error: "User not found" });
-//     }
-
-//     updates.forEach((update) => (club[update] = req.body[update]));
-//     await club.save();
-
-//     res.status(200).send({ message: "User updated successfully", club });
-//   } catch (e) {
-//     res.status(400).send({ error: e.message });
-//   }
-// });
-
 ///PASSWORD RECOVERY
+
 //Password reset
 router.get("/clubss/reset-password/:token", (req, res) => {
   res.render("clubresetpassword.hbs", { token: req.params.token }); // Przekazanie tokenu do widoku (opcjonalne)
@@ -225,13 +172,13 @@ router.post("/clubss/reset-password/:token", async (req, res) => {
     club.tokenExpiry = undefined;
     await club.save();
     res.render("email/passwordchanged");
-    // res.status(200).send({ message: "Hasło changed" });
+    // res.status(200).send({ message: "Pass changed" });
   } catch (e) {
     res.status(500).send({ error: e.message });
   }
 });
 
-// Trasa do wyświetlania formularza resetowania hasła
+// Password forgot
 
 router.get("/clubss/forgot-password", (req, res) => {
   res.render("clubforgotpassword"); // formularz HTML
@@ -241,11 +188,11 @@ router.post("/clubss/forgot-password", async (req, res) => {
   try {
     const club = await Club.findOne({ email: req.body.email });
     if (!club) {
-      return res.status(404).send({ error: "Club nie istnieje" });
+      return res.status(404).send({ error: "Club does not exists" });
     }
 
     const token = crypto.randomBytes(32).toString("hex");
-    console.log("czy jest token", token);
+    //console.log("czy jest token", token);
     club.resetToken = token; // Zapisz token w bazie
     //console.log("token w bazie", user.resetToken);
     club.tokenExpiry = Date.now() + 3600000; // Ważność tokenu: 1 godzina
@@ -256,7 +203,7 @@ router.post("/clubss/forgot-password", async (req, res) => {
       "host"
     )}/clubss/reset-password/${token}`;
     console.log("url przed wysłaniem", resetUrl);
-    sendEmail(club.email, "Resetowanie hasła", `Kliknij link: ${resetUrl}`);
+    sendEmail(club.email, "Password reset", `Click this link: ${resetUrl}`);
     res.render("email/emailsent", { email: club.email });
     //res.status(200).send({ message: "E-mail resetu wysłany" });
   } catch (e) {

@@ -10,7 +10,7 @@ const listTitle = document.querySelector("#list-title");
 //const createUserButton = document.querySelector("#create-user");
 //const deleteMe = document.querySelector("#delete-link");
 const arenaList = document.querySelector("#arena-list");
-const userList = document.querySelector("#user-list");
+const userList = document.querySelector("#user-listA");
 const sortByWeightButton = document.querySelector("#sort-by-weight");
 const sortByClubButton = document.querySelector("#sort-by-club");
 
@@ -104,24 +104,6 @@ const readUsers = async (arenaid) => {
 
     // Wyświetl użytkowników
     displayUsers(usersData);
-
-    // for (const user of users) {
-    //   const li = document.createElement("li");
-    //   li.innerHTML = `
-    //         ${user.name} ${user.surname} - Age: ${user.age}, Weight: ${user.weight}, Fights: ${user.fights}
-    //         <span class="club-name">Loading club...</span>
-    //       `;
-
-    //   userList.appendChild(li);
-
-    //   // Pobierz nazwę klubu asynchronicznie
-    //   const clubName = await getClubName(user.owner);
-    //   //console.log("clubname", clubName);
-    //   const clubNameSpan = li.querySelector(".club-name");
-    //   if (clubNameSpan) {
-    //     clubNameSpan.textContent = `Club: ${clubName}`;
-    //   }
-    // }
   } catch (error) {
     console.error("Error loading users:", error);
   }
@@ -235,7 +217,7 @@ viewClubContactsButton.addEventListener("click", async () => {
         City: ${club.city || "N/A"}<br>
         Phone: ${club.phone || "N/A"}<br>
         Email: ${club.email || "N/A"}<br>
-        <hr>
+        
       `;
       clubContactList.appendChild(li);
     });

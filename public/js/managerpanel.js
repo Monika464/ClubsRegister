@@ -1,6 +1,6 @@
 const token = localStorage.getItem("authManagerToken");
 const arenaList = document.querySelector("#arena-list");
-const userList = document.querySelector("#user-list");
+const userList = document.querySelector("#user-listA");
 const messageError = document.querySelector("#message-error");
 const withdraw = document.querySelector("#withdraw-users");
 const paneledit = document.querySelector("#paneledit-link");
@@ -16,49 +16,44 @@ const readArenas = async () => {
   messageTwo.textContent = "Loading...";
   messageOne.textContent = "";
   try {
-    // console.log("czy jest token", token);
     const response = await fetch("/arenas/manager", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`, // Dodanie tokena do nagłówka
+        Authorization: `Bearer ${token}`,
       },
     });
 
     if (!response.ok) {
-      // Obsługa błędu serwera
       const errorData = await response.json();
       throw new Error(errorData.error || "Failed to load arenas.");
     }
 
     const data = await response.json();
-    console.log("data", data);
 
     //messageOne.textContent = "";
     arenaList.innerHTML = "";
 
     data.forEach((arena) => {
       const li = document.createElement("li"); // Tworzenie nowego elementu <li>
-      //console.log("arena", arena);
+
       li.textContent = `
     ${arena.title} 
     ${arena.arenaTimeStart}
     ${arena.description}
     `;
 
-      // Tworzenie przycisku "Apply"
       const applyButton = document.createElement("button");
       applyButton.textContent = "Check participants";
 
-      // Dodanie funkcji kliknięcia, która loguje arena._id
       applyButton.addEventListener("click", () => {
-        console.log("Arena ID:", arena._id);
+        //console.log("Arena ID:", arena._id);
         readUsers(arena);
       });
 
       // Dodanie przycisku do elementu <li>
       li.appendChild(applyButton);
-      arenaList.appendChild(li); // Dodanie elementu <li> do listy
+      arenaList.appendChild(li);
 
       //przycis details
       const detailsButton = document.createElement("button");
@@ -76,8 +71,7 @@ const readArenas = async () => {
 
       const withholdButton = document.createElement("button");
       let withhold = arena.withhold;
-      // withholdButton.textContent = "Withhold OFF"; // Domyślny stan
-      // withholdButton.style.backgroundColor = "red";
+
       if (withhold) {
         withholdButton.textContent = "Withhold ON";
         withholdButton.style.backgroundColor = "red";
@@ -85,18 +79,18 @@ const readArenas = async () => {
         withholdButton.textContent = "Withhold OFF";
         withholdButton.style.backgroundColor = "green";
       }
-      // Obsługa kliknięcia przycisku
+
       withholdButton.addEventListener("click", () => {
         console.log("Arena ID:", arena._id);
         console.log("arena", arena);
 
         if (withhold) {
-          restoreApplications(arena._id); // Przywrócenie aplikacji
+          restoreApplications(arena._id);
           withhold = false;
           withholdButton.textContent = "Withhold OFF";
           withholdButton.style.backgroundColor = "green";
         } else {
-          withholdApplications(arena._id); // Wstrzymanie aplikacji
+          withholdApplications(arena._id);
           withhold = true;
           withholdButton.textContent = "Withhold ON";
           withholdButton.style.backgroundColor = "red";
@@ -137,7 +131,7 @@ const withholdApplications = async (arenaId) => {
     const response = await fetch(`/arenas/${arenaId}`, {
       method: "PATCH",
       headers: {
-        "Content-Type": "application/json", // Informujemy serwer, że ciało żądania to JSON
+        "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
@@ -151,7 +145,6 @@ const withholdApplications = async (arenaId) => {
       messageError.textContent = "";
       messageTwo.textContent = "Arena updated successfully!";
     } else {
-      //   // Obsługa błędu logowania
       messageError.textContent = data.error || "Failed to update arena.";
     }
   } catch (error) {
@@ -164,7 +157,7 @@ const restoreApplications = async (arenaId) => {
     const response = await fetch(`/arenas/${arenaId}`, {
       method: "PATCH",
       headers: {
-        "Content-Type": "application/json", // Informujemy serwer, że ciało żądania to JSON
+        "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
@@ -178,7 +171,6 @@ const restoreApplications = async (arenaId) => {
       messageError.textContent = "";
       messageTwo.textContent = "Arena updated successfully!";
     } else {
-      //   // Obsługa błędu logowania
       messageError.textContent = data.error || "Failed to update arena.";
     }
   } catch (error) {
@@ -217,14 +209,9 @@ const readUsers = async (arena) => {
     });
 
     const data = await response.json();
-    //console.log("datauserspartic", data);
 
-    // Oczyszczanie listy użytkowników przed ponownym renderowaniem
     userList.innerHTML = "";
 
-    //
-
-    // Wyświetlenie danych areny na początku listy użytkowników
     const arenaDetails = document.createElement("div");
     arenaDetails.innerHTML = `
      <h2>${arena.title}</h2>
@@ -233,34 +220,21 @@ const readUsers = async (arena) => {
    `;
     userList.appendChild(arenaDetails);
 
-    //edit button
-    // const editButton = document.createElement("button");
-    // editButton.textContent = "Edit";
-    // editButton.addEventListener("click", () => {
-    //   editMode = !editMode;
-    //   toggleCheckboxes(editMode);
-    //   editButton.textContent = editMode ? "Finish Editing" : "Edit";
-    //   withdraw.style.display = editMode ? "block" : "none";
-    // });
-    // userList.appendChild(editButton);
-
     //duplikaty
     const duplicateIds = findDuplicates(data);
 
-    ///
     data.forEach((user) => {
-      const li = document.createElement("li"); // Tworzenie nowego elementu <li>
-      // console.log("lista userow", user);
+      const li = document.createElement("li");
+      li.classList.add("user-item");
       li.innerHTML = `
             <input type="checkbox" value="${user._id}" class="user-checkbox">
             ${user.name} ${user.surname} - Age: ${user.age}, Weight: ${user.weight}, Fights: ${user.fights}
           `;
-      // Jeśli użytkownik jest duplikatem, podświetl go na czerwono
+
       if (duplicateIds.includes(user._id)) {
         li.style.backgroundColor = "red";
       }
-      ///
-      // Dodanie event listenera do checkboxa
+
       const checkbox = li.querySelector(".user-checkbox");
       checkbox.addEventListener("change", (event) => {
         if (event.target.checked) {
@@ -274,8 +248,7 @@ const readUsers = async (arena) => {
         //console.log("Selected user IDs:", selectedUserIds);
       });
 
-      ///
-      userList.appendChild(li); // Dodanie elementu <li> do listy
+      userList.appendChild(li);
     });
     const editButton = document.createElement("button");
     editButton.textContent = "Edit";
@@ -286,17 +259,14 @@ const readUsers = async (arena) => {
       withdraw.style.display = editMode ? "block" : "none";
     });
     userList.appendChild(editButton);
-    //reszta
-    // Example of calling the deleteParticipants function after selecting users
-    //console.log("arena", arena);
-    //const withdrawButton = document.createElement("button");
-    //applyButton.textContent = "Withdraw participants";
+
     withdraw.style.display = editMode ? "block" : "none";
 
     withdraw.addEventListener("click", () => {
       if (selectedUserIds.length > 0) {
         //console.log("Selected user IDs:", selectedUserIds);
-        //console.log("arena :", arena);
+        console.log("arena :", arena._id);
+        console.log("selectedUserIds", selectedUserIds);
         deleteParticipants(arena._id, selectedUserIds);
       } else {
         messageError.textContent = "No users selected for deletion.";
@@ -318,24 +288,31 @@ const deleteParticipants = async (arenaId, selectedUserIds) => {
   messageError.textContent = "";
 
   try {
-    const response = await fetch("/arenas/participants/delete/manager", {
-      method: "DELETE",
+    const response = await fetch(`/arenass/${arenaId}`, {
+      method: "PATCH",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
+        //Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
-        arenaId: arenaId,
-        selectedUsers: selectedUserIds,
+        usersToDeleteIds: selectedUserIds,
       }),
     });
+    const responseText = await response.text();
+    console.log("Response text:", responseText);
 
-    const result = await response.json();
+    let result;
+    try {
+      //const result = await response.json();
+      result = await JSON.parse(responseText);
+    } catch (error) {
+      throw new Error(responseText);
+    }
 
     if (response.ok) {
       console.log("Participants successfully removed:", result);
       messageError.textContent = "Participants removed successfully!";
-      // Optionally refresh the list of participants after deletion
+
       readUsers({ _id: arenaId });
     } else {
       console.error("Failed to remove participants:", result);

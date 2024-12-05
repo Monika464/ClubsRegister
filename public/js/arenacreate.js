@@ -29,8 +29,6 @@ const saveNewArena = async () => {
     const timeStart = arenaTimeStartInput.value;
     const timeClose = arenaTimeCloseInput.value;
 
-    console.log("czy tu wszystko jest?", description, regisOpen);
-
     const response = await fetch("/arenas", {
       method: "POST", // lub POST w zależności od operacji
       headers: {
@@ -48,8 +46,7 @@ const saveNewArena = async () => {
       }),
     });
     const arena = await response.json();
-    console.log("arena", arena);
-    console.log("response", response);
+
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
