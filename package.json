@@ -39,6 +39,8 @@
     "env-cmd": "^10.1.0",
     "jest": "^29.7.0",
     "nodemon": "^3.1.7",
+    "prettier": "^3.4.2",
+    "prettier-plugin-xml": "^0.1.0",
     "supertest": "^7.0.0"
   }
 }

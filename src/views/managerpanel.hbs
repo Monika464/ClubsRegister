@@ -5,41 +5,39 @@
   </head>
 
   <body>
-    
-
-  <div id="header">
-    {{>headermanager}}
-   </div>
-<div id="wrapper">
-    <div id="sidebar" style="display: none;">
-       <div class="menu-container">
-        <a href="/managerpaneledit" id="paneledit-link" style="display: none;">Edit arenas</a>
-        <a href="/arenacreate" id="paneledit2-link" style="display: none;">Create arena</a>
+    <div id="header">{{>headermanager}}</div>
+    <div id="wrapper">
+      <div id="sidebar" style="display: none">
+        <div class="menu-container">
+          <a href="/managerpaneledit" id="paneledit-link" style="display: none"
+            >Edit arenas</a
+          >
+          <a href="/arenacreate" id="paneledit2-link" style="display: none"
+            >Create arena</a
+          >
+        </div>
       </div>
+
+      <div><ol id="arena-list"></ol></div>
+
+      <div><ol id="user-listA"></ol></div>
+
+      <button id="withdraw-users" style="display: none" class="margin-left-100">
+        Withdraw
+      </button>
+
+      <div class="centered-div">
+        <p id="message-3"></p>
+        <p id="message-1"></p>
+        <p id="message-error"></p>
+        <p id="message-2"></p>
+        <p id="message-4"></p>
+      </div>
+
+      <footer id="footer">
+        <p>© 2024 MK. All rights reserved.</p>
+      </footer>
+      <script src="/js/managerpanel.js"></script>
     </div>
-
-
- <div> <ol id="arena-list"></ol> </div>
-  
- <div> <ol id="user-listA"></ol></div>
-  
-
-<button id="withdraw-users" style="display: none;" class="margin-left-100">Withdraw</button>
-
-
-
-    <div class="centered-div" >
-       <p id="message-3"></p>
-       <p id="message-1"></p>
-      <p id="message-error"></p>
-      <p id="message-2"></p>
-      <p id="message-4"></p>
-    </div>
-
-       <footer id="footer">
-    <p>© 2024 MK. All rights reserved.</p>
-  </footer>
-    <script src="/js/managerpanel.js"></script>
-</div>
   </body>
 </html>

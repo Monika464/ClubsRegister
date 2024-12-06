@@ -1,34 +1,24 @@
 <!DOCTYPE html>
 
 <html>
+  <head>
+    <title>{{title}}</title>
+    <link rel="icon" href="/img/weather.png" />
+    <link rel="stylesheet" href="/css/styles.css" />
+  </head>
 
-<head>
-  <title>{{title}}</title>
-   <link rel="icon" href="/img/weather.png">
-    <link rel="stylesheet" href="/css/styles.css">
-    
-</head>
+  <body>
+    <div class="main-content">
+      {{>headermanager}}
 
-<body>
+      <div class="centered-div">
+        <p id="message-3"></p>
+        <p id="message-1"></p>
+        <p id="message-2"></p>
+        <p id="message-4"></p>
+      </div>
+    </div>
 
-   <div class="main-content">
-{{>headermanager}}
-
-<div class="centered-div">
-<p id="message-3"></p>
-<p id="message-1"></p>
-<p id="message-2"></p>
-<p id="message-4"></p>
-
-</div>
-
-
-
-   </div>
-    
-  
-
-  <script src="/js/managerlogout.js"></script>
-</body>
-
+    <script src="/js/managerlogout.js"></script>
+  </body>
 </html>

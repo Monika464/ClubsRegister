@@ -1,40 +1,34 @@
 <!DOCTYPE html>
 
 <html>
+  <head>
+    <title>{{title}}</title>
+    <link rel="icon" href="/img/weather.png" />
+    <link rel="stylesheet" href="/css/styles.css" />
+  </head>
 
-<head>
-  <title>{{title}}</title>
-   <link rel="icon" href="/img/weather.png">
-    <link rel="stylesheet" href="/css/styles.css">
-    
-</head>
+  <body>
+    <div class="main-content">
+      {{>headermember}}
 
-<body>
+      <div class="centered-div">
+        <p>Login as a member</p>
+        <form id="user-login-form">
+          <input id="email-input" placeholder="Email" />
+          <input id="password-input" type="password" placeholder="Password" />
+          <button>Send</button>
+        </form>
+        <a href="/userss/forgot-password" class="forgot">Zapomniałem hasła</a>
 
-   <div class="main-content">
-{{>headermember}}
+        <p id="message-3"></p>
+        <p id="message-1"></p>
+        <p id="message-2"></p>
+        <p id="message-4"></p>
+      </div>
+    </div>
 
+    {{!-- {{>footer}} --}}
 
-<div class="centered-div">
-   <p>Login as a member</p>
-<form id="user-login-form"> 
-   <input id="email-input" placeholder="Email">
-   <input id="password-input" type="password" placeholder="Password">
-   <button>Send</button>
-</form>
-<a href="/userss/forgot-password" class="forgot">Zapomniałem hasła</a>
-
-
-<p id="message-3"></p>
-<p id="message-1"></p>
-<p id="message-2"></p>
-<p id="message-4"></p>
-</div>
-   </div>
-    
-  {{!-- {{>footer}}   --}}
-
-  <script src="/js/userlogin.js"></script>
-</body>
-
+    <script src="/js/userlogin.js"></script>
+  </body>
 </html>

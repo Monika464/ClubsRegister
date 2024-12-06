@@ -1,52 +1,52 @@
 <!DOCTYPE html>
 
 <html>
+  <head>
+    <title>{{title}}</title>
+    <link rel="icon" href="/img/weather.png" />
+    <link rel="stylesheet" href="/css/styles.css" />
+  </head>
 
-<head>
-  <title>{{title}}</title>
-   <link rel="icon" href="/img/weather.png">
-    <link rel="stylesheet" href="/css/styles.css">
-    
-</head>
+  <body>
+    <div class="main-content">
+      {{>headerclub}}
 
-<body>
+      <p>Signup as a club</p>
 
-   <div class="main-content">
-{{>headerclub}}
+      <form id="club-signup-form">
+        <input id="email-input" name="email" placeholder="Email" />
+        <input
+          id="password-input"
+          name="password"
+          type="password"
+          placeholder="Password"
+        />
+        <input id="text-name-input" name="name" placeholder="Name" />
+        <input id="text-city-input" name="city" placeholder="City" />
+        <input id="text-region-input" name="" ="region" placeholder="Region" />
+        <input
+          id="number-phone-input"
+          name="phone"
+          placeholder="Phone number"
+        />
+        <div
+          class="g-recaptcha"
+          data-sitekey="6LeL73gqAAAAAGUv3lZ_gMsNI3JiZNacheyF_pTc"
+        ></div>
+        <button type="submit">Send</button>
+      </form>
+      <script
+        src="https://www.google.com/recaptcha/api.js"
+        async
+        defer
+      ></script>
 
-<p>Signup as a club</p>
+      <p id="message-3"></p>
+      <p id="message-1"></p>
+      <p id="message-2"></p>
+      <p id="message-4"></p>
+    </div>
 
-<form id="club-signup-form" > 
-   <input id="email-input" name="email" placeholder="Email">
-   <input id="password-input" name="password" type="password" placeholder="Password">
-    <input id="text-name-input" name="name" placeholder="Name">
-    <input id="text-city-input" name="city" placeholder="City">
-    <input id="text-region-input" name=="region" placeholder="Region">
-    <input id="number-phone-input" name="phone" placeholder="Phone number">
-      <div class="g-recaptcha" data-sitekey="6LeL73gqAAAAAGUv3lZ_gMsNI3JiZNacheyF_pTc"></div>
-   <button type="submit">Send</button>
-</form>
-<script src="https://www.google.com/recaptcha/api.js" async defer></script>
-
-
-
-{{!-- <form> 
-   <input placeholder="Email">
-   <input placeholder="Password">
-   <button>send</button>
-</form>  --}}
-
-<p id="message-3"></p>
-<p id="message-1"></p>
-<p id="message-2"></p>
-<p id="message-4"></p>
-
-   </div>
-    
-  {{!-- {{>footer}}   --}}
-
-  <script src="/js/clubsignup.js"></script> 
-
-</body>
-
+    <script src="/js/clubsignup.js"></script>
+  </body>
 </html>

@@ -1,33 +1,26 @@
 <!DOCTYPE html>
 
 <html>
+  <head>
+    <title>{{title}}</title>
+    <link rel="icon" href="/img/weather.png" />
+    <link rel="stylesheet" href="/css/styles.css" />
+  </head>
 
-<head>
-  <title>{{title}}</title>
-   <link rel="icon" href="/img/weather.png">
-    <link rel="stylesheet" href="/css/styles.css">
-    
-</head>
+  <body>
+    <div class="main-content">
+      {{>headerclub}}
 
-<body>
+      <div class="centered-div">
+        <p id="message-3"></p>
+        <p id="message-1"></p>
+        <p id="message-2"></p>
+        <p id="message-4"></p>
+      </div>
+    </div>
 
-   <div class="main-content">
-{{>headerclub}}
+    {{!-- {{>footer}} --}}
 
-<div class="centered-div">
-<p id="message-3"></p>
-<p id="message-1"></p>
-<p id="message-2"></p>
-<p id="message-4"></p>
-</div>
-
-
-
-   </div>
-    
-  {{!-- {{>footer}}   --}}
-
-  <script src="/js/clublogout.js"></script>
-</body>
-
+    <script src="/js/clublogout.js"></script>
+  </body>
 </html>

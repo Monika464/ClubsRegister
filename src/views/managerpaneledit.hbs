@@ -1,4 +1,3 @@
-
 <html>
   <head>
     <title>{{title}}</title>
@@ -6,54 +5,53 @@
   </head>
 
   <body>
-   <div class="menu-container">
-    {{>headermanager}}
-    
-</div>
+    <div class="menu-container">{{>headermanager}}</div>
 
+    <div><ol id="arena-list"></ol></div>
 
-<div> <ol id="arena-list"></ol> </div>
-  
- <div> <ol id="user-list"></ol> 
+    <div><ol id="user-list"></ol></div>
 
+    <form id="arena-edit-form" style="display: block">
+      <p>Title</p>
+      <input id="title-input" type="text" placeholder="Title" />
+      <p>Description</p>
+      <input id="description-input" type="text" placeholder="Description" />
+      <p>TimeRegisOpen</p>
+      <input
+        id="arenaTimeRegisOpen-input"
+        type="datetime-local"
+        placeholder="Registration Open"
+      />
+      <p>TimeRegisClose</p>
+      <input
+        id="arenaTimeRegisClose-input"
+        type="datetime-local"
+        placeholder="Registration Close"
+      />
+      <p>TimeStart</p>
+      <input
+        id="arenaTimeStart-input"
+        type="datetime-local"
+        placeholder="Arena Start Time"
+      />
+      <p>Time Close the event</p>
+      <input
+        id="arenaTimeClose-input"
+        type="datetime-local"
+        placeholder="Arena Close Time"
+      />
 
-
-<form id="arena-edit-form" style="display: block;">
-    
-    <p>Title</p>
-    <input id="title-input" type="text" placeholder="Title">
-    <p>Description</p>
-    <input id="description-input" type="text" placeholder="Description">
-    <p>TimeRegisOpen</p>
-        <input id="arenaTimeRegisOpen-input" type="datetime-local" placeholder="Registration Open">
-    <p>TimeRegisClose</p>
-    <input id="arenaTimeRegisClose-input" type="datetime-local" placeholder="Registration Close">
-    <p>TimeStart</p>
-    <input id="arenaTimeStart-input" type="datetime-local" placeholder="Arena Start Time">
-   <p>Time Close the event</p>
-    <input id="arenaTimeClose-input" type="datetime-local" placeholder="Arena Close Time">
-    
-    <button>Send</button>
-</form>
+      <button>Send</button>
+    </form>
 
     <div class="centered-div">
-       <p id="message-3"></p>
-              <p id="message-1"></p>
-<p id="message-error"></p>
-<p id="message-2"></p>
-<p id="message-4"></p>
+      <p id="message-3"></p>
+      <p id="message-1"></p>
+      <p id="message-error"></p>
+      <p id="message-2"></p>
+      <p id="message-4"></p>
     </div>
 
-
-
-
-
-
-
-
-
     <script src="/js/managerpaneledit.js"></script>
-
   </body>
 </html>
-

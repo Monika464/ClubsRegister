@@ -1,60 +1,42 @@
-
-
 <!DOCTYPE html>
 
 <html>
+  <head>
+    <title>{{title}}</title>
+    <link rel="icon" href="/img/weather.png" />
+    <link rel="stylesheet" href="/css/styles.css" />
+  </head>
 
-<head>
-  <title>{{title}}</title>
-   <link rel="icon" href="/img/weather.png">
-    <link rel="stylesheet" href="/css/styles.css">
-    {{!-- <link rel="stylesheet" href="/public/output.css"> --}}
-</head>
+  <body>
+    <div class="main-content">
+      <div>{{>headermain}}</div>
 
-<body>
+      <p>Choose the correct field to come in!</p>
 
-   <div class="main-content">
-{{!-- {{>header}} --}}
-<div>{{>headermain}}</div>
+      <div class="link-images">
+        <a href="/clubpanel">
+          <p>Club Panel</p>
+          <img src="/img/club.png" alt="Club Panel" class="link-image" />
+        </a>
+        <a href="/userpanel">
+          <p>Member Panel</p>
+          <img src="/img/member.png" alt="Member Panel" class="link-image" />
+        </a>
+        <a href="/managerpanel">
+          <p>Manager Panel</p>
+          <img src="/img/manager.png" alt="Manager Panel" class="link-image" />
+        </a>
+      </div>
+      <h1 class="text-3xl font-bold underline">Hello world!</h1>
 
-
-<p>Choose the correct field to come in!</p>
-
-{{!-- <form>
-   <input placeholder="Location">
-   <button>Search</button>
-</form> --}}
-
- <div class="link-images">
-      <a href="/clubpanel">
-      <p>Club Panel</p>
-        <img src="/img/club.png" alt="Club Panel" class="link-image">
-      </a>
-      <a href="/userpanel">
-      <p>Member Panel</p>
-        <img src="/img/member.png" alt="Member Panel" class="link-image">
-      </a>
-      <a href="/managerpanel">
-      <p>Manager Panel</p>
-        <img src="/img/manager.png" alt="Manager Panel" class="link-image">
-      </a>
+      <p id="message-3"></p>
+      <p id="message-1"></p>
+      <p id="message-2"></p>
+      <p id="message-4"></p>
     </div>
-    <h1 class="text-3xl font-bold underline">
-    Hello world!
-  </h1>
 
-<p id="message-3"></p>
-<p id="message-1"></p>
-<p id="message-2"></p>
-<p id="message-4"></p>
+    {{>footer}}
 
-   </div>
-    
-  {{>footer}}  
-
-  <script src="/js/app.js"></script>
-</body>
-
+    <script src="/js/app.js"></script>
+  </body>
 </html>
-
-

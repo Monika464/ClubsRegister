@@ -1,42 +1,34 @@
 <!DOCTYPE html>
 
 <html>
+  <head>
+    <title>{{title}}</title>
+    <link rel="icon" href="/img/weather.png" />
+    <link rel="stylesheet" href="/css/styles.css" />
+  </head>
 
-<head>
-  <title>{{title}}</title>
-   <link rel="icon" href="/img/weather.png">
-    <link rel="stylesheet" href="/css/styles.css">
-    
-</head>
+  <body>
+    <div class="main-content">
+      {{>headermanager}}
 
-<body>
+      <div class="centered-div">
+        <p>Login as a manager</p>
+        <form id="manager-login-form">
+          <input id="email-input" placeholder="Email" />
+          <input id="password-input" type="password" placeholder="Password" />
+          <button>Send</button>
+        </form>
+        <a href="/managerss/forgot-password" class="forgot"
+          >Zapomniałem hasła</a
+        >
 
-   <div class="main-content">
-{{>headermanager}}
+        <p id="message-3"></p>
+        <p id="message-1"></p>
+        <p id="message-2"></p>
+        <p id="message-4"></p>
+      </div>
+    </div>
 
-
-<div class="centered-div">
-   <p>Login as a manager</p>
-<form id="manager-login-form"> 
-   <input id="email-input" placeholder="Email">
-   <input id="password-input" type="password" placeholder="Password">
-   <button>Send</button>
-</form>
-<a href="/managerss/forgot-password" class="forgot">Zapomniałem hasła</a>
-
-
-
-<p id="message-3"></p>
-<p id="message-1"></p>
-<p id="message-2"></p>
-<p id="message-4"></p>
-</div>
-   </div>
-    
-  {{!-- {{>footer}}   --}}
-
-  <script src="/js/managerlogin.js"></script>
-
-</body>
-
+    <script src="/js/managerlogin.js"></script>
+  </body>
 </html>
