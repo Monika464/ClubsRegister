@@ -9,7 +9,7 @@ const messageOne = document.querySelector("#message-1");
 const messageTwo = document.querySelector("#message-2");
 let editMode = false;
 const selectedUserIds = [];
-
+const sidebar = document.querySelector("#sidebar");
 const listTitle = document.querySelector("#list-title");
 
 const readArenas = async () => {
@@ -28,7 +28,7 @@ const readArenas = async () => {
       const errorData = await response.json();
       throw new Error(errorData.error || "Failed to load arenas.");
     }
-
+    sidebar.style.display = "block";
     const data = await response.json();
 
     //messageOne.textContent = "";

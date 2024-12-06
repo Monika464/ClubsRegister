@@ -1,12 +1,10 @@
 console.log("witamy w panelu usera");
-//console.log("witamy po stronie klienta clubpanel");
+/
 const token = localStorage.getItem("authUserToken");
-//const userList = document.querySelector("#user-list"); // Złapanie kontenera listy
+
 const messageError = document.querySelector("#message-error");
 const messageOne = document.querySelector("#message-1");
-//const listTitle = document.querySelector("#list-title");
-//const createUserButton = document.querySelector("#create-user");
-// const deleteMe = document.querySelector("#delete-link");
+
 const userInfo = document.querySelector("#user-info");
 const profileUserAuth = document.querySelector("#profile-user-auth");
 const warningAuth = document.querySelector("#warning-auth");
@@ -14,7 +12,7 @@ const deleteButton = document.querySelector("#delete-button");
 const deleteForm = document.querySelector("#delete-form");
 const deleteInput = document.querySelector("#delete-input");
 const deleteLink = document.querySelector("#delete-link");
-//const deleteContainer = document.querySelector("#delete-container");
+const sidebar = document.querySelector("#sidebar");
 const avatar = document.querySelector("#user-avatar");
 const butLink1 = document.querySelector("#but-link1");
 const arenaList = document.querySelector("#arena-list");
@@ -39,8 +37,9 @@ const showProfile = async () => {
         Authorization: `Bearer ${token}`, // Dodanie tokena do nagłówka
       },
     });
-
+    sidebar.style.display = "block";
     const data = await response.json();
+    
 
     userInfo.textContent = `
     Your data:

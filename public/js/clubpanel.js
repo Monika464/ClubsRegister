@@ -8,7 +8,7 @@ const butLink3 = document.querySelector("#but-link3");
 const butLink4 = document.querySelector("#but-link4");
 const listTitle = document.querySelector("#list-title");
 const createUserButton = document.querySelector("#create-user");
-
+const sidebar = document.querySelector("#sidebar");
 messageError.textContent = "";
 messageOne.textContent = "Loading...";
 
@@ -52,6 +52,7 @@ const panelDisplay = async () => {
       butLink4.style.display = "block";
       createUserButton.style.display = "block";
       listTitle.style.display = "block";
+      sidebar.style.display = "block";
     }
   } catch (error) {
     console.error("Błąd podczas pobierania użytkowników:", error);
