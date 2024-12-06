@@ -9,23 +9,16 @@
   <body>
    <div class="menu-container">
     {{>headermember}}
-    {{!-- <a href="/clublogout" id="logout-link" style="display: none;">Logout</a> --}}
+    
 </div>
 
-{{!-- 
- <div> <ol id="arena-all-list"></ol> </div>
-    {{>displayallarenas}}
-  <script src="/js/displayallarenas.js"></script>
 
- --}}
 
 
 <p id="list-title" style="display: none;">User profile</p>
  <div> <ol id="user-list"></ol> 
   
 
-{{!-- <button id="create-user" style="display: none;">Edit User</button> --}}
-{{!-- <img id="user-avatar" src="/img/anonim.png" alt="User Avatar"  /> --}}
 
 <img id="avatar" alt="User Avatar" src="/img/anonim.png" />
 
@@ -43,7 +36,7 @@
     <input id="number-weight-input" placeholder="Weight">
     <input id="number-fightamount-input" placeholder="Fights no">
 
-    {{!-- <input id="number-phone-input" placeholder="Phone number"> --}}
+ 
    <button>Send</button>
 </form>
 
@@ -57,17 +50,9 @@
   <a href="/userdelete" id="delete-link" style="display: none;">Delete account here</a>
 </div>
 
-{{!-- <div id="delete-container" style="display: none;">
-  <button id="delete-button">Delete your club</button>
-  <form id="delete-form" style="display: none;">
-    <label for="delete-input">Type "delete" to confirm</label>
-    <input type="text" id="delete-input" placeholder="delete">
-    <button type="submit">Confirm</button>
-  </form>
-  <a href="/useredit" id="delete-link" style="display: none;">Delete the club here</a>
-</div> --}}
 
-    <div>
+
+    <div class="centered-div">
        <p id="message-3"></p>
               <p id="message-1"></p>
 <p id="message-error"></p>

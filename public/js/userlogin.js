@@ -42,14 +42,12 @@ loginForm.addEventListener("submit", async (e) => {
       //   // Obsługa błędu logowania
       messageThree.textContent = data.error;
       messageOne.textContent = "";
-      console.log("response user", response);
+      //console.log("response user", response);
     }
 
     if (response.ok) {
-      // Przekierowanie na clubpanel po zalogowaniu
       window.location.href = data.redirectTo;
     } else {
-      // Obsługa błędu logowania
       messageThree.textContent = data.error;
     }
   } catch (error) {
