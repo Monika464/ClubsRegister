@@ -23,7 +23,6 @@
  <div> <ol id="user-list"></ol> <!-- Kontener na listę użytkowników --></div>
   
 
-{{!-- <button id="create-user" style="display: none;">Edit User</button> --}}
 
 <form id="club-edit-form" style="display: none;"> 
    <input id="email-input" placeholder="Email">
@@ -33,11 +32,10 @@
     <input id="number-weight-input" placeholder="Weight">
     <input id="number-fightamount-input" placeholder="Fights no">
 
-    {{!-- <input id="number-phone-input" placeholder="Phone number"> --}}
    <button>Send</button>
 </form>
 
-    <div>
+    <div class="centered-div">
        <p id="message-3"></p>
               <p id="message-1"></p>
 <p id="message-error"></p>
@@ -46,43 +44,11 @@
     </div>
 
 
-{{!-- tu sie ma otworzyc nowy form --}}
 
-
-
-
-
-{{!-- <a href="/clubdelete" id="delete-link" style="display: none;">Delete</a> --}}
     <script src="/js/clubpaneledit.js"></script>
-    {{!-- {{#if clubLogin}}
+ 
   <script src="/js/clublogin.js"></script>
-{{/if}} --}}
+
   </body>
 </html>
 
-{{!-- <html>
-  <head>
-    <title>{{title}}</title>
-        <link rel="icon" href="/img/weather.png">
-    <link rel="stylesheet" href="/css/styles.css">
-  </head>
-  <body>
-
-    <div class="main-content">
-     {{>header}}
-{{errorMessage}}
-<div class="smiley">
-      ;-) 
-
-      lista userow przypisanych do tego kluubu z bazy
-      
-    </div>
-</div>
-
-    
-
-      {{>footer}}
-  </body>  
-
-
-</html> --}}
