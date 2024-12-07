@@ -174,7 +174,7 @@ router.patch("/userss/me", authUser, async (req, res) => {
     // console.log("to user", user);
     res.send(user);
   } catch {
-    res.status(500).send({ error: e.message });
+    res.status(500).send("update error");
   }
 });
 

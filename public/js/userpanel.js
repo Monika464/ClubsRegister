@@ -1,5 +1,3 @@
-console.log("witamy w panelu usera");
-
 const token = localStorage.getItem("authUserToken");
 
 const messageError = document.querySelector("#message-error");
@@ -39,6 +37,10 @@ const showProfile = async () => {
     });
 
     const data = await response.json();
+    if (data) {
+      sidebar.style.display = "block";
+    }
+    console.log("data"), data;
 
     userInfo.textContent = `
     Your data:
@@ -81,7 +83,6 @@ const displayAvatar = async () => {
     avatarImg.src = imageURL;
 
     console.log("Awatar został wyświetlony");
-    sidebar.style.display = "block";
   } catch (error) {
     console.error("Błąd podczas pobierania awatara:", error);
   }
