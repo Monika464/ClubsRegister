@@ -1,38 +1,51 @@
 <!DOCTYPE html>
 
 <html>
-  <head>
-    <title>{{title}}</title>
-    <link rel="icon" href="/img/weather.png" />
-    <link rel="stylesheet" href="/css/styles.css" />
-  </head>
 
-  <body>
-    <div class="main-content">
-      {{>headerclub}}
+<head>
+  <title>{{title}}</title>
+   <link rel="icon" href="/img/weather.png">
+    <link rel="stylesheet" href="/css/styles.css">
+    
+</head>
 
-      <p>Create a user</p>
+<body>
 
-      <form id="club-signup-form">
-        <input id="email-input" placeholder="Email" />
-        <input id="password-input" type="password" placeholder="Password" />
-        <input id="text-name-input" placeholder="Name" />
-        <input id="text-surname-input" placeholder="Surname" />
-        <input id="number-age-input" placeholder="Age" />
-        <input id="number-weight-input" placeholder="Weight" />
-        <input id="number-fightamount-input" placeholder="Fights no" />
+   <div class="main-content">
+{{>headerclub}}
 
-        <button>Send</button>
-      </form>
+<p>Create a user</p>
 
-      <div class="centered-div">
-        <p id="message-3"></p>
-        <p id="message-1"></p>
-        <p id="message-2"></p>
-        <p id="message-4"></p>
-      </div>
-    </div>
+<form id="club-signup-form"> 
+   <input id="email-input" placeholder="Email">
+   <input id="password-input" type="password" placeholder="Password">
+    <input id="text-name-input" placeholder="Name">
+    <input id="text-surname-input" placeholder="Surname">
+    <input id="number-age-input" placeholder="Age">
+    <input id="number-weight-input" placeholder="Weight">
+    <input id="number-fightamount-input" placeholder="Fights no">
 
-    <script src="/js/usersignupbyclub.js"></script>
-  </body>
+    {{!-- <input id="number-phone-input" placeholder="Phone number"> --}}
+   <button>Send</button>
+</form>
+
+{{!-- <form> 
+   <input placeholder="Email">
+   <input placeholder="Password">
+   <button>send</button>
+</form>  --}}
+
+<p id="message-3"></p>
+<p id="message-1"></p>
+<p id="message-2"></p>
+<p id="message-4"></p>
+
+   </div>
+    
+  {{!-- {{>footer}}   --}}
+
+  <script src="/js/usersignupbyclub.js"></script> 
+
+</body>
+
 </html>

@@ -1,22 +1,30 @@
 <!DOCTYPE html>
 
 <html>
-  <head>
-    <title>{{title}}</title>
-    <link rel="icon" href="/img/weather.png" />
-    <link rel="stylesheet" href="/css/styles.css" />
-  </head>
 
-  <body>
-    <div class="centered-div">
-      {{>headermember}}
+<head>
+  <title>{{title}}</title>
+   <link rel="icon" href="/img/weather.png">
+    <link rel="stylesheet" href="/css/styles.css">
+    
+</head>
 
-      <p id="message-3"></p>
-      <p id="message-1"></p>
-      <p id="message-2"></p>
-      <p id="message-4"></p>
-    </div>
+<body>
 
-    <script src="/js/userlogout.js"></script>
-  </body>
+   <div class="centered-div">
+{{>headermember}}
+
+<p id="message-3"></p>
+<p id="message-1"></p>
+<p id="message-2"></p>
+<p id="message-4"></p>
+
+
+   </div>
+    
+  {{!-- {{>footer}}   --}}
+
+  <script src="/js/userlogout.js"></script>
+</body>
+
 </html>

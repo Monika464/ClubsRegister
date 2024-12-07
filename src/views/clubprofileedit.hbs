@@ -1,3 +1,4 @@
+{{! formularz i zatwierdzanie }}
 
 <html>
   <head>
@@ -8,19 +9,22 @@
   <body>
    <div class="menu-container">
     {{>headerclub}}
-   
+    {{!-- <a href="/clublogout" id="logout-link" style="display: none;">Logout</a> --}}
 </div>
 
-
+{{!-- 
+ <div> <ol id="arena-all-list"></ol> </div>
+    {{>displayallarenas}}
   <script src="/js/displayallarenas.js"></script>
 
-
+ --}}
 
 
 <p id="list-title" style="display: none;">Club profile</p>
  <div> <ol id="user-list"></ol> 
   
 
+{{!-- <button id="create-user" style="display: none;">Edit User</button> --}}
 
 <form id="club-edit-profile-form" style="display: block;"> 
    <input id="email-input" placeholder="Email">
@@ -31,6 +35,7 @@
     <input id="number-phone-input" placeholder="Phone">
     
 
+    {{!-- <input id="number-phone-input" placeholder="Phone number"> --}}
    <button>Send</button>
 </form>
 
@@ -53,9 +58,16 @@
     </div>
 
 
+{{!-- tu sie ma otworzyc nowy form --}}
+
+
+
+
+
+{{!-- <a href="/clubdelete" id="delete-link" style="display: none;">Delete</a> --}}
     <script src="/js/clubprofileedit.js"></script>
-
+    {{!-- {{#if clubLogin}}
   <script src="/js/clublogin.js"></script>
-
+{{/if}} --}}
   </body>
 </html>

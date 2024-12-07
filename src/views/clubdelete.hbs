@@ -1,21 +1,30 @@
 <!DOCTYPE html>
 
 <html>
-  <head>
-    <title>{{title}}</title>
-    <link rel="icon" href="/img/weather.png" />
-    <link rel="stylesheet" href="/css/styles.css" />
-  </head>
 
-  <body>
-    {{>headerclub}}
-    <div class="centered-div">
-      <p id="message-3"></p>
-      <p id="message-1"></p>
-      <p id="message-2"></p>
-      <p id="message-4"></p>
-    </div>
+<head>
+  <title>{{title}}</title>
+   <link rel="icon" href="/img/weather.png">
+    <link rel="stylesheet" href="/css/styles.css">
+    
+</head>
 
-    <script src="/js/clubdelete.js"></script>
-  </body>
+<body>
+{{>headerclub}}
+   <div class="centered-div">
+
+
+<p id="message-3"></p>
+<p id="message-1"></p>
+<p id="message-2"></p>
+<p id="message-4"></p>
+
+
+   </div>
+    
+  {{>footer}}  
+
+  <script src="/js/clubdelete.js"></script>
+</body>
+
 </html>

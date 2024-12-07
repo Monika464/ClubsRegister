@@ -1,3 +1,4 @@
+
 <html>
   <head>
     <title>{{title}}</title>
@@ -5,34 +6,31 @@
   </head>
 
   <body>
-    <div id="header">{{>headerclub}}</div>
-
-    <div>
-      <ol id="arena-list"></ol>
+    <div id="header">
+    {{>headerclub}}
     </div>
 
+{{!-- <p id="list-title" style="display: none;">Club members</p> --}}
+ <div> <ol id="arena-list"></ol> <!-- Kontener na listę użytkowników --></div>
+  
+ <div> <ol id="user-listA"></ol> <!-- Kontener na listę użytkowników --></div>
+  
+
+<button id="withdraw-users" style="display: block;" class="margin-left-100">Wycofaj</button>
+
+{{!-- <button id="withdraw-users" style="display: block;">Withddraw</button> --}}
+
+
     <div>
-      <ol id="user-listA"></ol>
+       <p id="message-3"></p>
+<p id="message-error"></p>
+<p id="message-2"></p>
+<p id="message-4"></p>
     </div>
-
-    <button id="withdraw-users" style="display: block" class="margin-left-100">
-      Wycofaj
-    </button>
-
-    {{!--
-    <button id="withdraw-users" style="display: block">Withddraw</button> --}}
-
-    <div>
-      <p id="message-3"></p>
-      <p id="message-error"></p>
-      <p id="message-2"></p>
-      <p id="message-4"></p>
-    </div>
-    {{!--
-    <a href="/clubdelete" id="delete-link" style="display: none">Delete</a> --}}
+{{!-- <a href="/clubdelete" id="delete-link" style="display: none;">Delete</a> --}}
     <script src="/js/arenasparticipants.js"></script>
     {{!-- {{#if clubLogin}}
-    <script src="/js/clublogin.js"></script>
-    {{/if}} --}}
+  <script src="/js/clublogin.js"></script>
+{{/if}} --}}
   </body>
 </html>
