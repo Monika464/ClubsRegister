@@ -1,20 +1,20 @@
-const express = require("express");
-const Manager = require("../models/manager");
-const User = require("../models/user");
-const Arena = require("../models/arena");
-const authClub = require("../middleware/authClub");
-const authManager = require("../middleware/authManager");
-const router = new express.Router();
+const express = require('express')
+const Manager = require('../models/manager')
+const User = require('../models/user')
+const Arena = require('../models/arena')
+const authClub = require('../middleware/authClub')
+const authManager = require('../middleware/authManager')
+const router = new express.Router()
 
 //create arena powizane z managerem z create user
 
-router.post("/arenas", authManager, async (req, res) => {
+router.post('/arenas', authManager, async (req, res) => {
   // Konwersja pól datowych na obiekty Date
-  const arenaTimeRelease = new Date(req.body.arenaTimeRelease);
-  const arenaTimeRegisOpen = new Date(req.body.arenaTimeRegisOpen);
-  const arenaTimeRegisClose = new Date(req.body.arenaTimeRegisClose);
-  const arenaTimeStart = new Date(req.body.arenaTimeStart);
-  const arenaTimeClose = new Date(req.body.arenaTimeClose);
+  const arenaTimeRelease = new Date(req.body.arenaTimeRelease)
+  const arenaTimeRegisOpen = new Date(req.body.arenaTimeRegisOpen)
+  const arenaTimeRegisClose = new Date(req.body.arenaTimeRegisClose)
+  const arenaTimeStart = new Date(req.body.arenaTimeStart)
+  const arenaTimeClose = new Date(req.body.arenaTimeClose)
 
   // Sprawdzenie poprawności konwersji
   if (
@@ -24,7 +24,7 @@ router.post("/arenas", authManager, async (req, res) => {
     isNaN(arenaTimeStart.getTime()) ||
     isNaN(arenaTimeClose.getTime())
   ) {
-    return res.status(400).send("Invalid date format");
+    return res.status(400).send('Invalid date format')
   }
 
   // Przykładowe logowanie dla sprawdzenia
@@ -46,17 +46,17 @@ router.post("/arenas", authManager, async (req, res) => {
     arenaTimeStart: arenaTimeStart,
     arenaTimeClose: arenaTimeClose,
     owner: req.manager._id,
-  };
+  }
 
   try {
-    const arena = new Arena(arenaEvent);
-    await arena.save();
+    const arena = new Arena(arenaEvent)
+    await arena.save()
 
-    res.status(201).send({ arena });
+    res.status(201).send({ arena })
   } catch (e) {
-    res.status(400).send({ error: e.message });
+    res.status(400).send({ error: e.message })
   }
-});
+})
 
 // router.post("/arenas", authManager, async (req, res) => {
 //   // console.log("recbody", req.body);
@@ -68,20 +68,20 @@ router.post("/arenas", authManager, async (req, res) => {
 //   //console.log("hello tu", user);
 // });
 
-router.get("/arenas/manager", authManager, async (req, res) => {
+router.get('/arenas/manager', authManager, async (req, res) => {
   try {
     //console.log("co mamy req", req.body);
     //const users = await User.find({});
     //res.send(users);
     //await req.club.populate("clubs").execPopulate();
     // await req.club.populate("clubs");
-    await req.manager.populate("linkedArenas");
-    res.send(req.manager.linkedArenas);
+    await req.manager.populate('linkedArenas')
+    res.send(req.manager.linkedArenas)
     //console.log("req.club", req.club);
   } catch {
-    res.status(500).send();
+    res.status(500).send()
   }
-});
+})
 
 // router.get("/arenas/all", authManager, async (req, res) => {
 //   try {
@@ -92,26 +92,26 @@ router.get("/arenas/manager", authManager, async (req, res) => {
 //   }
 // });
 
-router.get("/arenas/apply", authClub, async (req, res) => {
+router.get('/arenas/apply', authClub, async (req, res) => {
   try {
     // Pobierz wszystkie areny z bazy danych
-    const arenas = await Arena.find({});
-    res.status(200).send(arenas);
+    const arenas = await Arena.find({})
+    res.status(200).send(arenas)
   } catch (error) {
-    console.error("Error fetching arenas:", error);
-    res.status(500).send({ error: "Failed to fetch arenas" });
+    console.error('Error fetching arenas:', error)
+    res.status(500).send({ error: 'Failed to fetch arenas' })
   }
-});
+})
 
-router.post("/arenas/apply/bulk", authClub, async (req, res) => {
+router.post('/arenas/apply/bulk', authClub, async (req, res) => {
   try {
-    const { arenaId, userIds } = req.body; // Dane wysyłane w body zapytania
+    const { arenaId, userIds } = req.body // Dane wysyłane w body zapytania
 
     // Sprawdzenie poprawności danych
     if (!arenaId || !Array.isArray(userIds) || !userIds.length) {
       return res
         .status(400)
-        .send({ error: "Missing or invalid arenaId or userIds" });
+        .send({ error: 'Missing or invalid arenaId or userIds' })
     }
 
     // const arenaId = req.headers["arenaid"];
@@ -122,9 +122,9 @@ router.post("/arenas/apply/bulk", authClub, async (req, res) => {
     // }
 
     // Znajdowanie i aktualizowanie areny
-    const arena = await Arena.findById(arenaId);
+    const arena = await Arena.findById(arenaId)
     if (!arena) {
-      return res.status(404).send({ error: "Arena not found" });
+      return res.status(404).send({ error: 'Arena not found' })
     }
 
     //console.log("arena", arena);
@@ -134,172 +134,172 @@ router.post("/arenas/apply/bulk", authClub, async (req, res) => {
     //arena.participants.push(...userIds);
     // Dodawanie unikalnych userIds do participants
     arena.participants = Array.from(
-      new Set([...arena.participants, ...userIds])
-    );
-    await arena.save();
+      new Set([...arena.participants, ...userIds]),
+    )
+    await arena.save()
 
-    res.status(200).send({ message: "Users added successfully", arena });
+    res.status(200).send({ message: 'Users added successfully', arena })
   } catch (error) {
     res
       .status(500)
-      .send({ error: "Internal server error", details: error.message });
+      .send({ error: 'Internal server error', details: error.message })
   }
-});
+})
 
 //participants wiev for the club
 
-router.get("/arenas/participants", authClub, async (req, res) => {
-  const arenaId = req.headers["arenaid"];
+router.get('/arenas/participants', authClub, async (req, res) => {
+  const arenaId = req.headers['arenaid']
 
   try {
     if (!arenaId) {
-      return res.status(400).send({ error: "Arena ID is required" });
+      return res.status(400).send({ error: 'Arena ID is required' })
     }
 
     // Pobranie areny z uczestnikami
-    const arena = await Arena.findById(arenaId).populate("participants");
+    const arena = await Arena.findById(arenaId).populate('participants')
 
     if (!arena) {
-      return res.status(404).send({ error: "Arena not found" });
+      return res.status(404).send({ error: 'Arena not found' })
     }
 
     // Filtrowanie uczestników, aby wyświetlać tylko tych, których `owner` pasuje do ID klubu
-    const clubId = req.club._id;
+    const clubId = req.club._id
     const participants = arena.participants.filter((participant) => {
-      return participant.owner.equals(clubId);
-    });
+      return participant.owner.equals(clubId)
+    })
 
     if (participants.length === 0) {
       return res
         .status(404)
-        .send({ error: "No participants from this club found!" });
+        .send({ error: 'No participants from this club found!' })
     }
 
-    res.send(participants);
+    res.send(participants)
   } catch (error) {
-    res.status(500).send(error);
+    res.status(500).send(error)
   }
-});
+})
 
-router.get("/arenas/participants/manager", authManager, async (req, res) => {
-  const arenaId = req.headers["arenaid"];
+router.get('/arenas/participants/manager', authManager, async (req, res) => {
+  const arenaId = req.headers['arenaid']
 
   try {
     if (!arenaId) {
-      return res.status(400).send({ error: "Arena ID is required" });
+      return res.status(400).send({ error: 'Arena ID is required' })
     }
-    const arena = await Arena.findById(arenaId).populate("participants");
+    const arena = await Arena.findById(arenaId).populate('participants')
     //const arena = await Arena.findById(arenaId);
 
     // console.log("czy mamy arena", arena);
 
     if (!arena) {
-      return res.status(404).send({ error: "Arena not found" });
+      return res.status(404).send({ error: 'Arena not found' })
     }
 
-    const participants = arena.participants;
+    const participants = arena.participants
 
     if (!participants) {
-      return res.status(404).send({ error: "No one apllied!" });
+      return res.status(404).send({ error: 'No one apllied!' })
     }
 
-    res.send(participants);
+    res.send(participants)
   } catch (error) {
-    res.status(500).send(error);
+    res.status(500).send(error)
   }
-});
+})
 
 try {
   //router.patch("/arenass/:idarena", async (req, res) => {
-  router.patch("/arenass/:iduser/:idarena", async (req, res) => {
-    const idu = req.params.iduser;
-    const ida = req.params.idarena;
-    console.log("ida", ida);
-    console.log("idu", idu);
+  router.patch('/arenass/:iduser/:idarena', async (req, res) => {
+    const idu = req.params.iduser
+    const ida = req.params.idarena
+    console.log('ida', ida)
+    console.log('idu', idu)
 
-    const arena = await Arena.findById(ida).populate("participants");
+    const arena = await Arena.findById(ida).populate('participants')
     if (!arena) {
-      return res.status(404).send("Arena not found");
+      return res.status(404).send('Arena not found')
     }
 
-    const participantIds = [];
+    const participantIds = []
 
     arena.participants.forEach((elem) => {
-      console.log("elem", elem._id);
-      participantIds.push(elem._id); // Dodaj ID do tablicy
-    });
+      console.log('elem', elem._id)
+      participantIds.push(elem._id) // Dodaj ID do tablicy
+    })
 
     arena.participants = arena.participants.filter(
-      (participant) => participant._id.toString() !== idu
-    );
+      (participant) => participant._id.toString() !== idu,
+    )
 
-    await arena.save();
+    await arena.save()
 
     // Zwróć odpowiedź z nową listą uczestników
     res.json({
-      message: "User removed from participants",
+      message: 'User removed from participants',
       participants: arena.participants,
-    });
-  });
+    })
+  })
 } catch (error) {
-  console.log(error);
-  res.status(500).send("Wystąpił błąd serwera");
+  console.log(error)
+  res.status(500).send('Wystąpił błąd serwera')
 }
 
 //ten z arena w body
 try {
   //router.patch("/arenass/:idarena", async (req, res) => {
-  router.patch("/arenass/:idarena", async (req, res) => {
-    const ida = req.params.idarena;
-    const usersToDeleteIds = req.body.usersToDeleteIds;
+  router.patch('/arenass/:idarena', async (req, res) => {
+    const ida = req.params.idarena
+    const usersToDeleteIds = req.body.usersToDeleteIds
 
     if (!Array.isArray(usersToDeleteIds)) {
       return res
         .status(400)
-        .send("Invalid request body: usersToDeleteIds should be an array");
+        .send('Invalid request body: usersToDeleteIds should be an array')
     }
 
-    console.log("ID Areny:", ida);
+    console.log('ID Areny:', ida)
     //console.log("ID użytkowników do usunięcia:", usersToDeleteIds);
 
-    const arena = await Arena.findById(ida).populate("participants");
+    const arena = await Arena.findById(ida).populate('participants')
 
     if (!arena) {
-      return res.status(404).send("Arena not found");
+      return res.status(404).send('Arena not found')
     }
 
     arena.participants = arena.participants.filter(
-      (participant) => !usersToDeleteIds.includes(participant._id.toString())
-    );
+      (participant) => !usersToDeleteIds.includes(participant._id.toString()),
+    )
 
-    console.log("Pozostali uczestnicy:", arena.participants);
+    console.log('Pozostali uczestnicy:', arena.participants)
     arena.participants.forEach((el) => {
-      console.log("el", el);
-    });
+      console.log('el', el)
+    })
 
     // Zapisz zmodyfikowaną tablicę w bazie danych
-    await arena.save();
+    await arena.save()
 
     // Zwróć odpowiedź z nową listą uczestników
     res.json({
-      message: "User removed from participants",
+      message: 'User removed from participants',
       participants: arena.participants,
-    });
-  });
+    })
+  })
 } catch (error) {
-  console.log(error);
-  res.status(500).send("Wystąpił błąd serwera");
+  console.log(error)
+  res.status(500).send('Wystąpił błąd serwera')
 }
 
 // Route to delete selected users from the participants array
-router.delete("/arenas/participants/delete", authClub, async (req, res) => {
+router.delete('/arenas/participants/delete', authClub, async (req, res) => {
   try {
-    const { arenaId, selectedUsers } = req.body;
+    const { arenaId, selectedUsers } = req.body
     //console.log("co tu jest", arenaId, selectedUsers);
 
     // Check if arenaId and selectedUsers are provided
     if (!arenaId || !selectedUsers || !Array.isArray(selectedUsers)) {
-      return res.status(400).send({ error: "Invalid request data" });
+      return res.status(400).send({ error: 'Invalid request data' })
     }
     //
 
@@ -310,31 +310,31 @@ router.delete("/arenas/participants/delete", authClub, async (req, res) => {
       {
         $pull: { participants: { $in: selectedUsers } },
       },
-      { new: true } // Return the updated document
-    );
+      { new: true }, // Return the updated document
+    )
 
     if (!arena) {
-      return res.status(404).send({ error: "Arena not found" });
+      return res.status(404).send({ error: 'Arena not found' })
     }
 
-    res.status(200).send({ message: "Selected participants removed", arena });
+    res.status(200).send({ message: 'Selected participants removed', arena })
   } catch (error) {
-    console.error("Error deleting participants:", error);
-    res.status(500).send({ error: "Server error" });
+    console.error('Error deleting participants:', error)
+    res.status(500).send({ error: 'Server error' })
   }
-});
+})
 
 // Route to delete selected users from the participants array by manager
 router.delete(
-  "/arenas/participants/delete/manager",
+  '/arenas/participants/delete/manager',
   authManager,
   async (req, res) => {
     try {
-      const { arenaId, selectedUsers } = req.body;
+      const { arenaId, selectedUsers } = req.body
 
       // Check if arenaId and selectedUsers are provided
       if (!arenaId || !selectedUsers || !Array.isArray(selectedUsers)) {
-        return res.status(400).send({ error: "Invalid request data" });
+        return res.status(400).send({ error: 'Invalid request data' })
       }
 
       // Find the arena and update the participants array by removing selected users
@@ -343,106 +343,106 @@ router.delete(
         {
           $pull: { participants: { $in: selectedUsers } },
         },
-        { new: true } // Return the updated document
-      );
+        { new: true }, // Return the updated document
+      )
 
       if (!arena) {
-        return res.status(404).send({ error: "Arena not found" });
+        return res.status(404).send({ error: 'Arena not found' })
       }
 
-      res.status(200).send({ message: "Selected participants removed", arena });
+      res.status(200).send({ message: 'Selected participants removed', arena })
     } catch (error) {
-      console.error("Error deleting participants:", error);
-      res.status(500).send({ error: "Server error" });
+      console.error('Error deleting participants:', error)
+      res.status(500).send({ error: 'Server error' })
     }
-  }
-);
+  },
+)
 
-router.get("/arenas/:id", authManager, async (req, res) => {
-  const _id = req.params.id;
+router.get('/arenas/:id', authManager, async (req, res) => {
+  const _id = req.params.id
 
   try {
-    const arena = await Arena.findOne({ _id, owner: req.manager._id });
+    const arena = await Arena.findOne({ _id, owner: req.manager._id })
 
     if (!arena) {
-      return res.status(404).send();
+      return res.status(404).send()
     }
 
-    res.send(arena);
+    res.send(arena)
   } catch (e) {
-    res.status(500).send();
+    res.status(500).send()
   }
-});
+})
 
-router.patch("/arenas/:id", authManager, async (req, res) => {
-  const updates = Object.keys(req.body);
+router.patch('/arenas/:id', authManager, async (req, res) => {
+  const updates = Object.keys(req.body)
   const allowedUpdates = [
-    "title",
-    "description",
-    "arenaTimeRegisOpen",
-    "arenaTimeRegisClose",
-    "arenaTimeStart",
-    "arenaTimeClose",
-    "withhold",
-  ];
+    'title',
+    'description',
+    'arenaTimeRegisOpen',
+    'arenaTimeRegisClose',
+    'arenaTimeStart',
+    'arenaTimeClose',
+    'withhold',
+  ]
   const isValidOperation = updates.every((update) =>
-    allowedUpdates.includes(update)
-  );
+    allowedUpdates.includes(update),
+  )
 
   if (!isValidOperation) {
-    return res.status(400).send({ error: "Invalid updates!" });
+    return res.status(400).send({ error: 'Invalid updates!' })
   }
 
   try {
     const arena = await Arena.findOne({
       _id: req.params.id,
       owner: req.manager._id,
-    });
+    })
 
     if (!arena) {
-      return res.status(404).send();
+      return res.status(404).send()
     }
 
-    updates.forEach((update) => (arena[update] = req.body[update]));
-    await arena.save();
-    res.send(arena);
+    updates.forEach((update) => (arena[update] = req.body[update]))
+    await arena.save()
+    res.send(arena)
   } catch (e) {
-    res.status(400).send(e);
+    res.status(400).send(e)
   }
-});
+})
 
-router.delete("/arenas/:id", authManager, async (req, res) => {
+router.delete('/arenas/:id', authManager, async (req, res) => {
   try {
     const arena = await Arena.findOneAndDelete({
       _id: req.params.id,
       owner: req.manager._id,
-    });
+    })
 
     if (!arena) {
-      res.status(404).send();
+      res.status(404).send()
     }
 
-    res.send(arena);
+    res.send(arena)
   } catch (e) {
-    res.status(500).send();
+    res.status(500).send()
   }
-});
+})
 
-router.get("/arenass/all", async (req, res) => {
+router.get('/arenass/all', async (req, res) => {
   try {
     // Pobierz wszystkie areny z bazy danych
-    const arenas = await Arena.find({}); // Zakładając, że masz odpowiedni model Arena
+    const arenas = await Arena.find({}) // Zakładając, że masz odpowiedni model Arena
     if (!arenas.length) {
-      return res.status(404).send({ message: "No arenas found" });
+      return res.status(404).send({ message: 'No arenas found' })
     }
-    res.status(200).json(arenas); // Użyj .json zamiast .send dla poprawnej struktury odpowiedzi
+    res.status(200).json(arenas) // Użyj .json zamiast .send dla poprawnej struktury odpowiedzi
   } catch (error) {
-    console.error("Error fetching arenas:", error);
-    res.status(500).send({ error: "Failed to fetch arenas" });
+    console.error('Error fetching arenas:', error)
+    res.status(500).send({ error: 'Failed to fetch arenas' })
   }
-});
+})
 
-module.exports = router;
+module.exports = router
 
 //add one user to arena
 
@@ -452,4 +452,4 @@ module.exports = router;
 
 //create arena announcement
 
-module.exports = router;
+module.exports = router

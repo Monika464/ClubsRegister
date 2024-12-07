@@ -1,7 +1,7 @@
-const mongoose = require("mongoose");
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-const validator = require("validator");
+const mongoose = require('mongoose')
+const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken')
+const validator = require('validator')
 
 const managerSchema = new mongoose.Schema(
   {
@@ -13,7 +13,7 @@ const managerSchema = new mongoose.Schema(
       lowercase: true,
       validate(value) {
         if (!validator.isEmail(value)) {
-          throw new Error("Email is invalid");
+          throw new Error('Email is invalid')
         }
       },
     },
@@ -24,8 +24,8 @@ const managerSchema = new mongoose.Schema(
       minlength: 7,
       trim: true,
       validate(value) {
-        if (value.toLowerCase().includes("password")) {
-          throw new Error('Password cannot contain "password"');
+        if (value.toLowerCase().includes('password')) {
+          throw new Error('Password cannot contain "password"')
         }
       },
     },
@@ -62,7 +62,7 @@ const managerSchema = new mongoose.Schema(
     arenas: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Arenas",
+        ref: 'Arenas',
       },
     ],
     resetToken: {
@@ -76,73 +76,73 @@ const managerSchema = new mongoose.Schema(
   },
   {
     timestamps: true,
-  }
-);
+  },
+)
 
 //Hash the plain text password before saving
-managerSchema.pre("save", async function (next) {
-  const manager = this;
+managerSchema.pre('save', async function (next) {
+  const manager = this
 
-  if (manager.isModified("password")) {
-    manager.password = await bcrypt.hash(manager.password, 8);
+  if (manager.isModified('password')) {
+    manager.password = await bcrypt.hash(manager.password, 8)
   }
 
-  next();
-});
+  next()
+})
 
 managerSchema.methods.toJSON = function () {
-  const manager = this;
-  const managerObject = manager.toObject();
+  const manager = this
+  const managerObject = manager.toObject()
 
-  delete managerObject.password;
+  delete managerObject.password
   //delete userObject.tokens;
 
-  return managerObject;
-};
+  return managerObject
+}
 
 managerSchema.methods.generateAuthToken = async function () {
-  const tokenenv = process.env.TOKEN_DECIFER_MANAGER;
-  require("dotenv").config();
-  const manager = this;
-  const token = jwt.sign({ _id: manager._id.toString() }, tokenenv);
+  const tokenenv = process.env.TOKEN_DECIFER_MANAGER
+  require('dotenv').config()
+  const manager = this
+  const token = jwt.sign({ _id: manager._id.toString() }, tokenenv)
 
-  manager.tokens = manager.tokens.concat({ token });
-  await manager.save();
+  manager.tokens = manager.tokens.concat({ token })
+  await manager.save()
 
-  return token;
-};
+  return token
+}
 
 managerSchema.statics.findByCredentials = async function (email, password) {
-  const manager = await Manager.findOne({ email });
+  const manager = await Manager.findOne({ email })
   // console.log("email", email);
   // console.log("usseer", manager.password);
   // console.log("pass", password);
   // console.log("manager", password);
 
   if (!manager) {
-    throw new Error("Unable to login");
+    throw new Error('Unable to login')
   }
 
-  const isMatch = await bcrypt.compare(password, manager.password);
+  const isMatch = await bcrypt.compare(password, manager.password)
 
   if (!isMatch) {
-    throw new Error("Unable to login");
+    throw new Error('Unable to login')
   }
 
-  return manager;
-};
+  return manager
+}
 
 // managerSchema.virtual("managers", {
 //   ref: "Manager",
 //   localField: "_id",
 //   foreignField: "owner",
 // });
-managerSchema.virtual("linkedArenas", {
-  ref: "Arena",
-  localField: "_id",
-  foreignField: "owner",
-});
+managerSchema.virtual('linkedArenas', {
+  ref: 'Arena',
+  localField: '_id',
+  foreignField: 'owner',
+})
 
-const Manager = mongoose.model("Manager", managerSchema);
+const Manager = mongoose.model('Manager', managerSchema)
 
-module.exports = Manager;
+module.exports = Manager

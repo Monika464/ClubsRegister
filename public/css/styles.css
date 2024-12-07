@@ -1,8 +1,3 @@
-
-
-
-
-
 body {
   color: #333333;
   font-family: arial;
@@ -14,13 +9,7 @@ body {
   flex-direction: column;
   min-height: 100vh;
   max-width: 1200px; /* lub 1440px, w zależności od projektu */
- 
-
 }
-
-
-
-
 
 #main-content {
   flex-grow: 1;
@@ -29,22 +18,21 @@ body {
 
 #wrapper {
   /* display: flex; */
-  min-height: 100vh; 
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); 
+  min-height: 100vh;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
   flex: 1;
 }
 
 /* Sidebar: boczny pasek po lewej stronie */
 #sidebar {
-   
-  background-color: #f4f4f4; 
-  padding: 16px; 
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); 
-   /* display: flex;  */
+  background-color: #f4f4f4;
+  padding: 16px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  /* display: flex;  */
   justify-content: flex-start; /* Ustawienie zawartości na początku */
   /* margin-left: 250px;  */
   min-width: 200px; /* Minimalna szerokość, aby tekst się zmieścił */
-  max-width: 300px; 
+  max-width: 300px;
   margin-left: 100px;
 }
 
@@ -74,7 +62,7 @@ body {
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); /* Delikatny cień */
   border-radius: 5px; /* Zaokrąglone rogi (opcjonalne) */
   margin-top: 20px;
- 
+
   /* display: flex;
   flex-direction: column; 
   gap: 10px; 
@@ -100,7 +88,6 @@ body {
   padding: 0 20px; /* Odstęp wewnętrzny */
 }
 
-
 footer {
   color: #888888;
   border-top: 1px solid #eeeeee;
@@ -111,9 +98,7 @@ footer {
 header {
   margin-top: 16px;
   margin-bottom: 48px;
- 
 }
-
 
 h1 {
   text-align: center; /* Wyśrodkowanie tekstu */
@@ -148,7 +133,6 @@ header a:hover {
   color: black; /* optional hover effect */
 }
 
-
 .portrait {
   width: 250px;
 }
@@ -180,7 +164,7 @@ button:hover {
 
 .smiley {
   font-size: 24px;
-  margin
+  margin: 0px;
 }
 
 #message-error {
@@ -189,20 +173,19 @@ button:hover {
 }
 
 .button {
-    display: inline-block;
-    padding: 10px 20px;
-    color: white;
-    background-color: blue; /* or any color you like */
-    text-decoration: none;
-    border-radius: 5px;
-    text-align: center;
-    font-weight: bold;
+  display: inline-block;
+  padding: 10px 20px;
+  color: white;
+  background-color: blue; /* or any color you like */
+  text-decoration: none;
+  border-radius: 5px;
+  text-align: center;
+  font-weight: bold;
 }
 
 .button:hover {
-    background-color: darkblue; /* optional hover effect */
+  background-color: darkblue; /* optional hover effect */
 }
-
 
 #logout-link {
   /* margin-left: auto; */
@@ -254,17 +237,16 @@ button:hover {
 #user-listA {
   list-style: none; /* Usunięcie numeracji/kropek */
   padding: 0; /* Usuń odstęp wewnętrzny domyślny */
-  margin: 60; 
+  margin: 60;
   /* display: flex;
   flex-wrap: wrap; */
-  gap: 16px; 
-  margin-bottom:10px
+  gap: 16px;
+  margin-bottom: 10px;
 }
 .user-item {
-
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); /* Dodaj delikatny cień */
   border-radius: 5px; /* Zaokrąglone rogi */
-  gap: 16px; 
+  gap: 16px;
 }
 .arena-details {
   flex-basis: 100%; /* Zajmuje całą szerokość */
@@ -273,43 +255,42 @@ button:hover {
   padding: 10px; /* Przestrzeń wewnętrzna */
   border-radius: 5px; /* Zaokrąglone rogi */
 }
-#avatar{
-  height: 100px
-} 
+#avatar {
+  height: 100px;
+}
 
-#avataruser{
+#avataruser {
   width: 50px;
   /* height: 50px; */
   border-radius: 50%;
   object-fit: cover;
-} 
+}
 
-#detailsbut{
-  margin-left: 100px
+#detailsbut {
+  margin-left: 100px;
 }
 .move-right {
   margin-left: 60px;
 }
 
-.forgot{
+.forgot {
   display: inline-block;
   font-size: 12px;
-  color: #4A5B6C;
+  color: #4a5b6c;
   text-decoration: none;
   padding: 5px 7px;
-  border: 1px solid #97B0CA;
+  border: 1px solid #97b0ca;
   border-radius: 5px;
   margin-top: 10px;
-  
 }
-.forgot:hover{
+.forgot:hover {
   color: gray;
 }
 
 .centered-div {
-  margin: 20px auto; 
-  text-align: center; 
-  max-width: 80%; 
+  margin: 20px auto;
+  text-align: center;
+  max-width: 80%;
 }
 
 @media screen and (max-width: 768px) {
@@ -356,4 +337,3 @@ button:hover {
     text-align: center; /* Wyrównanie tekstu w linkach */
   }
 }
-   

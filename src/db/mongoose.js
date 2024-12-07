@@ -1,24 +1,24 @@
 // getting-started.js
-const mongoose = require("mongoose");
+const mongoose = require('mongoose')
 
-main().catch((err) => console.log(err));
+main().catch((err) => console.log(err))
 
 async function main() {
   //await mongoose.connect('mongodb://127.0.0.1:27017/test');
-  const dbenv = process.env.MONGODB_ACCESS;
+  const dbenv = process.env.MONGODB_ACCESS
   // console.log("mongo access", dbenv);
-  require("dotenv").config();
+  require('dotenv').config()
 
   await mongoose
 
     .connect(dbenv)
     .then(() => {
-      console.log("Connected to MongoDB");
+      console.log('Connected to MongoDB')
     })
 
     .catch((error) => {
-      console.error("Connection error:", error);
-    });
+      console.error('Connection error:', error)
+    })
 
   //mongoose.connect("mongodb://127.0.0.1:27017/task-manager-api", {
   // useNewUrlParser: true,

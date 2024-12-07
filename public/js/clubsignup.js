@@ -1,48 +1,48 @@
 //console.log("witamy po stronie klienta clublogin");
-const signupForm = document.querySelector("form");
-const passwordInput = document.querySelector("#password-input");
-const emailInput = document.querySelector("#email-input");
-const nameInput = document.querySelector("#text-name-input");
-const citylInput = document.querySelector("#text-city-input");
-const regionInput = document.querySelector("#text-region-input");
-const phoneInput = document.querySelector("#number-phone-input");
+const signupForm = document.querySelector('form')
+const passwordInput = document.querySelector('#password-input')
+const emailInput = document.querySelector('#email-input')
+const nameInput = document.querySelector('#text-name-input')
+const citylInput = document.querySelector('#text-city-input')
+const regionInput = document.querySelector('#text-region-input')
+const phoneInput = document.querySelector('#number-phone-input')
 
-const messageOne = document.querySelector("#message-1");
-const messageTwo = document.querySelector("#message-2");
-const messageThree = document.querySelector("#message-3");
+const messageOne = document.querySelector('#message-1')
+const messageTwo = document.querySelector('#message-2')
+const messageThree = document.querySelector('#message-3')
 
-messageOne.textContent = "";
-messageTwo.textContent = "";
-messageThree.textContent = "";
+messageOne.textContent = ''
+messageTwo.textContent = ''
+messageThree.textContent = ''
 
-signupForm.addEventListener("submit", async (e) => {
-  e.preventDefault();
-  messageOne.textContent = "Loading...";
+signupForm.addEventListener('submit', async (e) => {
+  e.preventDefault()
+  messageOne.textContent = 'Loading...'
 
-  const captchaResponse = grecaptcha.getResponse();
-  const email = emailInput.value;
-  const password = passwordInput.value;
-  const name = nameInput.value;
-  const city = citylInput.value;
-  const region = regionInput.value;
-  const phone = phoneInput.value;
+  const captchaResponse = grecaptcha.getResponse()
+  const email = emailInput.value
+  const password = passwordInput.value
+  const name = nameInput.value
+  const city = citylInput.value
+  const region = regionInput.value
+  const phone = phoneInput.value
 
-  console.log("Email:", email);
-  console.log("name:", name);
-  console.log("phone:", phone);
+  console.log('Email:', email)
+  console.log('name:', name)
+  console.log('phone:', phone)
 
   // Sprawdzamy, czy CAPTCHA została ukończona
   if (!captchaResponse) {
-    messageThree.textContent = "Please complete the CAPTCHA."; // Komunikat o błędzie CAPTCHA
-    messageOne.textContent = "";
-    return; // Zatrzymujemy dalsze wysyłanie formularza
+    messageThree.textContent = 'Please complete the CAPTCHA.' // Komunikat o błędzie CAPTCHA
+    messageOne.textContent = ''
+    return // Zatrzymujemy dalsze wysyłanie formularza
   }
 
   try {
-    const response = await fetch("/clubs", {
-      method: "POST",
+    const response = await fetch('/clubs', {
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json", // Informujemy serwer, że ciało żądania to JSON
+        'Content-Type': 'application/json', // Informujemy serwer, że ciało żądania to JSON
       },
       body: JSON.stringify({
         email: email,
@@ -51,20 +51,20 @@ signupForm.addEventListener("submit", async (e) => {
         city: city,
         region: region,
         phone: phone,
-        "g-recaptcha-response": captchaResponse,
+        'g-recaptcha-response': captchaResponse,
       }),
-    });
-    const data = await response.json();
+    })
+    const data = await response.json()
     // console.log("co mamy w data", data);
 
     if (response.ok) {
-      localStorage.setItem("authToken", data.token);
-      messageOne.textContent = "";
-      messageTwo.textContent = "Club logged in";
-      window.location.href = data.redirectTo;
+      localStorage.setItem('authToken', data.token)
+      messageOne.textContent = ''
+      messageTwo.textContent = 'Club logged in'
+      window.location.href = data.redirectTo
     } else {
       //   // Obsługa błędu logowania
-      messageThree.textContent = data.error;
+      messageThree.textContent = data.error
     }
 
     // if (response.ok) {
@@ -75,8 +75,8 @@ signupForm.addEventListener("submit", async (e) => {
     //   messageThree.textContent = data.error;
     // }
   } catch (error) {
-    console.error("Error:", error);
-    messageOne.textContent = "";
+    console.error('Error:', error)
+    messageOne.textContent = ''
   }
 
   //do przerobki
@@ -101,7 +101,7 @@ signupForm.addEventListener("submit", async (e) => {
   //   console.error("Error:", error);
   //   messageOne.textContent = "";
   // });
-});
+})
 
 ///dotad ok
 //tu jest fetch adresu htto

@@ -1,22 +1,22 @@
-const sgMail = require("@sendgrid/mail");
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+const sgMail = require('@sendgrid/mail')
+sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 
 const sendEmail = (email, subject, text) => {
-  console.log("sending...");
+  console.log('sending...')
   const msg = {
     to: email,
-    from: "biuro@tajskiboks.best",
+    from: 'biuro@tajskiboks.best',
     subject: subject,
     text: text,
-  };
+  }
   sgMail
     .send(msg)
     .then(() => {
-      console.log("Email sent");
+      console.log('Email sent')
     })
     .catch((error) => {
-      console.error("email not sent", error);
-    });
-};
+      console.error('email not sent', error)
+    })
+}
 
-module.exports = { sendEmail };
+module.exports = { sendEmail }

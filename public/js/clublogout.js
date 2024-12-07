@@ -1,31 +1,31 @@
-const messageOne = document.querySelector("#message-1");
+const messageOne = document.querySelector('#message-1')
 
-const token = localStorage.getItem("authToken");
-messageOne.textContent = "Loading...";
+const token = localStorage.getItem('authToken')
+messageOne.textContent = 'Loading...'
 
-fetch("/clubs/logout", {
-  method: "POST",
+fetch('/clubs/logout', {
+  method: 'POST',
   headers: {
-    "Content-Type": "application/json",
+    'Content-Type': 'application/json',
     Authorization: `Bearer ${token}`, // Dodanie tokena do nagłówka
   },
 })
   .then((response) => {
     if (response.ok) {
       // Usuwamy token po pomyślnym wylogowaniu
-      localStorage.removeItem("authToken");
-      messageOne.textContent = "Club logged out";
-      console.log("Club logged out");
+      localStorage.removeItem('authToken')
+      messageOne.textContent = 'Club logged out'
+      console.log('Club logged out')
       // Przekierowanie do strony logowania
       // window.location.href = "/clublogin";
     } else {
-      throw new Error("Wylogowanie nie powiodło się");
+      throw new Error('Wylogowanie nie powiodło się')
     }
   })
   .catch((error) => {
-    console.error("Error:", error);
-    messageOne.textContent = "An error occurred. Please try again.";
-  });
+    console.error('Error:', error)
+    messageOne.textContent = 'An error occurred. Please try again.'
+  })
 
 //od tad
 // const messageOne = document.querySelector("#message-1");

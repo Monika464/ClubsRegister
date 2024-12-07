@@ -1,65 +1,65 @@
 //console.log("witamy po stronie klienta clubpanel");
-const token = localStorage.getItem("authToken");
-const userList = document.querySelector("#user-list");
-const messageError = document.querySelector("#message-error");
-const messageTwo = document.querySelector("#message-2");
+const token = localStorage.getItem('authToken')
+const userList = document.querySelector('#user-list')
+const messageError = document.querySelector('#message-error')
+const messageTwo = document.querySelector('#message-2')
 //const logoutLink = document.querySelector("#logout-link");
-const listTitle = document.querySelector("#list-title");
-const createUserButton = document.querySelector("#create-user");
-const deleteMe = document.querySelector("#delete-link");
+const listTitle = document.querySelector('#list-title')
+const createUserButton = document.querySelector('#create-user')
+const deleteMe = document.querySelector('#delete-link')
 
-const form = document.querySelector("#club-edit-form");
+const form = document.querySelector('#club-edit-form')
 
-const emailInput = document.querySelector("#email-input");
-const nameInput = document.querySelector("#text-name-input");
-const surnameInput = document.querySelector("#text-surname-input");
-const ageInput = document.querySelector("#number-age-input");
-const weightInput = document.querySelector("#number-weight-input");
-const fightamountInput = document.querySelector("#number-fightamount-input");
+const emailInput = document.querySelector('#email-input')
+const nameInput = document.querySelector('#text-name-input')
+const surnameInput = document.querySelector('#text-surname-input')
+const ageInput = document.querySelector('#number-age-input')
+const weightInput = document.querySelector('#number-weight-input')
+const fightamountInput = document.querySelector('#number-fightamount-input')
 
-let isEditMode = true;
+let isEditMode = true
 
 try {
   //FUNCJA WYPELNIAJACA danymi z usera bazy form
 
   gettingDataFromBase = async (id) => {
     const response = await fetch(`/users/${id}`, {
-      method: "GET", // lub POST w zależności od operacji
+      method: 'GET', // lub POST w zależności od operacji
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`, // Dodanie tokena do nagłówka
       },
-    });
-    const user = await response.json();
+    })
+    const user = await response.json()
 
-    localStorage.setItem("userIdedit", id);
+    localStorage.setItem('userIdedit', id)
 
-    document.getElementById("email-input").value = user.email;
-    document.getElementById("text-name-input").value = user.name;
-    document.getElementById("text-surname-input").value = user.surname;
-    document.getElementById("number-age-input").value = user.age;
-    document.getElementById("number-weight-input").value = user.weight;
-    document.getElementById("number-fightamount-input").value = user.fights;
-  };
+    document.getElementById('email-input').value = user.email
+    document.getElementById('text-name-input').value = user.name
+    document.getElementById('text-surname-input').value = user.surname
+    document.getElementById('number-age-input').value = user.age
+    document.getElementById('number-weight-input').value = user.weight
+    document.getElementById('number-fightamount-input').value = user.fights
+  }
 } catch (error) {
-  console.log(error);
+  console.log(error)
 }
 
 //wysylanie aktualizacji do bazy
 
 const updatingUser = async (id) => {
-  const email = emailInput.value;
-  const name = nameInput.value;
-  const surname = surnameInput.value;
-  const age = ageInput.value;
-  const weight = weightInput.value;
-  const fights = fightamountInput.value;
+  const email = emailInput.value
+  const name = nameInput.value
+  const surname = surnameInput.value
+  const age = ageInput.value
+  const weight = weightInput.value
+  const fights = fightamountInput.value
 
   try {
     const response = await fetch(`/users/${id}`, {
-      method: "PATCH",
+      method: 'PATCH',
       headers: {
-        "Content-Type": "application/json", // Informujemy serwer, że ciało żądania to JSON
+        'Content-Type': 'application/json', // Informujemy serwer, że ciało żądania to JSON
         Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
@@ -70,92 +70,91 @@ const updatingUser = async (id) => {
         weight: weight,
         fights: fights,
       }),
-    });
-    const data = await response.json();
-    console.log("response", response.ok);
+    })
+    const data = await response.json()
+    console.log('response', response.ok)
 
     if (response.ok) {
-      messageError.textContent = "";
-      messageTwo.textContent = "User updated successfully!";
-      localStorage.removeItem("userIdedit");
-      console.log("item removed from storage");
-      form.reset();
+      messageError.textContent = ''
+      messageTwo.textContent = 'User updated successfully!'
+      localStorage.removeItem('userIdedit')
+      console.log('item removed from storage')
+      form.reset()
     } else {
       //   // Obsługa błędu logowania
-      messageError.textContent = data.error || "Failed to update user.";
+      messageError.textContent = data.error || 'Failed to update user.'
     }
   } catch (error) {
-    console.error("Błąd przy aktualizacji:", error);
+    console.error('Błąd przy aktualizacji:', error)
   } finally {
-    localStorage.removeItem("userIdedit"); // Ensure cleanup
+    localStorage.removeItem('userIdedit') // Ensure cleanup
   }
-};
+}
 
-form.addEventListener("submit", async (e) => {
-  e.preventDefault();
+form.addEventListener('submit', async (e) => {
+  e.preventDefault()
   //messageOne.textContent = "Loading...";
 
   try {
-    const userId = localStorage.getItem("userIdedit");
+    const userId = localStorage.getItem('userIdedit')
     //const userId = document.querySelector('input[name="user-selection"]:checked')?.value;
     //console.log("czy jest tu id", userId);
     if (!userId) {
-      messageError.textContent = "Wybierz użytkownika do edycji.";
-      return;
+      messageError.textContent = 'Wybierz użytkownika do edycji.'
+      return
     }
 
-    updatingUser(userId);
+    updatingUser(userId)
   } catch (error) {
-    console.error("Błąd podczas aktualizacji użytkownika:", error);
-    messageError.textContent =
-      "Wystąpił błąd podczas aktualizacji użytkownika.";
+    console.error('Błąd podczas aktualizacji użytkownika:', error)
+    messageError.textContent = 'Wystąpił błąd podczas aktualizacji użytkownika.'
   }
-});
+})
 
 //wyswietlanie memebrs w klubie
 
-messageError.textContent = "";
+messageError.textContent = ''
 
 //console.log("czy jest token", token);
-fetch("/users", {
-  method: "GET", // lub POST w zależności od operacji
+fetch('/users', {
+  method: 'GET', // lub POST w zależności od operacji
   headers: {
-    "Content-Type": "application/json",
+    'Content-Type': 'application/json',
     Authorization: `Bearer ${token}`, // Dodanie tokena do nagłówka
   },
 })
   .then((response) => response.json())
   .then((data) => {
     if (data.error) {
-      console.log(data.error);
-      messageError.textContent = data.error;
+      console.log(data.error)
+      messageError.textContent = data.error
       //   messageTwo.textContent = "";
       //   messageThree.textContent = "";
     } else {
       //console.log("data jakie", data);
       data.forEach((user) => {
-        const li = document.createElement("li"); // Tworzenie nowego elementu <li>
+        const li = document.createElement('li') // Tworzenie nowego elementu <li>
 
         li.innerHTML = `
         <input type="radio" name="user-selection" value="${user._id}" class="user-checkbox">
         ${user.name} ${user.surname} - Age: ${user.age}, Weight: ${user.weight}, Fights: ${user.fights}
-      `;
+      `
 
-        const checkbox = li.querySelector(".user-checkbox");
+        const checkbox = li.querySelector('.user-checkbox')
         //data.forEach((user) => {
         //console.log("uss", user);
         // });
         //trzeba podłaczyć wybranego usera do pol default forma
-        checkbox.addEventListener("change", (event) => {
-          messageTwo.textContent = "";
+        checkbox.addEventListener('change', (event) => {
+          messageTwo.textContent = ''
           // const existingButtons =
           //  document.querySelectorAll("#user-list button");
           //  existingButtons.forEach((btn) => btn.remove());
           if (event.target.checked) {
-            console.log("event", event.target.value);
+            console.log('event', event.target.value)
 
             //tutaj warunek i funkcje(ebent target value)
-            gettingDataFromBase(event.target.value);
+            gettingDataFromBase(event.target.value)
 
             // const editButton = document.createElement("button");
             // editButton.textContent = "Editing";
@@ -166,27 +165,27 @@ fetch("/users", {
             //   isEditMode = !isEditMode;
             //});
             if (isEditMode) {
-              form.style.display = "block";
+              form.style.display = 'block'
             }
-            li.appendChild(editButton);
+            li.appendChild(editButton)
           } else {
-            const existingButton = li.querySelector("button");
+            const existingButton = li.querySelector('button')
             if (existingButton) {
-              li.removeChild(existingButton);
+              li.removeChild(existingButton)
             }
             //const index = selectedUserIds.indexOf(user._id);
           }
-        });
+        })
 
-        userList.appendChild(li); // Dodanie elementu <li> do listy
-      });
+        userList.appendChild(li) // Dodanie elementu <li> do listy
+      })
       //logoutLink.style.display = "block";
       //createUserButton.style.display = "block";
-      listTitle.style.display = "block";
+      listTitle.style.display = 'block'
       //deleteMe.style.display = "block";
       //loginRequired.style.display = "block";
     }
-  });
+  })
 
 // createUserButton.addEventListener("click", () => {
 //   window.location.href = "/usersignupbyclub"; // Opens the specified link

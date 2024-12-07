@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose')
 
 const arenaSchema = new mongoose.Schema(
   {
@@ -54,25 +54,25 @@ const arenaSchema = new mongoose.Schema(
     participants: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
+        ref: 'User',
       },
     ],
     owner: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
-      ref: "Manager",
+      ref: 'Manager',
     },
   },
   {
     timestamps: true,
-  }
-);
+  },
+)
 
-arenaSchema.pre("save", function (next) {
+arenaSchema.pre('save', function (next) {
   // Usuń duplikaty z tablicy participants
-  this.participants = [...new Set(this.participants.map(String))];
-  next();
-});
+  this.participants = [...new Set(this.participants.map(String))]
+  next()
+})
 
 // arenaSchema.pre("save", function (next) {
 //   if (
@@ -83,6 +83,6 @@ arenaSchema.pre("save", function (next) {
 //   next();
 // });
 
-const Arena = mongoose.model("Arena", arenaSchema);
+const Arena = mongoose.model('Arena', arenaSchema)
 
-module.exports = Arena;
+module.exports = Arena
