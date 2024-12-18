@@ -12,6 +12,21 @@ const selectedUserIds = []
 const sidebar = document.querySelector('#sidebar')
 const listTitle = document.querySelector('#list-title')
 
+// Formating date
+const formatDate = (timestamp) => {
+  const date = new Date(timestamp) // Konwersja timestamp na obiekt Date
+  return date.toLocaleString('en-US', {
+    // Dostosuj język i format
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: false, // Ustawienie 24-godzinnego formatu
+  })
+}
+
 const readArenas = async () => {
   messageTwo.textContent = 'Loading...'
   messageOne.textContent = ''
@@ -39,7 +54,7 @@ const readArenas = async () => {
 
       li.textContent = `
     ${arena.title} 
-    ${arena.arenaTimeStart}
+    ${formatDate(arena.arenaTimeStart)}
     ${arena.description}
     `
 

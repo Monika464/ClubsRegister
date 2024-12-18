@@ -6,6 +6,25 @@ const messageOne = document.querySelector('#message-1')
 const listTitle = document.querySelector('#list-title')
 const arenaDetails = document.createElement('div')
 //ZCZYTYWANIE USEROW WSZYSTKICH Z KLUBU
+
+////////
+// Formating date
+const formatDate = (timestamp) => {
+  const date = new Date(timestamp) // Konwersja timestamp na obiekt Date
+  return date.toLocaleString('en-US', {
+    // Dostosuj język i format
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: false, // Ustawienie 24-godzinnego formatu
+  })
+}
+
+///////
+
 const readUsers = async (arena) => {
   console.log('arena', arena)
   messageError.textContent = ''
@@ -31,12 +50,10 @@ const readUsers = async (arena) => {
     const arenaDetails = document.createElement('div')
     arenaDetails.innerHTML = `
  <h2>${arena.title}</h2>
- <p>Start Time: ${arena.arenaTimeStart}</p>
+ <p>Start Time: ${formatDate(arena.arenaTimeStart)}</p>
  <p>Description: ${arena.description}</p>
 `
     userList.appendChild(arenaDetails)
-
-    ////////
 
     data.forEach((user) => {
       const li = document.createElement('li') // Tworzenie nowego elementu <li>
@@ -119,7 +136,7 @@ const readArenas = async () => {
       arenaDetails.classList.add('arena-details')
       li.textContent = `
     ${arena.title} 
-    ${arena.arenaTimeStart}
+    ${formatDate(arena.arenaTimeStart)}
     ${arena.description}
     `
 

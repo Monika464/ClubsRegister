@@ -8,6 +8,21 @@ const selectedUserIds = []
 
 const listTitle = document.querySelector('#list-title')
 
+// Formating date
+const formatDate = (timestamp) => {
+  const date = new Date(timestamp) // Konwersja timestamp na obiekt Date
+  return date.toLocaleString('en-US', {
+    // Dostosuj język i format
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: false, // Ustawienie 24-godzinnego formatu
+  })
+}
+
 const readArenas = async () => {
   messageError.textContent = ''
   arenaList.innerHTML = ''
@@ -28,7 +43,7 @@ const readArenas = async () => {
       // console.log("arena", arena);
       li.textContent = `
     ${arena.title} 
-    ${arena.arenaTimeStart}
+    ${formatDate(arena.arenaTimeStart)}
     ${arena.description}
     `
 
@@ -91,7 +106,7 @@ const readUsers = async (arena) => {
     const arenaDetails = document.createElement('div')
     arenaDetails.innerHTML = `
      <h2>${arena.title}</h2>
-     <p>Start Time: ${arena.arenaTimeStart}</p>
+     <p>Start Time: ${formatDate(arena.arenaTimeStart)}</p>
      <p>Description: ${arena.description}</p>
    `
     userList.appendChild(arenaDetails)
