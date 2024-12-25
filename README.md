@@ -58,14 +58,16 @@ npm run dev
 
 ## Prerequisities
 
-Node.js: >=16.0.0 (recommended LTS version)
-npm: >=7.0.0
+- Node.js: >=16.0.0 (recommended LTS version)
+- npm: >=7.0.0
 
 ## Scripts
 
-    - npm run start: Start the app in production mode.
-    - npm run dev: Start the app in development mode using nodemon.
-    - npm run test: Run the tests using Jest.
+| Script        | Description                                     |
+| ------------- | ----------------------------------------------- |
+| npm run dev   | Start the app in production mode                |
+| npm run start | Start the app in development mode using nodemon |
+| npm run test  | Run the tests using Jest                        |
 
 ## Technologies:
 
