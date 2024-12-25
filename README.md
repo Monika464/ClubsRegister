@@ -65,8 +65,8 @@ npm run dev
 
 | Script        | Description                                     |
 | ------------- | ----------------------------------------------- |
-| npm run dev   | Start the app in production mode                |
-| npm run start | Start the app in development mode using nodemon |
+| npm run dev   | Start the app in development mode using nodemon |
+| npm run start | Start the app in production mode                |
 | npm run test  | Run the tests using Jest                        |
 
 ## Technologies:
@@ -86,4 +86,4 @@ npm run dev
 | Jest       | Testing framework                     |
 | ESlint     | Testing library                       |
 
-###### Club Register App © 2024 by MK is licensed under CC BY-NC-ND 4.0 -->
+###### Club Register App © 2024 by MK
