@@ -71,18 +71,19 @@ npm run dev
 
 ## Technologies:
 
-| Tech     | Use                                  |
-| -------- | ------------------------------------ |
-| Node.js  | Backend runtime environment          |
-| Express  | Web framework for Node.js            |
-| MongoDB  | Database for storing app data        |
-| Mongoose | MongoDB ODM for database interaction |
-| Axios    | HTTP client for API requests         |
-| bcrypt   | Password hashing                     |
-| JWT      | Authentication with JSON Web Tokens  |
-| Captcha  | Human/bot veryfication               |
-| dotenv   | Environment variable management      |
-| Jest     | Testing framework                    |
-| ESlint   | Testing library                      |
+| Tech       | Use                                   |
+| ---------- | ------------------------------------- |
+| Node.js    | Backend runtime environment           |
+| Express    | Web framework for Node.js             |
+| MongoDB    | Database for storing app data         |
+| Mongoose   | MongoDB ODM for database interaction  |
+| Axios      | HTTP client for API requests          |
+| Handlebars | Dynamic templating for reusable views |
+| bcrypt     | Password hashing                      |
+| JWT        | Authentication with JSON Web Tokens   |
+| Captcha    | Human/bot veryfication                |
+| dotenv     | Environment variable management       |
+| Jest       | Testing framework                     |
+| ESlint     | Testing library                       |
 
 ###### Club Register App © 2024 by MK is licensed under CC BY-NC-ND 4.0 -->
